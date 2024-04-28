@@ -1,0 +1,14 @@
+node_modules
+design organick
+package-lock.json
+
+src/context
+src/App.jsx
+src/GlobalStyles.scss
+src/pages
+
+src/components/*
+!src/components/About
+!src/components/Banner
+!src/components/Card
+

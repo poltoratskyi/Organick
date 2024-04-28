@@ -1,0 +1,34 @@
+@import "../../Variables.scss";
+
+.banner {
+  background: url(../../../public/img/Banner/Banner-min.jpg) center center/cover
+    no-repeat;
+  margin-bottom: 150px;
+  position: relative;
+
+  &__content {
+    padding: 250px 0;
+    width: 535px;
+
+    &-title {
+      text-align: left;
+      margin-bottom: 40px;
+      &-subheading {
+        font-family: "Yellowtail", cursive;
+        font-weight: 400;
+        font-size: 36px;
+        color: $light-green;
+      }
+
+      &-heading {
+        font-family: "Roboto", sans-serif;
+        text-align: left;
+        font-weight: 900;
+        font-size: 70px;
+        color: $dark-blue;
+        margin: 8px 0px 0px;
+        line-height: 90px;
+      }
+    }
+  }
+}
