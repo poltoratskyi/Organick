@@ -9,6 +9,8 @@ src/pages
 
 src/components/*
 !src/components/About
+!src/components/Gallery
+!src/components/News
 !src/components/Banner
 !src/components/Card
 
