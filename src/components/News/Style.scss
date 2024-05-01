@@ -99,6 +99,8 @@
           }
 
           &-description {
+            margin-bottom: 15px;
+
             &-title {
               font-family: "Roboto", sans-serif;
               font-weight: 900;
@@ -117,7 +119,6 @@
               line-height: 1.6;
               font-size: 18px;
               color: $dark-gray;
-              margin-bottom: 15px;
             }
           }
         }
