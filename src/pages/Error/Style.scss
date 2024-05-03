@@ -1,0 +1,39 @@
+@import "../../Variables.scss";
+
+.error {
+  background: url(../../../public/img/Error/Error-min.jpg) center center/cover;
+  margin-bottom: 80px;
+
+  &__content {
+    text-align: right;
+    padding: 150px 0px;
+
+    &-title {
+      display: inline-block;
+      text-align: left;
+
+      &-heading {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        color: $error;
+        font-size: 300px;
+      }
+
+      &-subheading {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-size: 70px;
+        color: $dark-blue;
+        margin-bottom: 10px;
+      }
+
+      &-descr {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        color: $dark-gray;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
