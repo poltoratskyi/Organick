@@ -5,18 +5,22 @@ package-lock.json
 src/App.jsx
 src/GlobalStyles.scss
 
-src/pages/*
-!src/pages/Error
-
-
+####### components #######
 src/components/*
-!src/components/About
-!src/components/Gallery
-!src/components/News
-!src/components/Newsletter
-!src/components/Testimonial
-!src/components/Story
-!src/components/Banner
-!src/components/Card
-!src/components/Footer
+#about-us
+!src/components/about-us
+#services-intro
+!src/components/services-intro
+#home
+!src/components/home
+#footers
+!src/components/footers
+
+####### pages #####
+src/pages/*
+!src/pages/AboutUs
+!src/pages/Services
+!src/pages/News
+!src/pages/Team
+!src/pages/Error
 

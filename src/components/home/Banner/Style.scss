@@ -1,9 +1,8 @@
-@import "../../Variables.scss";
+@import "../../../Variables.scss";
 
 .banner {
-  background: url(../../../public/img/Banner/Banner-min.jpg) center center/cover
-    no-repeat;
-  margin-bottom: 150px;
+  background: url(../../../../public/img/Banner/Banner-min.jpg) center
+    center/cover no-repeat;
   position: relative;
 
   &__content {
@@ -26,7 +25,7 @@
         font-weight: 900;
         font-size: 70px;
         color: $dark-blue;
-        margin: 10px 0px 0px;
+        padding: 10px 0px 0px;
         line-height: 1.3;
       }
     }

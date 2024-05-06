@@ -1,9 +1,8 @@
 .card {
-  margin-bottom: 100px;
-
   &__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+    padding: 100px 0px;
   }
 }

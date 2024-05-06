@@ -1,0 +1,61 @@
+@import "../../Variables.scss";
+
+.services {
+  &__content {
+    padding: 130px 0px;
+
+    &-title {
+      text-align: center;
+
+      &-subheading {
+        font-family: "Yellowtail", cursive;
+        font-weight: 400;
+        font-size: 36px;
+        color: $light-green;
+      }
+
+      &-heading {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-size: 45px;
+        color: $dark-blue;
+        padding: 10px 0px 0px;
+        line-height: 1.3;
+      }
+    }
+
+    &-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+
+      &-item {
+        width: 400px;
+        &-info {
+          margin-bottom: 40px;
+
+          &:last-child {
+            margin-bottom: 0px;
+          }
+
+          &-title {
+            font-family: "Roboto", sans-serif;
+            font-weight: 500;
+            font-size: 25px;
+            color: $dark-blue;
+            padding: 5px 0px 10px;
+          }
+
+          &-description {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: $dark-gray;
+            line-height: 1.8;
+          }
+        }
+      }
+    }
+  }
+}

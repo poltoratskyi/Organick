@@ -1,8 +1,7 @@
-@import "../../Variables.scss";
+@import "../../../Variables.scss";
 
 .news {
-  margin-bottom: 250px;
-
+  margin-bottom: 120px;
   &__header {
     display: flex;
     justify-content: space-between;
@@ -11,7 +10,6 @@
 
     &-title {
       text-align: left;
-      margin-bottom: 0px;
       width: 700px;
 
       &-subheading {
@@ -26,7 +24,7 @@
         font-weight: 900;
         font-size: 50px;
         color: $dark-blue;
-        margin-top: 10px;
+        padding-top: 10px;
         line-height: 1.3;
       }
     }
@@ -35,10 +33,12 @@
   &__posts {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
     gap: 30px;
 
     &-post {
       position: relative;
+      margin-bottom: 200px;
 
       &-img {
         border-radius: 25px;
@@ -87,7 +87,7 @@
             &-name {
               font-family: "Roboto", sans-serif;
               font-weight: 400;
-              margin-left: 10px;
+              padding-left: 10px;
               color: $dark-blue;
               font-size: 18px;
               cursor: pointer;
@@ -106,7 +106,7 @@
               font-weight: 900;
               font-size: 25px;
               color: $dark-blue;
-              margin-bottom: 15px;
+              padding-bottom: 15px;
               cursor: pointer;
               &:hover {
                 color: $light-green;

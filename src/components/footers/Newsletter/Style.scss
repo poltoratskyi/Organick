@@ -1,17 +1,16 @@
-@import "../../Variables.scss";
+@import "../../../Variables.scss";
 
 .newsletter {
-  background: url(../../../public/img/Newsletter/Background-min.jpg) center
+  background: url(../../../../public/img/Newsletter/Background-min.jpg) center
     center/cover no-repeat;
-  margin-bottom: 117px;
   border-radius: 30px;
-  padding: 100px 70px;
 
   &__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     align-items: center;
+    padding: 100px 70px;
 
     &-title {
       &-heading {

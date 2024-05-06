@@ -1,18 +1,19 @@
-@import "../../Variables.scss";
-.about {
-  background: url(../../../public/img/About/About-min.jpg) center center/cover
-    no-repeat;
+@import "../../../Variables.scss";
 
-  margin-bottom: 100px;
+.choose {
+  background-color: #f9f8f8;
+
+  &__wrapper {
+    padding: 130px 0px;
+  }
 
   &__content {
-    display: flex;
-    justify-content: flex-end;
-    padding: 100px 0px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    margin-bottom: 50px;
 
     &-info {
-      width: 50%;
-
       &-title {
         margin-bottom: 15px;
 
@@ -29,7 +30,7 @@
           font-weight: 900;
           font-size: 45px;
           color: $dark-blue;
-          margin: 10px 0px 20px;
+          padding: 10px 0px 20px;
           line-height: 1.3;
         }
 
@@ -42,14 +43,18 @@
         }
       }
 
-      &-quality {
+      &-organic {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 30px;
 
-        #about-img {
-          border-radius: 20%;
+        #about-us-img {
+          width: 55px;
+        }
+
+        &:last-child {
+          margin-bottom: 0px;
         }
 
         &-description {
@@ -60,7 +65,7 @@
             font-weight: 900;
             font-size: 20px;
             color: $dark-blue;
-            margin: 8px 0px 15px 0px;
+            padding: 10px 0px 15px 0px;
           }
 
           &-text {
@@ -71,10 +76,35 @@
             color: $dark-gray;
           }
         }
+      }
+    }
+  }
 
-        &.last-quality {
-          margin-bottom: 45px;
-        }
+  &__feature {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+    &-item {
+      background-color: $white;
+      border-radius: 30px;
+      padding: 50px 25px;
+      text-align: center;
+
+      &-title {
+        color: $dark-blue;
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-size: 25px;
+        padding: 15px 0px;
+      }
+
+      &-description {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        color: $dark-gray;
+        line-height: 1.6;
       }
     }
   }

@@ -46,7 +46,7 @@ const About = () => {
               </div>
             </div>
 
-            <div className="about__content-info-quality last-quality">
+            <div className="about__content-info-quality ">
               <img
                 id="about-img"
                 src="../icons/About/Mailbox Quality-min.jpg"

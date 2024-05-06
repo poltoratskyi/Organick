@@ -1,7 +1,7 @@
-@import "../../Variables.scss";
+@import "../../../Variables.scss";
 .story {
-  background: url(../../../public/img/Story/Green-min.jpg) center center/cover
-    no-repeat;
+  background: url(../../../../public/img/Story/Green-min.jpg) center
+    center/cover no-repeat;
 
   &__wrapper {
     display: flex;
@@ -30,7 +30,7 @@
         font-weight: 900;
         font-size: 45px;
         color: $dark-blue;
-        margin: 10px 0px 0px;
+        padding: 10px 0px 0px;
         line-height: 1.3;
       }
     }
@@ -43,7 +43,7 @@
           font-weight: 500;
           color: $dark-blue;
           font-size: 25px;
-          margin-bottom: 10px;
+          padding-bottom: 10px;
         }
 
         &-description {

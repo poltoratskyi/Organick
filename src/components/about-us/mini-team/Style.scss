@@ -1,0 +1,90 @@
+@import "../../../Variables.scss";
+
+.team-us {
+  &__content {
+    padding: 130px 0px;
+
+    &-title {
+      text-align: center;
+      margin-bottom: 40px;
+
+      &-subheading {
+        font-family: "Yellowtail", cursive;
+        font-weight: 400;
+        font-size: 36px;
+        color: $light-green;
+      }
+
+      &-heading {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-size: 45px;
+        color: $dark-blue;
+        padding: 10px 0px 0px;
+        line-height: 1.3;
+      }
+
+      &-description {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.6;
+        color: $dark-gray;
+        padding-top: 10px;
+      }
+    }
+
+    &-items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+
+      &-item {
+        background-color: #f9f8f8;
+        border-radius: 30px;
+
+        &-img {
+          border-top-left-radius: 30px;
+          border-top-right-radius: 30px;
+        }
+
+        &-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          padding: 30px 30px;
+          border-bottom-left-radius: 30px;
+          border-bottom-right-radius: 30px;
+          transition: 0.5s ease;
+
+          &-name {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 25px;
+            color: $dark-blue;
+            padding-bottom: 10px;
+          }
+
+          &-role {
+            font-family: "Yellowtail", cursive;
+            font-weight: 400;
+            font-size: 22px;
+            color: $light-green;
+          }
+
+          &-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 70px;
+          }
+
+          &:hover {
+            background-color: $white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+    }
+  }
+}

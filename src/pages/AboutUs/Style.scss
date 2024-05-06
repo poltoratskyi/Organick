@@ -1,0 +1,80 @@
+@import "../../Variables.scss";
+
+.about-us {
+  background: url(../../../public/img/About/About-page-min.jpg) center
+    center/cover no-repeat;
+
+  &__content {
+    display: flex;
+    justify-content: flex-end;
+    padding: 130px 0px;
+
+    &-info {
+      width: 50%;
+
+      &-title {
+        margin-bottom: 50px;
+
+        &-subheading {
+          font-family: "Yellowtail", cursive;
+          font-weight: 400;
+          font-size: 36px;
+          color: $light-green;
+        }
+
+        &-heading {
+          font-family: "Roboto", sans-serif;
+          text-align: left;
+          font-weight: 900;
+          font-size: 45px;
+          color: $dark-blue;
+          padding: 10px 0px 20px;
+          line-height: 1.3;
+        }
+
+        &-description {
+          font-family: "Open Sans", sans-serif;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 1.6;
+          color: $dark-gray;
+        }
+      }
+
+      &-natural {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+
+        #about-us-img {
+          width: 55px;
+        }
+
+        &-description {
+          width: 80%;
+
+          &-title {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 20px;
+            color: $dark-blue;
+            padding: 10px 0px 15px 0px;
+          }
+
+          &-text {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 1.6;
+            color: $dark-gray;
+          }
+        }
+      }
+    }
+  }
+}
