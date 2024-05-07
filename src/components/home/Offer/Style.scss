@@ -1,0 +1,37 @@
+@import "../../../Variables.scss";
+
+.offer {
+  background-color: #335b6b;
+
+  &__content {
+    padding: 140px 0px;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 50px;
+
+      &-title {
+        text-align: left;
+
+        &-subheading {
+          font-family: "Yellowtail", cursive;
+          font-weight: 400;
+          font-size: 36px;
+          color: $light-green;
+          line-height: 1.8;
+        }
+
+        &-heading {
+          font-family: "Roboto", sans-serif;
+          font-weight: 900;
+          font-size: 50px;
+          color: $white;
+          padding-top: 10px;
+          line-height: 1.3;
+        }
+      }
+    }
+  }
+}

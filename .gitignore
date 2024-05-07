@@ -13,6 +13,8 @@ src/components/*
 !src/components/services-intro
 #home
 !src/components/home
+#Product list
+!src/components/product-list
 #footers
 !src/components/footers
 
@@ -22,5 +24,7 @@ src/pages/*
 !src/pages/Services
 !src/pages/News
 !src/pages/Team
+!src/pages/Shop
 !src/pages/Error
+!src/pages/Home
 

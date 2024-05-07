@@ -1,0 +1,117 @@
+@import "../../Variables.scss";
+
+.product-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+
+  &_list {
+    margin-bottom: 40px;
+  }
+
+  &__item {
+    background-color: $white;
+    text-align: center;
+    border-radius: 15px;
+    padding: 15px;
+    transition: 0.5s ease;
+    cursor: pointer;
+
+    &_list,
+    &_shop {
+      border: 1px solid #d4d4d4;
+    }
+
+    &-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &-new,
+        &-tag {
+          padding: 5px 20px;
+          border-radius: 8px;
+          font-family: "Open Sans", sans-serif;
+          font-weight: 600;
+          color: white;
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        &-new {
+          background-color: $light-green;
+          margin-bottom: 5px;
+        }
+
+        &-tag {
+          background-color: $dark-blue;
+        }
+
+        &-percentage {
+          padding: 5px 20px;
+          border-radius: 8px;
+          font-family: "Open Sans", sans-serif;
+          font-weight: 600;
+          color: white;
+          font-size: 15px;
+          background-color: red;
+          line-height: 1.8;
+        }
+      }
+    }
+
+    &-img {
+      width: 300px;
+      height: 324px;
+    }
+
+    &-name {
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: $dark-gray;
+      transition: 0.5s ease;
+      line-height: 1.6;
+
+      &:hover {
+        color: $light-green;
+      }
+    }
+
+    &-line {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: $line-color;
+      margin: 10px 0px 10px;
+    }
+
+    &-original {
+      font-family: "Open Sans", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: $dark-gray-sail-price;
+      text-decoration: line-through red;
+      margin-right: 10px;
+      line-height: 1.8;
+    }
+
+    &-sail,
+    &-single-price {
+      font-family: "Open Sans", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: $dark-blue;
+      line-height: 1.8;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 0px 5px rgba(126, 182, 147);
+    }
+  }
+}
