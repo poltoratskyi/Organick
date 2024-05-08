@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 100px 0px;
+
     &-block {
       &_contact {
         text-align: right;
@@ -93,34 +94,6 @@
         margin-bottom: 50px;
       }
 
-      &-items {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &-item {
-          margin-right: 15px;
-
-          &:last-child {
-            margin-right: 0px;
-          }
-
-          &-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: $pale-blue;
-            transition: transform 0.3s ease;
-            &:hover {
-              border: 1px solid $light-green;
-            }
-          }
-        }
-      }
-
       &-line {
         display: block;
         width: 2px;
@@ -143,5 +116,37 @@
     font-size: 18px;
     text-align: center;
     padding: 15px 0px;
+  }
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_feedback {
+    justify-content: flex-start;
+  }
+
+  &__item {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+
+    &-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: $pale-blue;
+      transition: transform 0.3s ease;
+      &:hover {
+        border: 1px solid $light-green;
+      }
+    }
   }
 }

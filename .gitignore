@@ -3,22 +3,23 @@ design organick
 package-lock.json
 
 src/App.jsx
-src/GlobalStyles.scss
 
-####### components #######
+####### Components #######
 src/components/*
-#about-us
+# About Us
 !src/components/about-us
-#services-intro
+# Services Intro
 !src/components/services-intro
-#home
+# Home
 !src/components/home
-#Product list
+# Product List
 !src/components/product-list
-#footers
+# Contact Us
+!src/components/contact-us
+# Footers
 !src/components/footers
 
-####### pages #####
+####### Pages #####
 src/pages/*
 !src/pages/AboutUs
 !src/pages/Services
@@ -26,5 +27,7 @@ src/pages/*
 !src/pages/Team
 !src/pages/Shop
 !src/pages/Error
+!src/pages/ContactUs
 !src/pages/Home
+!src/pages/PasswordProtected
 

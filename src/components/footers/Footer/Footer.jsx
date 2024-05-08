@@ -78,10 +78,10 @@ const Footer = () => {
                 sustainable lifestyle and enhancing your well-being.
               </p>
 
-              <ul className="footer__content-feedback-items">
-                <li className="footer__content-feedback-items-item">
+              <ul className="items">
+                <li className="items__item">
                   <Link
-                    className="footer__content-feedback-items-item-link"
+                    className="items__item-link"
                     to="https://www.instagram.com/"
                     target="_blank"
                   >
@@ -98,9 +98,9 @@ const Footer = () => {
                   </Link>
                 </li>
 
-                <li className="footer__content-feedback-items-item">
+                <li className="items__item">
                   <Link
-                    className="footer__content-feedback-items-item-link"
+                    className="items__item-link"
                     to="https://www.facebook.com"
                     target="_blank"
                   >
@@ -115,9 +115,9 @@ const Footer = () => {
                   </Link>
                 </li>
 
-                <li className="footer__content-feedback-items-item">
+                <li className="items__item">
                   <Link
-                    className="footer__content-feedback-items-item-link"
+                    className="items__item-link"
                     to="https://twitter.com"
                     target="_blank"
                   >
@@ -130,9 +130,9 @@ const Footer = () => {
                   </Link>
                 </li>
 
-                <li className="footer__content-feedback-items-item">
+                <li className="items__item">
                   <Link
-                    className="footer__content-feedback-items-item-link"
+                    className="items__item-link"
                     to="https://www.pinterest.com"
                     target="_blank"
                   >

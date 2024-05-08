@@ -1,0 +1,285 @@
+@import "./Variables.scss";
+
+// Reset Styles
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a :focus,
+a :active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input ::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button ::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+// Global container
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Arrow svg
+#arrow {
+  margin-left: 10px;
+  transition: margin-left 0.3s ease;
+}
+
+// Link
+#link {
+  display: flex;
+  align-items: center;
+  padding: 30px 40px;
+  min-width: 230px;
+}
+
+// Page Banner
+.page-banner {
+  &_about-us {
+    background: url(../public/img/Banner/About-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_team-us {
+    background: url(../public/img/Banner/Team-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_services {
+    background: url(../public/img/Banner/Services-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_news {
+    background: url(../public/img/Banner/News-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_shop {
+    background: url(../public/img/Banner/Shop-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_contact-us {
+    background: url(../public/img/Banner/ContactUs-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_protected-page {
+    background: url(../public/img/Banner/PasswordProtected-min.jpg) center
+      center/cover no-repeat;
+  }
+
+  &__text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: $dark-blue;
+    padding: 180px 0px;
+    text-align: center;
+  }
+}
+
+// Btn
+.button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 16px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    #arrow {
+      margin-left: 15px;
+      transition: margin-left 0.3s ease;
+    }
+  }
+
+  // Banner
+  &_banner {
+    color: $dark-blue;
+    background-color: $yellow;
+    border: 1px solid $yellow;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+
+  // About
+  &_about {
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+
+  // News
+  &_news {
+    color: $dark-blue;
+    background-color: $white;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $white;
+      background-color: $dark-blue;
+    }
+  }
+
+  // More news
+  &_more-news {
+    color: $dark-blue;
+    border: 1px solid $yellow;
+    background-color: $yellow;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+
+  // Products
+  &_product {
+    display: block;
+    margin: 0 auto;
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+
+  // Newsletter
+  &_newsletter {
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+
+  // Error
+  &_error {
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+
+  &_offer {
+    color: $dark-blue;
+    background-color: $yellow;
+    border: 1px solid $yellow;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+
+  // Protection
+  &_protection {
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+}
