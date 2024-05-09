@@ -6,7 +6,7 @@ import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import Products from "../../components/home/Catalog/Products";
 
 const Shop = () => {
-  const { categories /* handleAddToCart */ } = useContext(Context);
+  const { catalogue /* handleAddToCart */ } = useContext(Context);
 
   return (
     <>
@@ -18,7 +18,7 @@ const Shop = () => {
         <div className="container">
           <ul className="product-items">
             {/*  Using the catalog of product <- Context */}
-            {categories.map((product) => (
+            {catalogue.map((product) => (
               <li
                 className="product-items__item product-items__item_shop"
                 key={product.parent_id}

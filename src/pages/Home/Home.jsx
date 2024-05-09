@@ -20,7 +20,7 @@ import posts from "../../data/posts";
 
 const Home = () => {
   // Getting data <- Context
-  const { categories /* handleAddToCart */ } = useContext(Context);
+  const { catalogue /* handleAddToCart */ } = useContext(Context);
 
   return (
     <>
@@ -50,7 +50,7 @@ const Home = () => {
 
             <ul className="product-items product-items_list">
               {/*  Using the catalog of product <- Context */}
-              {categories
+              {catalogue
                 .filter((product) => product.parent_id <= 8)
                 .map((product) => (
                   <li
@@ -130,7 +130,7 @@ const Home = () => {
 
             <ul className="product-items">
               {/*  Using the catalog of product <- Context */}
-              {categories
+              {catalogue
                 .filter(
                   // Product catalog ID 9 -> ID 12
                   (product) => product.parent_id >= 9 && product.parent_id <= 12

@@ -2,8 +2,6 @@ node_modules
 design organick
 package-lock.json
 
-src/App.jsx
-
 ####### Components #######
 src/components/*
 # About Us
