@@ -1,0 +1,121 @@
+@import "../../../Variables.scss";
+
+.header {
+  position: relative;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0px;
+
+    &-menu {
+      display: flex;
+      align-items: center;
+
+      &-logo {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-family: "Roboto", sans-serif;
+          font-weight: 700;
+          font-size: 38px;
+          padding-left: 10px;
+          color: $dark-blue;
+        }
+      }
+
+      &-navigation {
+        margin-left: 100px;
+
+        &-items {
+          display: flex;
+          align-items: center;
+
+          &-item {
+            cursor: pointer;
+
+            &-link {
+              font-family: "Roboto", sans-serif;
+              font-weight: 500;
+              font-size: 20px;
+              color: $dark-blue;
+              padding: 20px;
+
+              &:hover {
+                color: $light-green;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &-search {
+      display: flex;
+      align-items: center;
+
+      &-input {
+        color: #000;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        height: 60px;
+        border: 1px solid $white-gray;
+        border-radius: 35px;
+        padding: 15px 70px 15px 15px;
+        width: 300px;
+        background-color: #fafafa;
+        transition: 0.5s ease;
+
+        &::placeholder {
+          color: #ababab;
+          font-style: italic;
+        }
+
+        &:focus,
+        &:hover {
+          border-color: $dark-blue;
+        }
+      }
+
+      &-clear-btn {
+        position: absolute;
+        background-color: $white-gray;
+        border-radius: 100%;
+        color: $white;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 15px;
+        left: 87%;
+
+        &:hover {
+          background-color: $dark-blue;
+        }
+      }
+
+      &-btn {
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        background-color: white;
+
+        &-value {
+          font-family: "Open Sans", sans-serif;
+          border-radius: 50%;
+          font-weight: 400;
+          top: -15px;
+          font-size: 14px;
+          right: 0;
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+          background-color: $light-green;
+          color: $white;
+        }
+      }
+    }
+  }
+}

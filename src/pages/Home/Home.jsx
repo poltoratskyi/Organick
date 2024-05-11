@@ -20,7 +20,7 @@ import posts from "../../data/posts";
 
 const Home = () => {
   // Getting data <- Context
-  const { catalogue /* handleAddToCart */ } = useContext(Context);
+  const { catalogue } = useContext(Context);
 
   return (
     <>

@@ -34,13 +34,12 @@
 
           &-input {
             height: 80px;
-            color: #000000;
+            color: #000;
             border: 1px solid $white-gray;
             background-color: #fafafa;
             border-radius: 16px;
             font-family: "Open Sans", sans-serif;
             font-size: 18px;
-            font-style: 400;
             font-weight: 400;
             width: 100%;
             padding: 15px 15px;
@@ -52,11 +51,11 @@
             }
 
             &:focus {
-              border-color: $light-green;
+              border-color: $dark-blue;
             }
 
             &:hover {
-              border-color: $light-green;
+              border-color: $dark-blue;
             }
           }
         }

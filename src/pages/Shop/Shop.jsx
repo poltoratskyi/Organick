@@ -6,6 +6,7 @@ import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import Products from "../../components/home/Catalog/Products";
 
 const Shop = () => {
+  // Getting data <- Context
   const { catalogue /* handleAddToCart */ } = useContext(Context);
 
   return (

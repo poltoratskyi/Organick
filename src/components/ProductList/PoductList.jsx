@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Style.scss";
 
 const ProductList = ({ tag, isNew, img, name, price, salePrice, discount }) => {

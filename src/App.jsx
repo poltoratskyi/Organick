@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import "./GlobalStyles.scss";
 
 import Context from "./context/Context";
 
-import "./GlobalStyles.scss";
-
 import Home from "./pages/Home/Home";
-import Navigation from "./pages/Navigation/Navigation";
+import Navigation from "./components/headers/Navigation/Navigation";
 import Error from "./pages/Error/Error";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Shop from "./pages/Shop/Shop";
@@ -36,15 +35,19 @@ function App() {
   ////////// Connect hook -> useEffect //////////
   // Get products <- Backend (mockAPI)
   useEffect(() => {
-    // Requests -> Backend (mockAPI)
+    // Requests -> Backend (mockAPI) / localStorage
     const fetchData = async () => {
-      // Wait for the request -> Success
+      // Geting the products <- localStorage
+      const shoppingCart =
+        JSON.parse(localStorage.getItem("shoppingBasket")) || [];
+
+      /* In the future modify -> Wait for the request -> Success
       const shoppingCart = await axios.get(
         // Request -> Shopping cart
         "https://6548e310dd8ebcd4ab23cdec.mockapi.io/shoppingCart"
-      );
+      ); */
 
-      // await -> if get shoppingCart (Success) -> get products
+      // await -> if getting shoppingCart (Success) -> get products
 
       // Wait for the request -> Success
       const products = await axios.get(
@@ -53,7 +56,7 @@ function App() {
       );
 
       // Sort products -> Save products -> Shopping basket
-      setShoppingBasket(shoppingCart.data.sort((a, b) => b.id - a.id));
+      setShoppingBasket(shoppingCart);
 
       // Save products -> Catalogue
       setCatalogue(products.data);
@@ -64,7 +67,7 @@ function App() {
     // Do one request
   }, []);
 
-  // Get shopping cart products <- Backend (mockAPI)
+  /* In the future modify -> // Get shopping cart products <- Backend (mockAPI)
   useEffect(() => {
     // Requests -> Backend (mockAPI)
     const updateShoppingCart = async () => {
@@ -79,7 +82,9 @@ function App() {
         );
 
         // Sort products -> Save products -> Shopping basket
-        setShoppingBasket(cartResponse.data.sort((a, b) => b.id - a.id));
+        setShoppingBasket(
+          cartResponse.data.sort((a, b) => b.parent_id - a.parent_id)
+        );
       } else {
         // Unblock window scroll
         document.body.style.overflow = "auto";
@@ -89,9 +94,9 @@ function App() {
     updateShoppingCart();
 
     // Do requests <- Shopping cart open
-  }, [shoppingBasketOpen]);
+  }, [shoppingBasketOpen]); */
 
-  // Add the product -> Shopping cart
+  // Add the product -> Shopping cart -> Backend (mockAPI) / localStorage
   const addProductShoppingBasket = async (product) => {
     // Search the product ID
     if (shoppingBasket.find((item) => item.parent_id === product.parent_id)) {
@@ -99,46 +104,54 @@ function App() {
       return;
     } else {
       // Wait for the request -> Success
-      await axios.post(
+      /* await axios.post(
         // Request -> Shopping cart
         "https://6548e310dd8ebcd4ab23cdec.mockapi.io/shoppingCart",
         product
-      );
+      ); */
 
-      // Add the new product -> Previous products -> Save shopping basket
-      setShoppingBasket([product, ...shoppingBasket]);
+      // Add the new product -> Previous products
+      const newShoppingBasket = [product, ...shoppingBasket];
+
+      // Save shopping basket
+      setShoppingBasket(newShoppingBasket);
+
+      // Request -> localStorage
+      localStorage.setItem("shoppingBasket", JSON.stringify(newShoppingBasket));
     }
   };
 
-  // Remove the product -> Shopping cart
-  const removeProductShoppingBasket = async (id) => {
+  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
+  const removeProductShoppingBasket = async (parent_id) => {
     // Search the product ID
-    if (shoppingBasket.find((item) => Number(item.id) === Number(id))) {
-      // Wait for the request -> Success
-      await axios
+    if (shoppingBasket.find((item) => item.parent_id === parent_id)) {
+      // In the future modify -> Wait for the request -> Success
+      /* await axios
         // Remove the product ID -> Backend (mockAPI)
         .delete(
           // Request -> Shopping cart
-          `https://6548e310dd8ebcd4ab23cdec.mockapi.io/shoppingCart/${Number(
-            id
-          )}`
+          `https://6548e310dd8ebcd4ab23cdec.mockapi.io/shoppingCart/${parent_id}`
         )
 
         // Remove the product -> React
-        .then(() => {
-          // Search product ID -> Shopping basket
-          const updatedItems = shoppingBasket.filter(
-            (item) => Number(item.id) !== Number(id)
-          );
+        .then(() => { */
 
-          // Update -> Shopping basket
-          setShoppingBasket(updatedItems);
-        })
+      // Search product ID -> Shopping basket
+      const updatedItems = shoppingBasket.filter(
+        (item) => item.parent_id !== parent_id
+      );
 
+      // Update -> Shopping basket
+      setShoppingBasket(updatedItems);
+
+      // Update -> localStorage
+      localStorage.setItem("shoppingBasket", JSON.stringify(updatedItems));
+
+      /* })
         // The message error
         .catch((error) => {
           alert(error);
-        });
+        }); */
     }
   };
 

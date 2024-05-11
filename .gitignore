@@ -3,29 +3,7 @@ design organick
 package-lock.json
 
 ####### Components #######
-src/components/*
-# About Us
-!src/components/about-us
-# Services Intro
-!src/components/services-intro
-# Home
-!src/components/home
-# Product List
-!src/components/product-list
-# Contact Us
-!src/components/contact-us
-# Footers
-!src/components/footers
+src/components/headers/Navigation
+src/components/headers/SideBlock
 
-####### Pages #####
-src/pages/*
-!src/pages/AboutUs
-!src/pages/Services
-!src/pages/News
-!src/pages/Team
-!src/pages/Shop
-!src/pages/Error
-!src/pages/ContactUs
-!src/pages/Home
-!src/pages/PasswordProtected
-
+####### Pages #######

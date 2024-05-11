@@ -3,7 +3,7 @@ import "./Style.scss";
 
 /* import Context from "../../../context/Context"; */
 
-import ProductList from "../../product-list/PoductList";
+import ProductList from "../../ProductList/PoductList";
 
 // Getting data <- Props
 const Products = ({

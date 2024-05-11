@@ -1,9 +1,9 @@
 import React from "react";
 import "./Style.scss";
 
-import Choose from "../../components/about-us/choose/Choose";
-import MiniTeam from "../../components/about-us/mini-team/MiniTeam";
-import MiniOffer from "../../components/about-us/mini-offer/MiniOffer";
+import Choose from "../../components/about-us/Choose/Choose";
+import MiniTeam from "../../components/about-us/MiniTeam/MiniTeam";
+import MiniOffer from "../../components/about-us/MiniOffer/MiniOffer";
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
 const AboutUs = () => {
