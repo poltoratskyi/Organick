@@ -1,21 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import "./Style.scss";
 
 import Context from "../../../context/Context";
 
-import ModalSearch from "../ModalSearch/ModalSearch";
-
 const Header = () => {
   // Getting data <- Context
-  const { toggleShoppingBasket, shoppingBasket } = useContext(Context);
+  const {
+    handleSearch,
+    searchProduct,
+    setSearchProduct,
+    toggleShoppingBasket,
+    shoppingBasket,
+  } = useContext(Context);
 
-  // Save product search <- Input
-  const [searchProduct, setSearchProduct] = useState("");
-
-  // Getting data <- Input
-  const handleSearch = (e) => {
-    setSearchProduct(e.target.value);
+  // Disable scroll
+  const disableScroll = () => {
+    document.documentElement.style.overflow = "hidden";
   };
 
   // Getting the quantity of products <- Shopping cart
@@ -99,11 +101,6 @@ const Header = () => {
           </div>
 
           <div className="header__content-search">
-            {/[a-zA-Z]/.test(searchProduct) && (
-              // if input value === reg -> transfer input value -> Modal search component
-              <ModalSearch searchProduct={searchProduct} />
-            )}
-
             <input
               className="header__content-search-input"
               onChange={handleSearch}
@@ -117,7 +114,6 @@ const Header = () => {
               style={{
                 opacity: searchProduct.length ? 1 : 0,
                 pointerEvents: searchProduct.length ? "auto" : "none",
-                transition: "opacity 0.5s ease",
               }}
               className="header__content-search-clear-btn"
               onClick={() => setSearchProduct("")}
@@ -126,15 +122,22 @@ const Header = () => {
             </button>
 
             <button
-              className="header__content-search-btn"
-              onClick={() => toggleShoppingBasket()}
+              className={`header__content-search-btn ${
+                shoppingBasket && shoppingBasket.length > 0
+                  ? ""
+                  : "header__content-search-btn_hidden"
+              }`}
+              onClick={() => {
+                toggleShoppingBasket();
+                setSearchProduct("");
+                disableScroll();
+              }}
             >
               <span
                 className="header__content-search-btn-value"
                 // if quantity of products > 0 -> visible else hidden
                 style={{
                   opacity: shoppingBasket.length ? 1 : 0,
-                  transition: "opacity 0.5s ease",
                 }}
               >
                 {productQuantity(shoppingBasket)}

@@ -1,24 +1,25 @@
 import React, { useContext } from "react";
-import "./Style.scss";
 
 import Context from "../../../context/Context";
 
 import Search from "../Search/Search";
 
-const SearchModal = ({ searchProduct }) => {
+const SearchModal = () => {
   // Getting data <- Context
-  const { catalogue } = useContext(Context);
+  const { catalogue, searchProduct } = useContext(Context);
 
   return (
     <ul className="search-items">
       {catalogue
-        .filter((product) =>
-          // Filter the product(s) <- searchProduct (Input)
-          product.name.toLowerCase().includes(searchProduct.toLowerCase())
+        .filter(
+          (product) =>
+            // Filter the product(s) <- searchProduct (Input)
+            product.name.toLowerCase().includes(searchProduct.toLowerCase()) ||
+            product.tag.toLowerCase().includes(searchProduct.toLowerCase())
         )
 
-        // Filter the product(s) -> 0 - 5
-        .slice(0, 5)
+        // Filter the product(s) -> 0 - 4
+        .slice(0, 4)
 
         // Show filtered products
         .map((product) => (

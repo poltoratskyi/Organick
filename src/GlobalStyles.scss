@@ -94,6 +94,25 @@ a {
   color: inherit;
 }
 
+// Overlay
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s ease;
+
+  &_visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
 // Global container
 .container {
   max-width: 1400px;
@@ -167,7 +186,7 @@ a {
   font-weight: 700;
   font-size: 20px;
   border-radius: 16px;
-  transition: background-color 0.3s ease;
+  transition: 0.5s ease;
   cursor: pointer;
 
   &:hover {
@@ -261,6 +280,30 @@ a {
     }
   }
 
+  // Shop Now
+  &_shop-now {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 80%;
+    margin-top: 40px;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    width: 335px;
+    height: 80px;
+    color: $white;
+    background-color: $light-green;
+
+    &:hover {
+      background-color: #6dd194;
+    }
+  }
+
+  // Offer
   &_offer {
     color: $dark-blue;
     background-color: $yellow;
@@ -271,6 +314,21 @@ a {
     }
   }
 
+  // Checkout
+
+  &_checkout {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
   // Protection
   &_protection {
     color: $white;

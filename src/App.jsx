@@ -31,6 +31,8 @@ function App() {
   const [shoppingBasketOpen, setShoppingBasketOpen] = useState(false);
   // Clear <-> Full shopping cart
   const [orderSent, setOrderSent] = useState(false);
+  // Save product search <- Input
+  const [searchProduct, setSearchProduct] = useState("");
 
   ////////// Connect hook -> useEffect //////////
   // Get products <- Backend (mockAPI)
@@ -55,7 +57,7 @@ function App() {
         "https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products"
       );
 
-      // Sort products -> Save products -> Shopping basket
+      // Save products -> Shopping basket
       setShoppingBasket(shoppingCart);
 
       // Save products -> Catalogue
@@ -155,6 +157,11 @@ function App() {
     }
   };
 
+  // Getting data <- Input
+  const handleSearch = (e) => {
+    setSearchProduct(e.target.value);
+  };
+
   // In the future modify -> Found the products
   const isAdded = (parent_id) => {
     return shoppingBasket.some((item) => item.parent_id === parent_id);
@@ -193,6 +200,9 @@ function App() {
       <Context.Provider
         value={{
           catalogue,
+          handleSearch,
+          searchProduct,
+          setSearchProduct,
           shoppingBasket,
           addProductShoppingBasket,
           shoppingBasketOpen,

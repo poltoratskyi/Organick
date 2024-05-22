@@ -1,8 +1,6 @@
 @import "../../../Variables.scss";
 
 .header {
-  position: relative;
-
   &__content {
     display: flex;
     align-items: center;
@@ -54,6 +52,7 @@
 
     &-search {
       display: flex;
+      position: relative;
       align-items: center;
 
       &-input {
@@ -62,21 +61,15 @@
         font-weight: 400;
         font-size: 18px;
         height: 60px;
-        border: 1px solid $white-gray;
+        border: 1px solid $dark-blue;
         border-radius: 35px;
         padding: 15px 70px 15px 15px;
         width: 300px;
         background-color: #fafafa;
-        transition: 0.5s ease;
 
         &::placeholder {
           color: #ababab;
           font-style: italic;
-        }
-
-        &:focus,
-        &:hover {
-          border-color: $dark-blue;
         }
       }
 
@@ -88,7 +81,8 @@
         padding: 5px 10px;
         cursor: pointer;
         font-size: 15px;
-        left: 87%;
+        right: 25%;
+        transition: 0.5s ease;
 
         &:hover {
           background-color: $dark-blue;
@@ -99,7 +93,7 @@
         position: relative;
         margin-left: 10px;
         cursor: pointer;
-        background-color: white;
+        background-color: transparent;
 
         &-value {
           font-family: "Open Sans", sans-serif;
@@ -108,12 +102,17 @@
           top: -15px;
           font-size: 14px;
           right: 0;
+          transition: 0.5s ease;
           position: absolute;
           width: 30px;
           height: 30px;
           padding: 5px;
           background-color: $light-green;
           color: $white;
+        }
+
+        &_hidden {
+          pointer-events: none;
         }
       }
     }

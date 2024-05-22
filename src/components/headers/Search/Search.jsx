@@ -3,7 +3,7 @@ import "./Style.scss";
 
 import Context from "../../../context/Context";
 
-const Searc = ({
+const Search = ({
   parent_id,
   tag,
   img,
@@ -28,6 +28,7 @@ const Searc = ({
       price,
       salePrice,
       isNew,
+      percentage,
     });
   };
 
@@ -111,4 +112,4 @@ const Searc = ({
   );
 };
 
-export default Searc;
+export default Search;

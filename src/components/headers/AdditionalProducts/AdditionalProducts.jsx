@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./Style.scss";
 
 import ProductList from "../../ProductList/ProductList";
 
 // Getting data <- props
-const Offer = ({ tag, isNew, img, name, price, salePrice }) => {
+const Additional = ({ tag, isNew, img, name, price, salePrice }) => {
   // Default value -> discount
   const [percentage, setPercentage] = useState(0);
 
@@ -26,4 +25,4 @@ const Offer = ({ tag, isNew, img, name, price, salePrice }) => {
   );
 };
 
-export default Offer;
+export default Additional;

@@ -2,10 +2,10 @@
 
 .search-items {
   position: absolute;
-  top: 80%;
-  right: 10%;
+  top: 100%;
+  right: 0%;
   width: 550px;
-  z-index: 1;
+  z-index: 2;
   padding: 0px 20px;
   background-color: #fff;
   border-radius: 16px;
@@ -33,13 +33,12 @@
         &-exposition {
           text-align: left;
           margin-left: 10px;
-          min-width: 200px;
 
           &-name {
             font-family: "Roboto", sans-serif;
             font-weight: 500;
             font-size: 20px;
-            color: $dark-gray;
+            color: $dark-blue;
             line-height: 1.6;
             cursor: pointer;
 
@@ -49,12 +48,11 @@
           }
 
           &-mark {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-top: 5px;
 
-            &-tag {
+            &-tag,
+            &-new,
+            &-percentage {
               padding: 5px 20px;
               border-radius: 8px;
               font-family: "Open Sans", sans-serif;
@@ -63,17 +61,19 @@
               font-size: 15px;
               line-height: 1.8;
               background-color: $dark-blue;
+              margin-right: 10px;
+
+              &:last-child {
+                margin-right: 0px;
+              }
             }
 
             &-new {
-              padding: 5px 20px;
-              border-radius: 8px;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 600;
-              color: white;
-              font-size: 15px;
-              line-height: 1.8;
               background-color: $light-green;
+            }
+
+            &-percentage {
+              background-color: red;
             }
           }
         }

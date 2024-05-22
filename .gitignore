@@ -3,7 +3,6 @@ design organick
 package-lock.json
 
 ####### Components #######
-src/components/headers/Navigation
 src/components/headers/SideBlock
 
 ####### Pages #######

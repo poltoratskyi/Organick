@@ -3,7 +3,7 @@ import "./Style.scss";
 
 /* import Context from "../../../context/Context"; */
 
-import ProductList from "../../ProductList/PoductList";
+import ProductList from "../../ProductList/ProductList";
 
 // Getting data <- Props
 const Products = ({
@@ -16,6 +16,7 @@ const Products = ({
   price,
   salePrice,
   handleAddToCart,
+  isNew,
 }) => {
   // Getting data <- Context
   /* const { toggleCart, isAdded } = useContext(Context); */
@@ -35,6 +36,7 @@ const Products = ({
   return (
     <>
       <ProductList
+        isNew={isNew}
         tag={tag}
         img={img}
         name={name}
