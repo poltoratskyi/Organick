@@ -7,7 +7,7 @@ import Products from "../../components/home/Catalog/Products";
 
 const Shop = () => {
   // Getting data <- Context
-  const { catalogue /* handleAddToCart */ } = useContext(Context);
+  const { catalogue, showSingleProduct } = useContext(Context);
 
   return (
     <>
@@ -26,8 +26,8 @@ const Shop = () => {
               >
                 <Products
                   {...product}
-                  // Data tranfer -> Shopping cart
-                  /*  handleAddToCart={() => handleAddToCart(product)} */
+                  // Data tranfer -> Single product component
+                  showSingleProduct={() => showSingleProduct(product)}
                 />
               </li>
             ))}

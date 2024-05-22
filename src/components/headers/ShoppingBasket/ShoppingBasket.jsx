@@ -13,12 +13,9 @@ const SideBlock = () => {
     toggleShoppingBasket,
     shoppingBasket,
     removeProductShoppingBasket,
+    showSingleProduct,
+    enableScroll,
   } = useContext(Context);
-
-  // Enable scroll
-  const enableScroll = () => {
-    document.documentElement.style.overflow = "auto";
-  };
 
   // The total amount
   const totalPrice = (shoppingBasket) => {
@@ -31,13 +28,13 @@ const SideBlock = () => {
   // In shopping basket no products
   const isBasketEmpty = shoppingBasket && shoppingBasket.length === 0;
 
-  // Close shopping basket
+  // Close / enable scroll -> shopping basket
   useEffect(() => {
     if (isBasketEmpty) {
       toggleShoppingBasket();
       enableScroll();
     }
-  }, [isBasketEmpty, toggleShoppingBasket]);
+  }, [enableScroll, isBasketEmpty, toggleShoppingBasket]);
 
   return (
     <section className="shopping-basket">
@@ -145,22 +142,24 @@ const SideBlock = () => {
           </div>
 
           <button className="button button_checkout">
-            Checkout
-            <svg
-              id="arrow"
-              width="22"
-              height="22"
-              viewBox="0 0 19 19"
-              fill="none"
-            >
-              <circle cx="9.2" cy="9.2" r="9.2" fill="#335B6B" />
-              <path
-                d="M9.47641 6.12891L12.871 9.19342L9.47641 12.2579M12.3995 9.19342H5.51611"
-                stroke="white"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <span id="link">
+              Checkout
+              <svg
+                id="arrow"
+                width="22"
+                height="22"
+                viewBox="0 0 19 19"
+                fill="none"
+              >
+                <circle cx="9.2" cy="9.2" r="9.2" fill="#335B6B" />
+                <path
+                  d="M9.47641 6.12891L12.871 9.19342L9.47641 12.2579M12.3995 9.19342H5.51611"
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
           </button>
         </div>
       </div>
@@ -179,7 +178,12 @@ const SideBlock = () => {
           .map((product) => (
             <li className="product-items__item" key={product.parent_id}>
               {/* Getting all object properties <- Spread operator <- Context */}
-              <AdditionalProducts {...product} />
+
+              <AdditionalProducts
+                {...product}
+                // Data tranfer -> Single product component
+                showSingleProduct={() => showSingleProduct(product)}
+              />
             </li>
           ))}
       </ul>

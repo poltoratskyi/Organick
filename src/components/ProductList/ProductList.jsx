@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-const ProductList = ({ tag, isNew, img, name, price, salePrice, discount }) => {
+import Context from "../../context/Context";
+
+const ProductList = ({
+  descriptionMore,
+  showSingleProduct,
+  tag,
+  isNew,
+  img,
+  name,
+  price,
+  salePrice,
+  discount,
+}) => {
+  const { setShoppingBasketOpen, enableScroll } = useContext(Context);
+
+  const getSingleProduct = () => {
+    // Props transfer
+    showSingleProduct({
+      descriptionMore,
+      img,
+      name,
+      price,
+      salePrice,
+    });
+  };
+
+  const handleClick = () => {
+    getSingleProduct();
+    setShoppingBasketOpen(false);
+    enableScroll();
+  };
+
   return (
     <>
       <div id="badge" className="product-items__item-badge">
@@ -57,8 +89,12 @@ const ProductList = ({ tag, isNew, img, name, price, salePrice, discount }) => {
         )}
       </div>
 
-      <button id="shop-now" className="button button_shop-now">
-        <Link id="link" to="/">
+      <button
+        onClick={handleClick}
+        id="shop-now"
+        className="button button_shop-now"
+      >
+        <Link to="/ProductSingle" id="link">
           Shop Now
           <svg
             id="arrow"
@@ -77,8 +113,6 @@ const ProductList = ({ tag, isNew, img, name, price, salePrice, discount }) => {
           </svg>
         </Link>
       </button>
-
-      {/* <button className="product-items__item-btn">Shop Now</button> */}
     </>
   );
 };

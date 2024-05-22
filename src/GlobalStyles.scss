@@ -280,6 +280,19 @@ a {
     }
   }
 
+  // Order
+  &_order {
+    color: $white;
+    background-color: $dark-blue;
+    border: 1px solid $dark-blue;
+    margin-top: 20px;
+
+    &:hover {
+      color: $dark-blue;
+      background-color: $white;
+    }
+  }
+
   // Shop Now
   &_shop-now {
     display: flex;
@@ -315,11 +328,10 @@ a {
   }
 
   // Checkout
-
   &_checkout {
     display: flex;
     align-items: center;
-    padding: 20px 40px;
+    justify-content: center;
     color: $white;
     background-color: $dark-blue;
     border: 1px solid $dark-blue;
@@ -329,6 +341,7 @@ a {
       background-color: $white;
     }
   }
+
   // Protection
   &_protection {
     color: $white;

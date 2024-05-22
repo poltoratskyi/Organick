@@ -4,7 +4,16 @@ import "./Style.scss";
 import ProductList from "../../ProductList/ProductList";
 
 // Getting data <- props
-const Offer = ({ tag, isNew, img, name, price, salePrice }) => {
+const Offer = ({
+  tag,
+  img,
+  name,
+  descriptionMore,
+  price,
+  salePrice,
+  showSingleProduct,
+  isNew,
+}) => {
   // Default value -> discount
   const [percentage, setPercentage] = useState(0);
 
@@ -15,8 +24,10 @@ const Offer = ({ tag, isNew, img, name, price, salePrice }) => {
 
   return (
     <ProductList
-      tag={tag}
+      descriptionMore={descriptionMore}
+      showSingleProduct={showSingleProduct}
       isNew={isNew}
+      tag={tag}
       img={img}
       name={name}
       price={price}

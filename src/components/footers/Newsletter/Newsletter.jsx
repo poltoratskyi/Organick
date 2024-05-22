@@ -21,23 +21,25 @@ const Newsletter = () => {
               required
             />
 
-            <button id="link" className="button button_newsletter">
-              Subscribe
-              <svg
-                id="arrow"
-                width="22"
-                height="22"
-                viewBox="0 0 19 19"
-                fill="none"
-              >
-                <circle cx="9.2" cy="9.2" r="9.2" fill="#335B6B" />
-                <path
-                  d="M9.47641 6.12891L12.871 9.19342L9.47641 12.2579M12.3995 9.19342H5.51611"
-                  stroke="white"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <button className="button button_newsletter">
+              <span id="link">
+                Subscribe
+                <svg
+                  id="arrow"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 19 19"
+                  fill="none"
+                >
+                  <circle cx="9.2" cy="9.2" r="9.2" fill="#335B6B" />
+                  <path
+                    d="M9.47641 6.12891L12.871 9.19342L9.47641 12.2579M12.3995 9.19342H5.51611"
+                    stroke="white"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </button>
           </form>
         </div>

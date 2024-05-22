@@ -20,7 +20,7 @@ import posts from "../../data/posts";
 
 const Home = () => {
   // Getting data <- Context
-  const { catalogue, toggleShoppingBasket } = useContext(Context);
+  const { catalogue, showSingleProduct } = useContext(Context);
 
   return (
     <>
@@ -59,8 +59,8 @@ const Home = () => {
                   >
                     <Products
                       {...product}
-                      // Data tranfer -> Shopping cart
-                      /*  handleAddToCart={() => handleAddToCart(product)} */
+                      // Data tranfer -> Single product component
+                      showSingleProduct={() => showSingleProduct(product)}
                     />
                   </li>
                 ))}
@@ -138,7 +138,11 @@ const Home = () => {
                 .map((product) => (
                   <li className="product-items__item" key={product.parent_id}>
                     {/* Getting all object properties <- Spread operator <- Context */}
-                    <Offer {...product} />
+                    <Offer
+                      {...product}
+                      // Data tranfer -> Single product component
+                      showSingleProduct={() => showSingleProduct(product)}
+                    />
                   </li>
                 ))}
             </ul>

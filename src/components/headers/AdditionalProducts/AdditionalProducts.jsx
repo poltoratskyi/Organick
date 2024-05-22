@@ -3,7 +3,16 @@ import React, { useState, useEffect } from "react";
 import ProductList from "../../ProductList/ProductList";
 
 // Getting data <- props
-const Additional = ({ tag, isNew, img, name, price, salePrice }) => {
+const Additional = ({
+  tag,
+  img,
+  name,
+  descriptionMore,
+  price,
+  salePrice,
+  showSingleProduct,
+  isNew,
+}) => {
   // Default value -> discount
   const [percentage, setPercentage] = useState(0);
 
@@ -14,8 +23,10 @@ const Additional = ({ tag, isNew, img, name, price, salePrice }) => {
 
   return (
     <ProductList
-      tag={tag}
+      descriptionMore={descriptionMore}
+      showSingleProduct={showSingleProduct}
       isNew={isNew}
+      tag={tag}
       img={img}
       name={name}
       price={price}

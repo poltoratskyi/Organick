@@ -13,12 +13,8 @@ const Header = () => {
     setSearchProduct,
     toggleShoppingBasket,
     shoppingBasket,
+    disableScroll,
   } = useContext(Context);
-
-  // Disable scroll
-  const disableScroll = () => {
-    document.documentElement.style.overflow = "hidden";
-  };
 
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (shoppingBasket) => {

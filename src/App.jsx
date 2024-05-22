@@ -10,6 +10,7 @@ import Navigation from "./components/headers/Navigation/Navigation";
 import Error from "./pages/Error/Error";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Shop from "./pages/Shop/Shop";
+import ProductSingle from "./pages/ProductSingle/ProductSingle";
 import Services from "./pages/Services/Services";
 import News from "./pages/News/News";
 import Team from "./pages/Team/Team";
@@ -27,6 +28,8 @@ function App() {
   const [catalogue, setCatalogue] = useState([]);
   // Shopping cart
   const [shoppingBasket, setShoppingBasket] = useState([]);
+  // Single product
+  const [singleProduct, setSingleProduct] = useState([]);
   // Open <-> Close shopping cart
   const [shoppingBasketOpen, setShoppingBasketOpen] = useState(false);
   // Clear <-> Full shopping cart
@@ -42,6 +45,10 @@ function App() {
       // Geting the products <- localStorage
       const shoppingCart =
         JSON.parse(localStorage.getItem("shoppingBasket")) || [];
+
+      // Single product <- Geting the product <- localStorage
+      const reviewedProduct =
+        JSON.parse(localStorage.getItem("singleProduct")) || [];
 
       /* In the future modify -> Wait for the request -> Success
       const shoppingCart = await axios.get(
@@ -59,6 +66,9 @@ function App() {
 
       // Save products -> Shopping basket
       setShoppingBasket(shoppingCart);
+
+      // Reviewed products -> Single product
+      setSingleProduct(reviewedProduct);
 
       // Save products -> Catalogue
       setCatalogue(products.data);
@@ -157,6 +167,28 @@ function App() {
     }
   };
 
+  // Enable scroll
+  const enableScroll = () => {
+    document.documentElement.style.overflow = "auto";
+  };
+
+  // Disable scroll
+  const disableScroll = () => {
+    document.documentElement.style.overflow = "hidden";
+  };
+
+  // Show single product
+  const showSingleProduct = (product) => {
+    // Show the new product -> Previous products
+    const newSingleProduct = { ...product };
+
+    // Update -> localStorage
+    localStorage.setItem("singleProduct", JSON.stringify([newSingleProduct]));
+
+    // Update -> Single product component
+    setSingleProduct([newSingleProduct]);
+  };
+
   // Getting data <- Input
   const handleSearch = (e) => {
     setSearchProduct(e.target.value);
@@ -200,16 +232,22 @@ function App() {
       <Context.Provider
         value={{
           catalogue,
-          handleSearch,
           searchProduct,
-          setSearchProduct,
           shoppingBasket,
-          addProductShoppingBasket,
+          singleProduct,
           shoppingBasketOpen,
+          orderSent,
+
+          handleSearch,
+          enableScroll,
+          disableScroll,
+          setShoppingBasketOpen,
+          showSingleProduct,
+          setSearchProduct,
+          addProductShoppingBasket,
           removeProductShoppingBasket,
           toggleShoppingBasket,
           pushItems,
-          orderSent,
           isAdded,
         }}
       >
@@ -227,6 +265,7 @@ function App() {
             <Route path="/Team" element={<Team />} />
             <Route path="/Services" element={<Services />} />
             <Route path="/Shop" element={<Shop />} />
+            <Route path="/ProductSingle" element={<ProductSingle />} />
             <Route path="/News" element={<News />} />
             <Route path="/ContactUs" element={<ContactUs />} />
             <Route path="/PasswordProtected" element={<PasswordProtected />} />
