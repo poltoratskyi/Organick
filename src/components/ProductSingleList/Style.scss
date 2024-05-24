@@ -3,53 +3,53 @@
 .product-single {
   &__content {
     padding: 100px 0px;
+    &-item {
+      &-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
 
-    &-info {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      justify-items: center;
-      align-items: center;
-
-      &-img {
-        width: 350px;
-      }
-
-      &-title {
-        &-heading {
-          font-family: "Roboto", sans-serif;
-          font-weight: 900;
-          font-size: 40px;
-          color: $dark-blue;
-          line-height: 1.3;
-          padding-bottom: 10px;
+        &-img {
+          width: 350px;
         }
 
-        &-original {
-          font-family: "Open Sans", sans-serif;
-          font-weight: 600;
-          font-size: 15px;
-          color: $dark-gray-sail-price;
-          text-decoration: line-through red;
-          margin-right: 10px;
-          line-height: 1.8;
-        }
+        &-title {
+          &-heading {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 40px;
+            color: $dark-blue;
+            line-height: 1.3;
+            padding-bottom: 10px;
+          }
 
-        &-sail,
-        &-single-price {
-          font-family: "Open Sans", sans-serif;
-          font-weight: 700;
-          font-size: 18px;
-          color: $dark-blue;
-          line-height: 1.8;
-        }
+          &-original {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            color: $dark-gray-sail-price;
+            text-decoration: line-through red;
+            margin-right: 10px;
+            line-height: 1.8;
+          }
 
-        &-description {
-          font-family: "Open Sans", sans-serif;
-          font-weight: 400;
-          font-size: 18px;
-          color: $dark-gray;
-          line-height: 1.8;
-          padding-top: 15px;
+          &-sail,
+          &-single-price {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: $dark-blue;
+            line-height: 1.8;
+          }
+
+          &-description {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: $dark-gray;
+            line-height: 1.8;
+            padding-top: 15px;
+          }
         }
       }
     }

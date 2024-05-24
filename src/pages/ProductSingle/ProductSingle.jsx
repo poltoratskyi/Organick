@@ -16,7 +16,7 @@ const ProductSingle = () => {
             {/*  Using the catalog of product <- Context */}
             {singleProduct.map((product) => (
               <li
-                className="product-single__content-info"
+                className="product-single__content-item"
                 key={product.parent_id}
               >
                 <ProductSingleList {...product} />

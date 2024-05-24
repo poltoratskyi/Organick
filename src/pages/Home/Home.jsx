@@ -6,7 +6,7 @@ import Context from "../../context/Context";
 import Banner from "../../components/home/Banner/Banner";
 import Card from "../../components/home/Card/Card";
 import About from "../../components/home/About/About";
-import Products from "../../components/home/Catalog/Products";
+import Catalog from "../../components/home/Catalog/Catalog";
 import Testimonial from "../../components/home/Testimonial/Testimonial";
 import Offer from "../../components/home/Offer/Offer";
 import Story from "../../components/home/Story/Story";
@@ -57,7 +57,7 @@ const Home = () => {
                     className="product-items__item product-items__item_list"
                     key={product.parent_id}
                   >
-                    <Products
+                    <Catalog
                       {...product}
                       // Data tranfer -> Single product component
                       showSingleProduct={() => showSingleProduct(product)}

@@ -6,7 +6,9 @@ import "./Style.scss";
 
 import Context from "../../context/Context";
 
-const ProductList = ({
+const ProductItems = ({
+  parent_id,
+  description,
   descriptionMore,
   showSingleProduct,
   tag,
@@ -22,6 +24,9 @@ const ProductList = ({
   const getSingleProduct = () => {
     // Props transfer
     showSingleProduct({
+      parent_id,
+      description,
+      tag,
       descriptionMore,
       img,
       name,
@@ -117,4 +122,4 @@ const ProductList = ({
   );
 };
 
-export default ProductList;
+export default ProductItems;

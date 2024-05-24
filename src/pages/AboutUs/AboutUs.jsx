@@ -105,7 +105,7 @@ const AboutUs = () => {
           <div className="mini-offer__content">
             <div className="mini-offer__content-title">
               <span className="mini-offer__content-title-subheading">
-                About Us
+                The Products
               </span>
 
               <h2 className="mini-offer__content-title-heading">

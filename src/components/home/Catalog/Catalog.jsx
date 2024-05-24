@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 import "./Style.scss";
 
-/* import Context from "../../../context/Context"; */
-
-import ProductList from "../../ProductList/ProductList";
+import ProductItems from "../../ProductItems/ProductItems";
 
 // Getting data <- Props
-const Products = ({
+const Catalog = ({
   tag,
   img,
   name,
@@ -25,7 +24,7 @@ const Products = ({
 
   return (
     <>
-      <ProductList
+      <ProductItems
         descriptionMore={descriptionMore}
         showSingleProduct={showSingleProduct}
         isNew={isNew}
@@ -39,4 +38,4 @@ const Products = ({
     </>
   );
 };
-export default Products;
+export default Catalog;

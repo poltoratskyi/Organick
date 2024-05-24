@@ -36,12 +36,7 @@
       gap: 10px;
       &-item {
         &-img {
-          cursor: pointer;
           border-radius: 30px;
-
-          &:hover {
-            box-shadow: 0px 0px 0px 3px rgba(126, 182, 147);
-          }
         }
 
         &-text {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import ProductList from "../../ProductList/ProductList";
+import ProductItems from "../../ProductItems/ProductItems";
 
 // Getting data <- props
 const Additional = ({
@@ -22,7 +22,7 @@ const Additional = ({
   }, [price, salePrice]);
 
   return (
-    <ProductList
+    <ProductItems
       descriptionMore={descriptionMore}
       showSingleProduct={showSingleProduct}
       isNew={isNew}

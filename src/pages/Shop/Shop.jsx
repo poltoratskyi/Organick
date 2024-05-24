@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Context from "../../context/Context";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
-import Products from "../../components/home/Catalog/Products";
+import Catalog from "../../components/home/Catalog/Catalog";
 
 const Shop = () => {
   // Getting data <- Context
@@ -24,7 +24,7 @@ const Shop = () => {
                 className="product-items__item product-items__item_shop"
                 key={product.parent_id}
               >
-                <Products
+                <Catalog
                   {...product}
                   // Data tranfer -> Single product component
                   showSingleProduct={() => showSingleProduct(product)}

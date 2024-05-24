@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+
+import { Link } from "react-router-dom";
+
 import "./Style.scss";
 
 import Context from "../../../context/Context";
@@ -9,13 +12,19 @@ const Search = ({
   img,
   name,
   description,
+  descriptionMore,
   price,
   salePrice,
   isNew,
 }) => {
   // Getting data <- Context
-  const { addProductShoppingBasket, removeProductShoppingBasket, isAdded } =
-    useContext(Context);
+  const {
+    addProductShoppingBasket,
+    removeProductShoppingBasket,
+    isAdded,
+    showSingleProduct,
+    setSearchProduct,
+  } = useContext(Context);
 
   const handleAddToCart = () => {
     // Props transfer
@@ -25,11 +34,31 @@ const Search = ({
       img,
       name,
       description,
+      descriptionMore,
       price,
       salePrice,
       isNew,
       percentage,
     });
+  };
+
+  const getSingleProduct = () => {
+    // Props transfer
+    showSingleProduct({
+      parent_id,
+      description,
+      tag,
+      descriptionMore,
+      img,
+      name,
+      price,
+      salePrice,
+    });
+  };
+
+  const handleClick = () => {
+    getSingleProduct();
+    setSearchProduct("");
   };
 
   // Default value -> discount
@@ -50,9 +79,11 @@ const Search = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <span className="search-items__item-product-cover-exposition-name">
-            {name}
-          </span>
+          <Link onClick={handleClick} to="/ProductSingle">
+            <span className="search-items__item-product-cover-exposition-name">
+              {name}
+            </span>
+          </Link>
 
           <div className="search-items__item-product-cover-exposition-mark">
             {/* is isNew === true */}

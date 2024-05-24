@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Style.scss";
 
-import ProductList from "../../ProductList/ProductList";
+import ProductItems from "../../ProductItems/ProductItems";
 
 // Getting data <- props
 const Offer = ({
@@ -23,7 +23,7 @@ const Offer = ({
   }, [price, salePrice]);
 
   return (
-    <ProductList
+    <ProductItems
       descriptionMore={descriptionMore}
       showSingleProduct={showSingleProduct}
       isNew={isNew}

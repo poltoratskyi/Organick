@@ -4,6 +4,7 @@ import "./Style.scss";
 
 import Context from "../../../context/Context";
 
+import ProductList from "../ProductList/ProductList";
 import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
 
 const SideBlock = () => {
@@ -12,7 +13,6 @@ const SideBlock = () => {
     catalogue,
     toggleShoppingBasket,
     shoppingBasket,
-    removeProductShoppingBasket,
     showSingleProduct,
     enableScroll,
   } = useContext(Context);
@@ -54,78 +54,12 @@ const SideBlock = () => {
 
       <div className="layout">
         <ul className="product-list">
-          {shoppingBasket.map((item) => (
-            <li key={item.parent_id} className="product-list__item">
-              <img
-                className="product-list__item-img"
-                src={item.img}
-                alt={item.name}
+          {shoppingBasket.map((product) => (
+            <li key={product.parent_id} className="product-list__item">
+              <ProductList
+                {...product} // Data tranfer -> Single product component
+                showSingleProduct={() => showSingleProduct(product)}
               />
-
-              <div className="product-list__item-exposition">
-                <span className="product-list__item-exposition-name">
-                  {item.name}
-                </span>
-
-                <p className="product-list__item-exposition-description">
-                  {item.description}
-                </p>
-
-                <div className="product-list__item-exposition-mark">
-                  {item.isNew && (
-                    <span className="product-list__item-exposition-mark-new">
-                      NEW
-                    </span>
-                  )}
-
-                  <span className="product-list__item-exposition-mark-tag">
-                    {item.tag}
-                  </span>
-
-                  {item.salePrice && (
-                    <span className="product-list__item-exposition-mark-percentage">
-                      -{item.percentage}%
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="product-list__item-action">
-                <div className="product-list__item-action-value">
-                  {item.salePrice ? (
-                    <>
-                      <span className="product-list__item-action-value-original">
-                        ${item.price} USD
-                      </span>
-
-                      <span className="product-list__item-action-value-sail">
-                        ${item.salePrice} USD
-                      </span>
-                    </>
-                  ) : (
-                    <span className="product-list__item-action-value-single-price">
-                      ${item.price} USD
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <span
-                onClick={() => removeProductShoppingBasket(item.parent_id)}
-                style={{ cursor: "pointer" }}
-              >
-                <svg
-                  fill="#274C5B"
-                  width="24"
-                  height="24"
-                  viewBox="-21 0 384 384"
-                >
-                  <path d="m117.332031 21.332031h106.667969c5.890625 0 10.667969-4.773437 10.667969-10.664062s-4.777344-10.667969-10.667969-10.667969h-106.667969c-5.890625 0-10.664062 4.777344-10.664062 10.667969s4.773437 10.664062 10.664062 10.664062zm0 0"></path>
-                  <path d="m138.667969 298.667969c5.890625 0 10.664062-4.777344 10.664062-10.667969v-128c0-5.890625-4.773437-10.667969-10.664062-10.667969s-10.667969 4.777344-10.667969 10.667969v128c0 5.890625 4.777344 10.667969 10.667969 10.667969zm0 0"></path>
-                  <path d="m330.667969 64h-320c-5.890625 0-10.667969 4.777344-10.667969 10.667969s4.777344 10.664062 10.667969 10.664062h32v288c0 5.890625 4.773437 10.667969 10.664062 10.667969h234.667969c5.890625 0 10.667969-4.777344 10.667969-10.667969v-288h32c5.890625 0 10.664062-4.773437 10.664062-10.664062s-4.773437-10.667969-10.664062-10.667969zm-53.335938 298.667969h-213.332031v-277.335938h213.332031zm0 0"></path>
-                  <path d="m202.667969 298.667969c5.890625 0 10.664062-4.777344 10.664062-10.667969v-128c0-5.890625-4.773437-10.667969-10.664062-10.667969s-10.667969 4.777344-10.667969 10.667969v128c0 5.890625 4.777344 10.667969 10.667969 10.667969zm0 0"></path>
-                </svg>
-              </span>
             </li>
           ))}
         </ul>
@@ -137,7 +71,7 @@ const SideBlock = () => {
             </span>
 
             <span className="checkout__total-price-value">
-              ${totalPrice(shoppingBasket).toFixed(2)}
+              ${totalPrice(shoppingBasket).toFixed(2)} USD
             </span>
           </div>
 
@@ -164,7 +98,7 @@ const SideBlock = () => {
         </div>
       </div>
 
-      <h2 className="shopping-basket__title">
+      <h2 className=" customers customers_basket">
         Customers also bought these products
       </h2>
 
