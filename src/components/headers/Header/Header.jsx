@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
@@ -9,12 +9,23 @@ const Header = () => {
   // Getting data <- Context
   const {
     handleSearch,
+    activeName,
+    handleMenuClickAndSave,
     searchProduct,
     setSearchProduct,
     toggleShoppingBasket,
     shoppingBasket,
     disableScroll,
   } = useContext(Context);
+
+  const menuItems = [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/AboutUs" },
+    { name: "Team", link: "/Team" },
+    { name: "Services", link: "/Services" },
+    { name: "Shop", link: "/Shop" },
+    { name: "News", link: "/News" },
+  ];
 
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (shoppingBasket) => {
@@ -39,59 +50,25 @@ const Header = () => {
 
             <nav className="header__content-menu-navigation">
               <ul className="header__content-menu-navigation-items">
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/"
+                {menuItems.map((item) => (
+                  <li
+                    onClick={() => handleMenuClickAndSave(item.name)}
+                    key={item.name}
+                    className={
+                      activeName === item.name
+                        ? "header__content-menu-navigation-items-item header__content-menu-navigation-items-item_active"
+                        : "header__content-menu-navigation-items-item"
+                    }
                   >
-                    Home
-                  </Link>
-                </li>
-
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/AboutUs"
-                  >
-                    About
-                  </Link>
-                </li>
-
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/Team"
-                  >
-                    Team
-                  </Link>
-                </li>
-
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/Services"
-                  >
-                    Services
-                  </Link>
-                </li>
-
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/Shop"
-                  >
-                    Shop
-                  </Link>
-                </li>
-
-                <li className="header__content-menu-navigation-items-item">
-                  <Link
-                    className="header__content-menu-navigation-items-item-link"
-                    to="/News"
-                  >
-                    News
-                  </Link>
-                </li>
+                    <Link
+                      onClick={() => handleMenuClickAndSave(item.name)}
+                      className="header__content-menu-navigation-items-item-link"
+                      to={item.link}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>

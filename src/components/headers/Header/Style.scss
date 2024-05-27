@@ -19,7 +19,7 @@
           font-family: "Roboto", sans-serif;
           font-weight: 700;
           font-size: 38px;
-          padding-left: 10px;
+          margin-left: 10px;
           color: $dark-blue;
         }
       }
@@ -32,18 +32,22 @@
           align-items: center;
 
           &-item {
+            font-family: "Roboto", sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            color: $dark-blue;
             cursor: pointer;
 
             &-link {
-              font-family: "Roboto", sans-serif;
-              font-weight: 500;
-              font-size: 20px;
-              color: $dark-blue;
               padding: 20px;
 
               &:hover {
                 color: $light-green;
               }
+            }
+
+            &_active {
+              color: $light-green;
             }
           }
         }

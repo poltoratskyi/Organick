@@ -6,7 +6,7 @@ import Search from "../Search/Search";
 
 const SearchModal = () => {
   // Getting data <- Context
-  const { catalogue, searchProduct } = useContext(Context);
+  const { catalogue, searchProduct, showSingleProduct } = useContext(Context);
 
   return (
     <ul className="search-items">
@@ -24,7 +24,11 @@ const SearchModal = () => {
         // Show filtered products
         .map((product) => (
           <li className="search-items__item" key={product.parent_id}>
-            <Search {...product} />
+            <Search
+              {...product}
+              // Data tranfer -> Single product component
+              showSingleProduct={() => showSingleProduct(product)}
+            />
           </li>
         ))}
     </ul>

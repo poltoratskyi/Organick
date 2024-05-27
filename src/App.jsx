@@ -11,6 +11,7 @@ import Error from "./pages/Error/Error";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Shop from "./pages/Shop/Shop";
 import ProductSingle from "./pages/ProductSingle/ProductSingle";
+import NewsSingle from "./pages/NewsSingle/NewsSingle";
 import Services from "./pages/Services/Services";
 import News from "./pages/News/News";
 import Team from "./pages/Team/Team";
@@ -30,12 +31,16 @@ function App() {
   const [shoppingBasket, setShoppingBasket] = useState([]);
   // Single product
   const [singleProduct, setSingleProduct] = useState([]);
+  // Single news
+  const [singleNews, setSingleNews] = useState([]);
   // Open <-> Close shopping cart
   const [shoppingBasketOpen, setShoppingBasketOpen] = useState(false);
   // Clear <-> Full shopping cart
   const [orderSent, setOrderSent] = useState(false);
   // Save product search <- Input
   const [searchProduct, setSearchProduct] = useState("");
+  // Name active menu
+  const [activeName, setActiveName] = useState("Home");
 
   ////////// Connect hook -> useEffect //////////
   // Get products <- Backend (mockAPI)
@@ -49,6 +54,13 @@ function App() {
       // Single product <- Geting the product <- localStorage
       const reviewedProduct =
         JSON.parse(localStorage.getItem("singleProduct")) || [];
+
+      // Single news <- Geting the news <- localStorage
+      const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
+
+      // Active menu <- localStorage
+      const activeMenu =
+        JSON.parse(localStorage.getItem("activeMenu")) || activeName;
 
       /* In the future modify -> Wait for the request -> Success
       const shoppingCart = await axios.get(
@@ -67,8 +79,14 @@ function App() {
       // Save products -> Shopping basket
       setShoppingBasket(shoppingCart);
 
-      // Reviewed products -> Single product
+      // Save reviewed products -> Single product
       setSingleProduct(reviewedProduct);
+
+      // Save reviewed news -> Single news
+      setSingleNews(reviewedNews);
+
+      // Save reviewed pages -> Active name
+      setActiveName(activeMenu);
 
       // Save products -> Catalogue
       setCatalogue(products.data);
@@ -156,7 +174,7 @@ function App() {
       // Update -> Shopping basket
       setShoppingBasket(updatedItems);
 
-      // Update -> localStorage
+      // Request -> localStorage
       localStorage.setItem("shoppingBasket", JSON.stringify(updatedItems));
 
       /* })
@@ -182,11 +200,31 @@ function App() {
     // Show the new product -> Previous products
     const newSingleProduct = { ...product };
 
-    // Update -> localStorage
+    // Request -> localStorage
     localStorage.setItem("singleProduct", JSON.stringify([newSingleProduct]));
 
     // Update -> Single product component
     setSingleProduct([newSingleProduct]);
+  };
+
+  // Find the clicked name item
+  const handleMenuClickAndSave = (name) => {
+    setActiveName(name);
+
+    // Request -> localStorage
+    localStorage.setItem("activeMenu", JSON.stringify(name));
+  };
+
+  // Show single news
+  const showSingleNews = (news) => {
+    // Show the new news -> Previous news
+    const newSingleNews = { ...news };
+
+    // Request -> localStorage
+    localStorage.setItem("singleNews", JSON.stringify([newSingleNews]));
+
+    // Update -> Single news component
+    setSingleNews([newSingleNews]);
   };
 
   // Getting data <- Input
@@ -237,9 +275,13 @@ function App() {
           singleProduct,
           shoppingBasketOpen,
           orderSent,
+          activeName,
+          singleNews,
 
           handleSearch,
+          handleMenuClickAndSave,
           enableScroll,
+          showSingleNews,
           disableScroll,
           setShoppingBasketOpen,
           showSingleProduct,
@@ -265,10 +307,13 @@ function App() {
             <Route path="/Team" element={<Team />} />
             <Route path="/Services" element={<Services />} />
             <Route path="/Shop" element={<Shop />} />
-            <Route path="/ProductSingle" element={<ProductSingle />} />
             <Route path="/News" element={<News />} />
             <Route path="/ContactUs" element={<ContactUs />} />
             <Route path="/PasswordProtected" element={<PasswordProtected />} />
+
+            <Route path="/ProductSingle" element={<ProductSingle />} />
+            <Route path="/NewsSingle" element={<NewsSingle />} />
+
             <Route path="*" element={<Error />} />
           </Routes>
           <Footer />

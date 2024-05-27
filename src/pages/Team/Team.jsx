@@ -30,11 +30,11 @@ const Team = () => {
               </p>
             </div>
 
-            <div className="team-us__content-items">
+            <ul className="team-us__content-items">
               {team
                 .filter((item) => item.id)
                 .map((persone) => (
-                  <div className="team-us__content-items-item" key={persone.id}>
+                  <li className="team-us__content-items-item" key={persone.id}>
                     <img
                       className="team-us__content-items-item-img"
                       loading="lazy"
@@ -85,9 +85,9 @@ const Team = () => {
                         </Link>
                       </div>
                     </div>
-                  </div>
+                  </li>
                 ))}
-            </div>
+            </ul>
           </div>
         </div>
       </section>

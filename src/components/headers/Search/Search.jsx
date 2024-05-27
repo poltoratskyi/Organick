@@ -13,6 +13,7 @@ const Search = ({
   name,
   description,
   descriptionMore,
+  showSingleProduct,
   price,
   salePrice,
   isNew,
@@ -22,7 +23,7 @@ const Search = ({
     addProductShoppingBasket,
     removeProductShoppingBasket,
     isAdded,
-    showSingleProduct,
+    handleMenuClickAndSave,
     setSearchProduct,
   } = useContext(Context);
 
@@ -44,7 +45,7 @@ const Search = ({
 
   const getSingleProduct = () => {
     // Props transfer
-    showSingleProduct({
+    showSingleProduct(
       parent_id,
       description,
       tag,
@@ -52,13 +53,14 @@ const Search = ({
       img,
       name,
       price,
-      salePrice,
-    });
+      salePrice
+    );
   };
 
   const handleClick = () => {
     getSingleProduct();
     setSearchProduct("");
+    handleMenuClickAndSave("Shop");
   };
 
   // Default value -> discount

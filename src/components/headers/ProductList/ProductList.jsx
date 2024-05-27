@@ -18,12 +18,16 @@ const ProductList = ({
   showSingleProduct,
   isNew,
 }) => {
-  const { removeProductShoppingBasket, setShoppingBasketOpen, enableScroll } =
-    useContext(Context);
+  const {
+    handleMenuClickAndSave,
+    removeProductShoppingBasket,
+    setShoppingBasketOpen,
+    enableScroll,
+  } = useContext(Context);
 
   const getSingleProduct = () => {
     // Props transfer
-    showSingleProduct({
+    showSingleProduct(
       parent_id,
       description,
       tag,
@@ -31,14 +35,15 @@ const ProductList = ({
       img,
       name,
       price,
-      salePrice,
-    });
+      salePrice
+    );
   };
 
   const handleClick = () => {
     getSingleProduct();
     setShoppingBasketOpen(false);
     enableScroll();
+    handleMenuClickAndSave("Shop");
   };
 
   // Default value -> discount

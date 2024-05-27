@@ -1,9 +1,56 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-const News = ({ img, dataNumber, dataName, author, title, description }) => {
+import Context from "../../../context/Context";
+
+const News = ({
+  img,
+  dataNumber,
+  dataName,
+  author,
+  title,
+  description,
+  showSingleNews,
+
+  imgBlog,
+  paragraphFirst,
+  contentParagraphFirst,
+
+  paragraphSecond,
+  contentParagraphSecond,
+
+  conclusion,
+  contentConclusion,
+}) => {
+  const { handleMenuClickAndSave } = useContext(Context);
+
+  const getSingleNews = () => {
+    // Props transfer
+    showSingleNews(
+      img,
+      dataNumber,
+      dataName,
+      author,
+      title,
+      description,
+
+      imgBlog,
+      paragraphFirst,
+      contentParagraphFirst,
+
+      paragraphSecond,
+      contentParagraphSecond,
+
+      conclusion,
+      contentConclusion
+    );
+
+    handleMenuClickAndSave("News");
+  };
+
   return (
     <li className="news__content-posts-post">
       <img
@@ -38,9 +85,11 @@ const News = ({ img, dataNumber, dataName, author, title, description }) => {
           </div>
 
           <div className="news__content-posts-post-info-content-description">
-            <h4 className="news__content-posts-post-info-content-description-title">
-              {title}
-            </h4>
+            <Link onClick={getSingleNews} to="/NewsSingle">
+              <h4 className="news__content-posts-post-info-content-description-title">
+                {title}
+              </h4>
+            </Link>
 
             <p className="news__content-posts-post-info-content-description-descr">
               {description}
@@ -48,7 +97,7 @@ const News = ({ img, dataNumber, dataName, author, title, description }) => {
           </div>
 
           <button className="button button_more-news">
-            <Link id="link" to="/News">
+            <Link id="link" onClick={getSingleNews} to="/NewsSingle">
               Read More
               <svg
                 id="arrow"

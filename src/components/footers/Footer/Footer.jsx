@@ -1,8 +1,22 @@
-import React from "react";
-import "./Style.scss";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import "./Style.scss";
+
+import Context from "../../../context/Context";
+
 const Footer = () => {
+  // Getting data <- Context
+  const { activeName, handleMenuClickAndSave } = useContext(Context);
+
+  const footerItems = [
+    { name: "Contact Us", link: "/ContactUs" },
+    { name: "Password Protected", link: "/PasswordProtected" },
+    { name: "Licences", link: "/Error" },
+    { name: "Changelog", link: "/Error" },
+    { name: "404 Not Found", link: "/Error" },
+  ];
+
   return (
     <footer className="footer">
       <div className="container">
@@ -154,50 +168,25 @@ const Footer = () => {
             <h3 className="footer__content-block-title">Utility Pages</h3>
 
             <ul className="footer__content-block-items">
-              <li className="footer__content-block-items-item">
-                <Link
-                  to="/ContactUs"
-                  className="footer__content-block-items-item-link"
+              {footerItems.map((item) => (
+                <li
+                  onClick={() => handleMenuClickAndSave(item.name)}
+                  key={item.name}
+                  className={
+                    activeName === item.name
+                      ? "footer__content-block-items-item footer__content-block-items-item_active"
+                      : "footer__content-block-items-item"
+                  }
                 >
-                  Contact Us
-                </Link>
-              </li>
-
-              <li className="footer__content-block-items-item">
-                <Link
-                  to="/PasswordProtected"
-                  className="footer__content-block-items-item-link"
-                >
-                  Password Protected
-                </Link>
-              </li>
-
-              <li className="footer__content-block-items-item">
-                <Link
-                  to="/Licences"
-                  className="footer__content-block-items-item-link"
-                >
-                  Licences
-                </Link>
-              </li>
-
-              <li className="footer__content-block-items-item">
-                <Link
-                  to="/Changelog"
-                  className="footer__content-block-items-item-link"
-                >
-                  Changelog
-                </Link>
-              </li>
-
-              <li className="footer__content-block-items-item">
-                <Link
-                  to="/Error"
-                  className="footer__content-block-items-item-link"
-                >
-                  404 Not Found
-                </Link>
-              </li>
+                  <Link
+                    onClick={() => handleMenuClickAndSave(item.name)}
+                    className="footer__content-block-items-item-link"
+                    to={item.link}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

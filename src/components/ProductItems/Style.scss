@@ -3,9 +3,11 @@
 .product-items {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
   gap: 20px;
 
   &_basket {
+    grid-template-columns: repeat(4, 1fr);
     padding: 0px 20px;
     margin: 20px 0px 100px;
   }
@@ -16,6 +18,7 @@
 
   &__item {
     height: 480px;
+    width: 335px;
     position: relative;
 
     &:hover #shop-now {
@@ -83,6 +86,7 @@
       }
 
       &-img {
+        object-fit: contain;
         width: 270px;
         height: 270px;
       }
@@ -94,6 +98,11 @@
         color: $dark-gray;
         transition: 0.5s ease;
         line-height: 1.6;
+        cursor: pointer;
+
+        &:hover {
+          color: $light-green;
+        }
       }
 
       &-line {

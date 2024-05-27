@@ -9,10 +9,6 @@
         grid-template-columns: repeat(2, 1fr);
         justify-items: center;
 
-        &-img {
-          width: 350px;
-        }
-
         &-title {
           &-heading {
             font-family: "Roboto", sans-serif;
@@ -20,7 +16,7 @@
             font-size: 40px;
             color: $dark-blue;
             line-height: 1.3;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
           }
 
           &-original {
@@ -48,7 +44,7 @@
             font-size: 18px;
             color: $dark-gray;
             line-height: 1.8;
-            padding-top: 15px;
+            margin-top: 15px;
           }
         }
       }

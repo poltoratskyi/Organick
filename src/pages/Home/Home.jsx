@@ -20,7 +20,7 @@ import posts from "../../data/posts";
 
 const Home = () => {
   // Getting data <- Context
-  const { catalogue, showSingleProduct } = useContext(Context);
+  const { catalogue, showSingleProduct, showSingleNews } = useContext(Context);
 
   return (
     <>
@@ -206,7 +206,11 @@ const Home = () => {
                 .filter((item) => item.id <= 2)
                 //  Getting all object properties <- Spread operator
                 .map((post) => (
-                  <News key={post.id} {...post} />
+                  <News
+                    key={post.id}
+                    {...post} // Data tranfer -> Single news component
+                    showSingleNews={() => showSingleNews(post)}
+                  />
                 ))}
             </ul>
           </div>

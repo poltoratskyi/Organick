@@ -57,7 +57,8 @@ const SideBlock = () => {
           {shoppingBasket.map((product) => (
             <li key={product.parent_id} className="product-list__item">
               <ProductList
-                {...product} // Data tranfer -> Single product component
+                {...product}
+                // Data tranfer -> Single product component
                 showSingleProduct={() => showSingleProduct(product)}
               />
             </li>
@@ -106,8 +107,8 @@ const SideBlock = () => {
         {/*  Using the catalog of product <- Context */}
         {catalogue
           .filter(
-            // Product catalog ID 13 -> ID 16
-            (product) => product.parent_id >= 13 && product.parent_id <= 16
+            // Product catalog ID 13 -> ID 15
+            (product) => product.parent_id >= 13 && product.parent_id <= 15
           )
           .map((product) => (
             <li className="product-items__item" key={product.parent_id}>

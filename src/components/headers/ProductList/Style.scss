@@ -27,6 +27,7 @@
     padding: 20px 0px;
 
     &-img {
+      object-fit: contain;
       min-width: 170px;
       height: 195px;
     }

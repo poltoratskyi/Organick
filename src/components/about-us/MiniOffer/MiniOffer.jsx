@@ -9,7 +9,7 @@ const MiniOffer = () => {
       {offer
         .filter((item) => item.id >= 5)
         .map((item) => (
-          <div key={item.id} className="mini-offer__content-items-item">
+          <li key={item.id} className="mini-offer__content-items-item">
             <img
               className="mini-offer__content-items-item-img"
               loading="lazy"
@@ -18,7 +18,7 @@ const MiniOffer = () => {
             />
 
             <h3 className="mini-offer__content-items-item-text">{item.name}</h3>
-          </div>
+          </li>
         ))}
     </>
   );

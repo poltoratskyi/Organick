@@ -11,7 +11,7 @@ const MiniTeam = () => {
       {team
         .filter((item) => item.id <= 3)
         .map((persone) => (
-          <div className="team-us__content-items-item" key={persone.id}>
+          <li className="team-us__content-items-item" key={persone.id}>
             <img
               className="team-us__content-items-item-img"
               loading="lazy"
@@ -52,7 +52,7 @@ const MiniTeam = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </li>
         ))}
     </>
   );

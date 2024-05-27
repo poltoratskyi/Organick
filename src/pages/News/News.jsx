@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import Context from "../../context/Context";
+
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import News from "../../components/home/News/News";
+
 import posts from "../../data/posts";
 
 const NewsPage = () => {
+  const { showSingleNews } = useContext(Context);
+
   return (
     <>
       <div className="page-banner page-banner_news">
@@ -14,7 +20,12 @@ const NewsPage = () => {
         <div className="news__content">
           <ul className="news__content-posts">
             {posts.map((post) => (
-              <News key={post.id} {...post} />
+              <News
+                key={post.id}
+                {...post}
+                // Data tranfer -> Single news component
+                showSingleNews={() => showSingleNews(post)}
+              />
             ))}
           </ul>
         </div>

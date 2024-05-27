@@ -93,9 +93,9 @@ const AboutUs = () => {
               </h2>
             </div>
 
-            <div className="team-us__content-items">
+            <ul className="team-us__content-items">
               <MiniTeam />
-            </div>
+            </ul>
           </div>
         </div>
       </section>
@@ -113,9 +113,9 @@ const AboutUs = () => {
               </h2>
             </div>
 
-            <div className="mini-offer__content-items">
+            <ul className="mini-offer__content-items">
               <MiniOffer />
-            </div>
+            </ul>
           </div>
         </div>
       </section>

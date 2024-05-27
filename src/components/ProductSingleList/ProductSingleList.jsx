@@ -22,7 +22,6 @@ const ProductSingleList = ({
     removeProductShoppingBasket,
     isAdded,
     catalogue,
-    card,
     showSingleProduct,
   } = useContext(Context);
 
