@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Context from "../../context/Context";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
-import News from "../../components/home/News/News";
+import News from "../../components/home-pages/News/News";
 
 import posts from "../../data/posts";
 

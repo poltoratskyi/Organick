@@ -3,11 +3,13 @@ import React, { useContext } from "react";
 import Context from "../../context/Context";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
-import Catalog from "../../components/home/Catalog/Catalog";
+import Catalog from "../../components/home-pages/Catalog/Catalog";
+import Skeleton from "../../components/Skeleton/Skeleton";
 
 const Shop = () => {
   // Getting data <- Context
-  const { catalogue, showSingleProduct } = useContext(Context);
+  const { catalogue, showSingleProduct, isSkeletonLoading } =
+    useContext(Context);
 
   return (
     <>
@@ -19,18 +21,21 @@ const Shop = () => {
         <div className="container">
           <ul className="product-items">
             {/*  Using the catalog of product <- Context */}
-            {catalogue.map((product) => (
-              <li
-                className="product-items__item product-items__item_shop"
-                key={product.parent_id}
-              >
-                <Catalog
-                  {...product}
-                  // Data tranfer -> Single product component
-                  showSingleProduct={() => showSingleProduct(product)}
-                />
-              </li>
-            ))}
+
+            {isSkeletonLoading
+              ? [...new Array(16)].map((_, index) => <Skeleton key={index} />)
+              : catalogue.map((product) => (
+                  <li
+                    className="product-items__item product-items__item_shop"
+                    key={product.parent_id}
+                  >
+                    <Catalog
+                      {...product}
+                      // Data tranfer -> Single product component
+                      showSingleProduct={() => showSingleProduct(product)}
+                    />
+                  </li>
+                ))}
           </ul>
         </div>
       </section>

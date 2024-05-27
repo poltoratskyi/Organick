@@ -41,6 +41,8 @@ function App() {
   const [searchProduct, setSearchProduct] = useState("");
   // Name active menu
   const [activeName, setActiveName] = useState("Home");
+  // Skeleton content loader
+  const [isSkeletonLoading, setSkeletonIsLoading] = useState(true);
 
   ////////// Connect hook -> useEffect //////////
   // Get products <- Backend (mockAPI)
@@ -90,6 +92,9 @@ function App() {
 
       // Save products -> Catalogue
       setCatalogue(products.data);
+
+      // Skeleton off
+      setSkeletonIsLoading(false);
     };
 
     fetchData();
@@ -237,11 +242,6 @@ function App() {
     return shoppingBasket.some((item) => item.parent_id === parent_id);
   };
 
-  // Open <-> Close shopping basket
-  const toggleShoppingBasket = () => {
-    setShoppingBasketOpen(!shoppingBasketOpen);
-  };
-
   // In the future modify -> Send the products
   const pushItems = () => {
     if (shoppingBasket.length === 0 || orderSent) {
@@ -277,6 +277,7 @@ function App() {
           orderSent,
           activeName,
           singleNews,
+          isSkeletonLoading,
 
           handleSearch,
           handleMenuClickAndSave,
@@ -288,7 +289,6 @@ function App() {
           setSearchProduct,
           addProductShoppingBasket,
           removeProductShoppingBasket,
-          toggleShoppingBasket,
           pushItems,
           isAdded,
         }}
@@ -302,18 +302,24 @@ function App() {
           <Routes>
             {/* Default home page */}
             <Route path="/" element={<Home />} />
+
             {/* Other pages */}
             <Route path="/AboutUs" element={<AboutUs />} />
             <Route path="/Team" element={<Team />} />
             <Route path="/Services" element={<Services />} />
+
+            {/* Shop route for ProductSingle */}
             <Route path="/Shop" element={<Shop />} />
+            <Route path="/Shop/:productId" element={<ProductSingle />} />
+
+            {/* News route for NewsSingle */}
             <Route path="/News" element={<News />} />
+            <Route path="/News/:newsId" element={<NewsSingle />} />
+
             <Route path="/ContactUs" element={<ContactUs />} />
             <Route path="/PasswordProtected" element={<PasswordProtected />} />
 
-            <Route path="/ProductSingle" element={<ProductSingle />} />
-            <Route path="/NewsSingle" element={<NewsSingle />} />
-
+            {/* 404 errors */}
             <Route path="*" element={<Error />} />
           </Routes>
           <Footer />

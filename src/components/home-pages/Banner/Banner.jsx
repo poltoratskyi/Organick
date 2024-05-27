@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-/* import ContentLoader from "react-content-loader"; */
+import Context from "../../../context/Context";
+
 const Banner = () => {
+  const { handleMenuClickAndSave } = useContext(Context);
+
   return (
     <article className="banner">
       <div className="container">
@@ -19,7 +22,10 @@ const Banner = () => {
             </h2>
           </div>
 
-          <button className="button button_banner">
+          <button
+            onClick={() => handleMenuClickAndSave("Services")}
+            className="button button_banner"
+          >
             <Link id="link" to="/Services">
               Explore Now
               <svg

@@ -81,7 +81,7 @@ const Search = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <Link onClick={handleClick} to="/ProductSingle">
+          <Link onClick={handleClick} to={`/Shop/${name}`}>
             <span className="search-items__item-product-cover-exposition-name">
               {name}
             </span>

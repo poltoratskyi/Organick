@@ -13,7 +13,8 @@ const Header = () => {
     handleMenuClickAndSave,
     searchProduct,
     setSearchProduct,
-    toggleShoppingBasket,
+    shoppingBasketOpen,
+    setShoppingBasketOpen,
     shoppingBasket,
     disableScroll,
   } = useContext(Context);
@@ -101,7 +102,7 @@ const Header = () => {
                   : "header__content-search-btn_hidden"
               }`}
               onClick={() => {
-                toggleShoppingBasket();
+                setShoppingBasketOpen(!shoppingBasketOpen);
                 setSearchProduct("");
                 disableScroll();
               }}

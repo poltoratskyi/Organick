@@ -18,7 +18,7 @@ const Navigation = () => {
         className={`overlay ${shoppingBasketOpen ? "overlay_visible" : ""}`}
       ></div>
 
-      {shoppingBasketOpen && <ShoppingBasket />}
+      <ShoppingBasket />
 
       <div style={{ position: "relative" }} className="container">
         {searchProduct && <ModalSearch />}

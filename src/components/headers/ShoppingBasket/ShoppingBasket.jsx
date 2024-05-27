@@ -11,9 +11,10 @@ const SideBlock = () => {
   // Getting data <- Context
   const {
     catalogue,
-    toggleShoppingBasket,
     shoppingBasket,
     showSingleProduct,
+    setShoppingBasketOpen,
+    shoppingBasketOpen,
     enableScroll,
   } = useContext(Context);
 
@@ -31,19 +32,23 @@ const SideBlock = () => {
   // Close / enable scroll -> shopping basket
   useEffect(() => {
     if (isBasketEmpty) {
-      toggleShoppingBasket();
+      setShoppingBasketOpen(false);
       enableScroll();
     }
-  }, [enableScroll, isBasketEmpty, toggleShoppingBasket]);
+  }, [enableScroll, isBasketEmpty, setShoppingBasketOpen, shoppingBasketOpen]);
 
   return (
-    <section className="shopping-basket">
+    <section
+      className={`shopping-basket ${
+        shoppingBasketOpen ? "shopping-basket_visible" : ""
+      }`}
+    >
       <div className="shopping-basket__header">
         <h4 className="shopping-basket__header-title">Your Cart</h4>
 
         <span
           onClick={() => {
-            toggleShoppingBasket();
+            setShoppingBasketOpen(!shoppingBasketOpen);
             enableScroll();
           }}
           className="shopping-basket__header-close"

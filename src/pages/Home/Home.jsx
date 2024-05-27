@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 
 import Context from "../../context/Context";
 
-import Banner from "../../components/home/Banner/Banner";
-import Card from "../../components/home/Card/Card";
-import About from "../../components/home/About/About";
-import Catalog from "../../components/home/Catalog/Catalog";
-import Testimonial from "../../components/home/Testimonial/Testimonial";
-import Offer from "../../components/home/Offer/Offer";
-import Story from "../../components/home/Story/Story";
-import Gallery from "../../components/home/Gallery/Gallery";
-import News from "../../components/home/News/News";
+import Skeleton from "../../components/Skeleton/Skeleton";
+
+import Banner from "../../components/home-pages/Banner/Banner";
+import Card from "../../components/home-pages/Card/Card";
+import About from "../../components/home-pages/About/About";
+import Catalog from "../../components/home-pages/Catalog/Catalog";
+import Testimonial from "../../components/home-pages/Testimonial/Testimonial";
+import Offer from "../../components/home-pages/Offer/Offer";
+import Story from "../../components/home-pages/Story/Story";
+import Gallery from "../../components/home-pages/Gallery/Gallery";
+import News from "../../components/home-pages/News/News";
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
 import card from "../../data/card.js";
@@ -20,7 +22,13 @@ import posts from "../../data/posts";
 
 const Home = () => {
   // Getting data <- Context
-  const { catalogue, showSingleProduct, showSingleNews } = useContext(Context);
+  const {
+    catalogue,
+    showSingleProduct,
+    showSingleNews,
+    handleMenuClickAndSave,
+    isSkeletonLoading,
+  } = useContext(Context);
 
   return (
     <>
@@ -50,23 +58,29 @@ const Home = () => {
 
             <ul className="product-items product-items_list">
               {/*  Using the catalog of product <- Context */}
-              {catalogue
-                .filter((product) => product.parent_id <= 8)
-                .map((product) => (
-                  <li
-                    className="product-items__item product-items__item_list"
-                    key={product.parent_id}
-                  >
-                    <Catalog
-                      {...product}
-                      // Data tranfer -> Single product component
-                      showSingleProduct={() => showSingleProduct(product)}
-                    />
-                  </li>
-                ))}
+
+              {isSkeletonLoading
+                ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
+                : catalogue
+                    .filter((product) => product.parent_id <= 8)
+                    .map((product) => (
+                      <li
+                        className="product-items__item product-items__item_list"
+                        key={product.parent_id}
+                      >
+                        <Catalog
+                          {...product}
+                          // Data tranfer -> Single product component
+                          showSingleProduct={() => showSingleProduct(product)}
+                        />
+                      </li>
+                    ))}
             </ul>
 
-            <button className="button button_product">
+            <button
+              onClick={() => handleMenuClickAndSave("Shop")}
+              className="button button_product"
+            >
               <Link id="link" to="/Shop">
                 Show More
                 <svg
@@ -106,7 +120,10 @@ const Home = () => {
                 </h2>
               </div>
 
-              <button className="button button_offer">
+              <button
+                onClick={() => handleMenuClickAndSave("Shop")}
+                className="button button_offer"
+              >
                 <Link id="link" to="/Shop">
                   Show More
                   <svg
@@ -130,21 +147,28 @@ const Home = () => {
 
             <ul className="product-items">
               {/*  Using the catalog of product <- Context */}
-              {catalogue
-                .filter(
-                  // Product catalog ID 9 -> ID 12
-                  (product) => product.parent_id >= 9 && product.parent_id <= 12
-                )
-                .map((product) => (
-                  <li className="product-items__item" key={product.parent_id}>
-                    {/* Getting all object properties <- Spread operator <- Context */}
-                    <Offer
-                      {...product}
-                      // Data tranfer -> Single product component
-                      showSingleProduct={() => showSingleProduct(product)}
-                    />
-                  </li>
-                ))}
+
+              {isSkeletonLoading
+                ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
+                : catalogue
+                    .filter(
+                      // Product catalog ID 9 -> ID 12
+                      (product) =>
+                        product.parent_id >= 9 && product.parent_id <= 12
+                    )
+                    .map((product) => (
+                      <li
+                        className="product-items__item"
+                        key={product.parent_id}
+                      >
+                        {/* Getting all object properties <- Spread operator <- Context */}
+                        <Offer
+                          {...product}
+                          // Data tranfer -> Single product component
+                          showSingleProduct={() => showSingleProduct(product)}
+                        />
+                      </li>
+                    ))}
             </ul>
           </div>
         </div>
@@ -178,7 +202,10 @@ const Home = () => {
                 </h2>
               </div>
 
-              <button className="button button_news">
+              <button
+                onClick={() => handleMenuClickAndSave("News")}
+                className="button button_news"
+              >
                 <Link id="link" to="/News">
                   More News
                   <svg

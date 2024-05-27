@@ -7,6 +7,7 @@ import "./Style.scss";
 import Context from "../../../context/Context";
 
 const News = ({
+  id,
   img,
   dataNumber,
   dataName,
@@ -30,6 +31,7 @@ const News = ({
   const getSingleNews = () => {
     // Props transfer
     showSingleNews(
+      id,
       img,
       dataNumber,
       dataName,
@@ -85,7 +87,7 @@ const News = ({
           </div>
 
           <div className="news__content-posts-post-info-content-description">
-            <Link onClick={getSingleNews} to="/NewsSingle">
+            <Link onClick={getSingleNews} to={`/News/${id}`}>
               <h4 className="news__content-posts-post-info-content-description-title">
                 {title}
               </h4>
@@ -97,7 +99,7 @@ const News = ({
           </div>
 
           <button className="button button_more-news">
-            <Link id="link" onClick={getSingleNews} to="/NewsSingle">
+            <Link id="link" onClick={getSingleNews} to={`/News/${id}`}>
               Read More
               <svg
                 id="arrow"

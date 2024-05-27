@@ -59,7 +59,7 @@ const ProductList = ({
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link onClick={handleClick} to="/ProductSingle">
+        <Link onClick={handleClick} to={`/Shop/${name}`}>
           <span className="product-list__item-exposition-name">{name}</span>
         </Link>
 

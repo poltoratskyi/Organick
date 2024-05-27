@@ -74,7 +74,7 @@ const ProductItems = ({
           alt={`Product ${name}`}
         />
 
-        <Link onClick={handleClick} to="/ProductSingle">
+        <Link onClick={handleClick} to={`/Shop/${name}`}>
           <span className="product-items__item-badge-name">{name}</span>
         </Link>
 
@@ -103,7 +103,7 @@ const ProductItems = ({
         id="shop-now"
         className="button button_shop-now"
       >
-        <Link to="/ProductSingle" id="link">
+        <Link to={`/Shop/${name}`} id="link">
           Shop Now
           <svg
             id="arrow"

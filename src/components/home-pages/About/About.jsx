@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
+import Context from "../../../context/Context";
+
 const About = () => {
+  const { handleMenuClickAndSave } = useContext(Context);
+
   return (
     <section className="about">
       <div className="container">
@@ -66,7 +71,10 @@ const About = () => {
               </div>
             </div>
 
-            <button className="button button_about">
+            <button
+              onClick={() => handleMenuClickAndSave("About")}
+              className="button button_about"
+            >
               <Link id="link" to="/AboutUs">
                 Read More
                 <svg

@@ -2,15 +2,25 @@
 
 .shopping-basket {
   width: 1400px;
-  position: absolute;
+  position: fixed;
   height: 666px;
   overflow-y: auto;
-  top: 50%;
-  left: 50%;
+  top: -25%;
+  left: 100%;
   transform: translate(-50%, -50%);
   background-color: $white;
   z-index: 2;
   border-radius: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s ease;
+
+  &_visible {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    visibility: visible;
+  }
 
   &::-webkit-scrollbar {
     width: 8px;
