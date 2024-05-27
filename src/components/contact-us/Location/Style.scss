@@ -1,0 +1,72 @@
+@import "../../../Variables.scss";
+
+.location {
+  margin-bottom: 100px;
+  &__content {
+    background: url(../../../../public/img/Feedback/Location-min.jpg) center
+      center/cover no-repeat;
+    padding: 120px 120px;
+    text-align: right;
+    border-radius: 20px;
+
+    &-info {
+      display: inline-block;
+      text-align: left;
+      background-color: #fff;
+      border-radius: 30px;
+      padding: 45px 15px 60px 60px;
+
+      &-title {
+        margin-bottom: 30px;
+
+        &-heading {
+          font-family: "Yellowtail", cursive;
+          font-weight: 400;
+          font-size: 36px;
+          color: $light-green;
+          line-height: 1.8;
+        }
+
+        &-subheading {
+          font-family: "Roboto", sans-serif;
+          font-weight: 700;
+          font-size: 50px;
+          color: $dark-blue;
+          line-height: 1.3;
+        }
+
+        &-description {
+          font-family: "Open Sans", sans-serif;
+          font-weight: 400;
+          font-size: 18px;
+          color: $dark-gray;
+          line-height: 1.8;
+        }
+      }
+
+      &-items {
+        display: inline-block;
+        min-width: 385px;
+
+        &-item {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 15px;
+
+          &-description {
+            color: $dark-gray;
+            font-family: "Open Sans", sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.8;
+            margin-left: 10px;
+          }
+        }
+
+        &-item:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
