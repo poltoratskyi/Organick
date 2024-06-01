@@ -10,11 +10,11 @@ import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
 const SideBlock = () => {
   // Getting data <- Context
   const {
-    catalogue,
     shoppingBasket,
     showSingleProduct,
     setShoppingBasketOpen,
     shoppingBasketOpen,
+    catalogue,
     enableScroll,
   } = useContext(Context);
 
@@ -56,7 +56,6 @@ const SideBlock = () => {
           &#x2716;
         </span>
       </div>
-
       <div className="layout">
         <ul className="product-list">
           {shoppingBasket.map((product) => (
@@ -104,29 +103,28 @@ const SideBlock = () => {
         </div>
       </div>
 
-      <h2 className=" customers customers_basket">
-        Customers also bought these products
-      </h2>
+      <>
+        <h2 className=" customers customers_basket">
+          Recommended With Your Order
+        </h2>
+        <ul className="product-items product-items_basket">
+          {/*  Using the catalog of product <- Context */}
+          {catalogue
+            // Posts ID 1 -> ID 2
+            .filter((product) => product.parent_id <= 3)
+            .map((product) => (
+              <li className="product-items__item" key={product.parent_id}>
+                {/* Getting all object properties <- Spread operator <- Context */}
 
-      <ul className="product-items product-items_basket">
-        {/*  Using the catalog of product <- Context */}
-        {catalogue
-          .filter(
-            // Product catalog ID 13 -> ID 15
-            (product) => product.parent_id >= 13 && product.parent_id <= 15
-          )
-          .map((product) => (
-            <li className="product-items__item" key={product.parent_id}>
-              {/* Getting all object properties <- Spread operator <- Context */}
-
-              <AdditionalProducts
-                {...product}
-                // Data tranfer -> Single product component
-                showSingleProduct={() => showSingleProduct(product)}
-              />
-            </li>
-          ))}
-      </ul>
+                <AdditionalProducts
+                  {...product}
+                  // Data tranfer -> Single product component
+                  showSingleProduct={() => showSingleProduct(product)}
+                />
+              </li>
+            ))}
+        </ul>
+      </>
     </section>
   );
 };

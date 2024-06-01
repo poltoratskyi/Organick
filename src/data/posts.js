@@ -137,7 +137,7 @@ const posts = [
     dataName: "Aug",
     fullDataName: "August",
     author: "Liam Wilson",
-    title: "Don’t Use Plastic Products! It's Harmful to Nature",
+    title: "Don’t Use Plastic Products!",
     description:
       "Raise awareness about the environmental impact of plastic products and learn about eco-friendly alternatives. Explore the detrimental effects of plastic on nature and discover ways to reduce your plastic usage for a greener planet.",
 

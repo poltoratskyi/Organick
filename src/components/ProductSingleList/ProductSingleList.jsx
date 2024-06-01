@@ -15,15 +15,19 @@ const ProductSingleList = ({
   salePrice,
   description,
   descriptionMore,
+  additionalInfo,
   isNew,
 }) => {
   const {
     addProductShoppingBasket,
     removeProductShoppingBasket,
     isAdded,
-    catalogue,
+    relatedProducts,
     showSingleProduct,
   } = useContext(Context);
+
+  // Product descr buttons
+  const [additional, setAdditional] = useState("description");
 
   const handleAddToCart = () => {
     // Props transfer
@@ -38,6 +42,7 @@ const ProductSingleList = ({
       salePrice,
       isNew,
       percentage,
+      additionalInfo,
     });
   };
 
@@ -135,29 +140,72 @@ const ProductSingleList = ({
         </div>
       </div>
 
-      <h2 className="customers customers_single">
-        Customers also bought these products
-      </h2>
+      <div className="additional">
+        <div className="additional__content">
+          <button
+            onClick={() => setAdditional("description")}
+            className={`button button_description ${
+              additional === "description" ? "button_description-active" : ""
+            }`}
+          >
+            Product Description
+          </button>
 
-      <ul className="product-items product-items_single">
-        {/*  Using the catalog of product <- Context */}
-        {catalogue
-          .filter(
-            // Product catalog ID 7 -> ID 10
-            (product) => product.parent_id >= 6 && product.parent_id <= 9
-          )
-          .map((product) => (
-            <li className="product-items__item" key={product.parent_id}>
-              {/* Getting all object properties <- Spread operator <- Context */}
+          <button
+            onClick={() => setAdditional("additional")}
+            className={`button button_description ${
+              additional === "additional" ? "button_description-active" : ""
+            }`}
+          >
+            Additional Info
+          </button>
 
-              <AdditionalProducts
-                {...product}
-                // Data tranfer -> Single product component
-                showSingleProduct={() => showSingleProduct(product)}
-              />
-            </li>
-          ))}
-      </ul>
+          {additional === "description" ? (
+            <p
+              className={`additional__content-description ${
+                additional === "description"
+                  ? "additional__content-description_active"
+                  : ""
+              }`}
+            >
+              {description}
+            </p>
+          ) : (
+            <p
+              className={`additional__content-description ${
+                additional === "additional"
+                  ? "additional__content-description_active"
+                  : ""
+              }`}
+            >
+              {additionalInfo}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {relatedProducts && (
+        <>
+          <h2 className=" customers customers_single">Related Products</h2>
+          <ul className="product-items product-items_basket">
+            {/*  Using the catalog of product <- Context */}
+            {relatedProducts
+              // Filter the product(s) -> 0 - 4
+              .slice(0, 4)
+              .map((product) => (
+                <li className="product-items__item" key={product.parent_id}>
+                  {/* Getting all object properties <- Spread operator <- Context */}
+
+                  <AdditionalProducts
+                    {...product}
+                    // Data tranfer -> Single product component
+                    showSingleProduct={() => showSingleProduct(product)}
+                  />
+                </li>
+              ))}
+          </ul>
+        </>
+      )}
     </>
   );
 };

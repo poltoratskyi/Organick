@@ -4,5 +4,26 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding: 100px 0px;
+
+    &-item {
+      border-radius: 30px;
+      padding: 105px 375px 95px 55px;
+
+      &-subheading {
+        font-family: "Yellowtail", cursive;
+        font-weight: 400;
+        font-size: 36px;
+        line-height: 1.8;
+      }
+
+      &-heading {
+        font-family: "Roboto", sans-serif;
+        text-align: left;
+        font-weight: 900;
+        font-size: 40px;
+        margin: 10px 0px 0px;
+        line-height: 1.3;
+      }
+    }
   }
 }

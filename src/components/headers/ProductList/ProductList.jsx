@@ -27,7 +27,7 @@ const ProductList = ({
 
   const getSingleProduct = () => {
     // Props transfer
-    showSingleProduct(
+    showSingleProduct({
       parent_id,
       description,
       tag,
@@ -35,8 +35,8 @@ const ProductList = ({
       img,
       name,
       price,
-      salePrice
-    );
+      salePrice,
+    });
   };
 
   const handleClick = () => {
@@ -59,7 +59,7 @@ const ProductList = ({
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link onClick={handleClick} to={`/Shop/${name}`}>
+        <Link onClick={() => handleClick()} to={`/Shop/${name}`}>
           <span className="product-list__item-exposition-name">{name}</span>
         </Link>
 

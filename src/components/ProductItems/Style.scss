@@ -6,6 +6,10 @@
   justify-items: center;
   gap: 20px;
 
+  &_shop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   &_basket {
     grid-template-columns: repeat(4, 1fr);
     padding: 0px 20px;

@@ -7,7 +7,7 @@ import Context from "../../../context/Context";
 import "./Style.scss";
 
 const Gallery = ({ img, text }) => {
-  const { handleMenuClickAndSave } = useContext(Context);
+  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
 
   return (
     <li className="gallery__content-items-item">
@@ -19,7 +19,7 @@ const Gallery = ({ img, text }) => {
       />
       <Link to="/Shop">
         <span
-          onClick={() => handleMenuClickAndSave("Shop")}
+          onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
           className="gallery__content-items-item-text"
         >
           {text}

@@ -7,7 +7,7 @@ import Context from "../../../context/Context";
 
 const Footer = () => {
   // Getting data <- Context
-  const { activeName, handleMenuClickAndSave } = useContext(Context);
+  const { activeNameMenu, OpenTheNewPageAndScrollToTop } = useContext(Context);
 
   const footerItems = [
     { name: "Contact Us", link: "/ContactUs" },
@@ -170,16 +170,16 @@ const Footer = () => {
             <ul className="footer__content-block-items">
               {footerItems.map((item) => (
                 <li
-                  onClick={() => handleMenuClickAndSave(item.name)}
+                  onClick={() => OpenTheNewPageAndScrollToTop(item.name)}
                   key={item.name}
                   className={
-                    activeName === item.name
+                    activeNameMenu === item.name
                       ? "footer__content-block-items-item footer__content-block-items-item_active"
                       : "footer__content-block-items-item"
                   }
                 >
                   <Link
-                    onClick={() => handleMenuClickAndSave(item.name)}
+                    onClick={() => OpenTheNewPageAndScrollToTop(item.name)}
                     className="footer__content-block-items-item-link"
                     to={item.link}
                   >

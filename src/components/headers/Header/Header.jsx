@@ -9,7 +9,7 @@ const Header = () => {
   // Getting data <- Context
   const {
     handleSearch,
-    activeName,
+    activeNameMenu,
     handleMenuClickAndSave,
     searchProduct,
     setSearchProduct,
@@ -56,7 +56,7 @@ const Header = () => {
                     onClick={() => handleMenuClickAndSave(item.name)}
                     key={item.name}
                     className={
-                      activeName === item.name
+                      activeNameMenu === item.name
                         ? "header__content-menu-navigation-items-item header__content-menu-navigation-items-item_active"
                         : "header__content-menu-navigation-items-item"
                     }

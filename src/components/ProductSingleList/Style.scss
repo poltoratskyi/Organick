@@ -8,6 +8,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         justify-items: center;
+        margin-bottom: 90px;
 
         &-title {
           &-heading {
@@ -47,6 +48,31 @@
             margin-top: 15px;
           }
         }
+      }
+    }
+  }
+}
+
+.additional {
+  margin-bottom: 100px;
+  &__content {
+    min-height: 200px;
+    text-align: center;
+    &-description {
+      font-family: "Open Sans", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: $dark-gray;
+      line-height: 1.8;
+      text-align: center;
+      transition: 0.5s ease;
+      opacity: 0;
+      visibility: hidden;
+      margin-top: 20px;
+
+      &_active {
+        opacity: 1;
+        visibility: visible;
       }
     }
   }

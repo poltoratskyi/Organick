@@ -26,11 +26,11 @@ const News = ({
   conclusion,
   contentConclusion,
 }) => {
-  const { handleMenuClickAndSave } = useContext(Context);
+  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
 
   const getSingleNews = () => {
     // Props transfer
-    showSingleNews(
+    showSingleNews({
       id,
       img,
       dataNumber,
@@ -47,10 +47,10 @@ const News = ({
       contentParagraphSecond,
 
       conclusion,
-      contentConclusion
-    );
+      contentConclusion,
+    });
 
-    handleMenuClickAndSave("News");
+    OpenTheNewPageAndScrollToTop("News");
   };
 
   return (
@@ -81,9 +81,11 @@ const News = ({
               />
             </svg>
 
-            <span className="news__content-posts-post-info-content-author-name">
-              By {author}
-            </span>
+            <Link onClick={getSingleNews} to={`/News/${id}`}>
+              <span className="news__content-posts-post-info-content-author-name">
+                By {author}
+              </span>
+            </Link>
           </div>
 
           <div className="news__content-posts-post-info-content-description">

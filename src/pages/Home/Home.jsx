@@ -16,7 +16,6 @@ import Gallery from "../../components/home-pages/Gallery/Gallery";
 import News from "../../components/home-pages/News/News";
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
-import card from "../../data/card.js";
 import gallery from "../../data/gallery";
 import posts from "../../data/posts";
 
@@ -26,24 +25,15 @@ const Home = () => {
     catalogue,
     showSingleProduct,
     showSingleNews,
-    handleMenuClickAndSave,
     isSkeletonLoading,
+    OpenTheNewPageAndScrollToTop,
   } = useContext(Context);
 
   return (
     <>
       <Banner />
 
-      <div className="card">
-        <div className="container">
-          <div className="card__content">
-            {card.map((item) => (
-              //  Getting all object properties <- Spread operator
-              <Card key={item.id} {...item} />
-            ))}
-          </div>
-        </div>
-      </div>
+      <Card />
 
       <About />
 
@@ -78,7 +68,7 @@ const Home = () => {
             </ul>
 
             <button
-              onClick={() => handleMenuClickAndSave("Shop")}
+              onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
               className="button button_product"
             >
               <Link id="link" to="/Shop">
@@ -121,7 +111,7 @@ const Home = () => {
               </div>
 
               <button
-                onClick={() => handleMenuClickAndSave("Shop")}
+                onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
                 className="button button_offer"
               >
                 <Link id="link" to="/Shop">
@@ -203,7 +193,7 @@ const Home = () => {
               </div>
 
               <button
-                onClick={() => handleMenuClickAndSave("News")}
+                onClick={() => OpenTheNewPageAndScrollToTop("News")}
                 className="button button_news"
               >
                 <Link id="link" to="/News">

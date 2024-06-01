@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./GlobalStyles.scss";
 
 import Context from "./context/Context";
@@ -21,16 +21,16 @@ import PasswordProtected from "./pages/PasswordProtected/PasswordProtected";
 import Footer from "./components/footers/Footer/Footer";
 
 function App() {
-  ////////// Connect hook -> useContext //////////
   const AppContext = useContext(Context);
 
-  ////////// Connect hook -> useState //////////
   // Catalogue Products
   const [catalogue, setCatalogue] = useState([]);
   // Shopping cart
   const [shoppingBasket, setShoppingBasket] = useState([]);
   // Single product
   const [singleProduct, setSingleProduct] = useState([]);
+  // Related products
+  const [relatedProducts, setRelatedProducts] = useState([]);
   // Single news
   const [singleNews, setSingleNews] = useState([]);
   // Open <-> Close shopping cart
@@ -40,15 +40,23 @@ function App() {
   // Save product search <- Input
   const [searchProduct, setSearchProduct] = useState("");
   // Name active menu
-  const [activeName, setActiveName] = useState("Home");
+  const [activeNameMenu, setActiveNameMenu] = useState("Home");
   // Skeleton content loader
   const [isSkeletonLoading, setSkeletonIsLoading] = useState(true);
+  // Active menu sort -> popup
+  const [activeIndex, setActiveIndex] = useState(0);
+  // Active menu categories
+  const [activeIndexCategories, setActiveIndexCategories] = useState(0);
+  // Selected tag menu
+  const [sortType, setSortType] = useState("All");
 
-  ////////// Connect hook -> useEffect //////////
   // Get products <- Backend (mockAPI)
   useEffect(() => {
     // Requests -> Backend (mockAPI) / localStorage
     const fetchData = async () => {
+      // Skeleton on
+      setSkeletonIsLoading(true);
+
       // Geting the products <- localStorage
       const shoppingCart =
         JSON.parse(localStorage.getItem("shoppingBasket")) || [];
@@ -57,12 +65,16 @@ function App() {
       const reviewedProduct =
         JSON.parse(localStorage.getItem("singleProduct")) || [];
 
+      // Related products state products <- Geting the related products <- localStorage
+      const relatedProducts =
+        JSON.parse(localStorage.getItem("relatedProducts")) || [];
+
       // Single news <- Geting the news <- localStorage
       const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
 
       // Active menu <- localStorage
       const activeMenu =
-        JSON.parse(localStorage.getItem("activeMenu")) || activeName;
+        JSON.parse(localStorage.getItem("activeMenu")) || activeNameMenu;
 
       /* In the future modify -> Wait for the request -> Success
       const shoppingCart = await axios.get(
@@ -73,10 +85,37 @@ function App() {
       // await -> if getting shoppingCart (Success) -> get products
 
       // Wait for the request -> Success
-      const products = await axios.get(
-        // Request -> Products
-        "https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products"
-      );
+      let queryParams = "";
+
+      if (activeNameMenu === "Shop" || activeNameMenu === "Home") {
+        if (activeNameMenu === "Home" || shoppingBasketOpen || searchProduct) {
+          queryParams = "";
+        } else {
+          if (sortType !== "All") {
+            queryParams += `tag=${sortType}`;
+          }
+          if (activeIndex === 1) {
+            queryParams += "&sortBy=price&order=asc";
+          }
+          if (activeIndex === 2) {
+            queryParams += "&sortBy=price&order=desc";
+          }
+          if (activeIndex === 3) {
+            queryParams += "&sortBy=name&order=asc";
+          }
+          if (activeIndex === 4) {
+            queryParams += "&sortBy=name&order=desc";
+          }
+        }
+
+        // Fetch products only if activeNameMenu is "Shop"
+        const products = await axios.get(
+          `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products?${queryParams}`
+        );
+
+        // Save products -> Catalogue
+        setCatalogue(products.data);
+      }
 
       // Save products -> Shopping basket
       setShoppingBasket(shoppingCart);
@@ -88,10 +127,10 @@ function App() {
       setSingleNews(reviewedNews);
 
       // Save reviewed pages -> Active name
-      setActiveName(activeMenu);
+      setActiveNameMenu(activeMenu);
 
-      // Save products -> Catalogue
-      setCatalogue(products.data);
+      // Save related products
+      setRelatedProducts(relatedProducts);
 
       // Skeleton off
       setSkeletonIsLoading(false);
@@ -100,7 +139,13 @@ function App() {
     fetchData();
 
     // Do one request
-  }, []);
+  }, [
+    sortType,
+    activeIndex,
+    activeNameMenu,
+    shoppingBasketOpen,
+    searchProduct,
+  ]);
 
   /* In the future modify -> // Get shopping cart products <- Backend (mockAPI)
   useEffect(() => {
@@ -200,21 +245,45 @@ function App() {
     document.documentElement.style.overflow = "hidden";
   };
 
+  // Open the new pege -> Scroll to top
+  const OpenTheNewPageAndScrollToTop = (page) => {
+    handleMenuClickAndSave(page);
+    window.scrollTo(0, 0);
+  };
+
   // Show single product
   const showSingleProduct = (product) => {
     // Show the new product -> Previous products
-    const newSingleProduct = { ...product };
+    const newSingleProduct = [product];
 
     // Request -> localStorage
-    localStorage.setItem("singleProduct", JSON.stringify([newSingleProduct]));
+    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
 
     // Update -> Single product component
-    setSingleProduct([newSingleProduct]);
+    setSingleProduct(newSingleProduct);
+
+    // Search the product ID
+    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add related products -> Previous products
+      const newRelatedSingleProduct = [product, ...relatedProducts];
+
+      // Request -> localStorage
+      localStorage.setItem(
+        "relatedProducts",
+        JSON.stringify(newRelatedSingleProduct)
+      );
+
+      // Update state
+      setRelatedProducts(newRelatedSingleProduct);
+    }
   };
 
   // Find the clicked name item
   const handleMenuClickAndSave = (name) => {
-    setActiveName(name);
+    setActiveNameMenu(name);
 
     // Request -> localStorage
     localStorage.setItem("activeMenu", JSON.stringify(name));
@@ -223,13 +292,13 @@ function App() {
   // Show single news
   const showSingleNews = (news) => {
     // Show the new news -> Previous news
-    const newSingleNews = { ...news };
+    const newSingleNews = [news];
 
     // Request -> localStorage
-    localStorage.setItem("singleNews", JSON.stringify([newSingleNews]));
+    localStorage.setItem("singleNews", JSON.stringify(newSingleNews));
 
     // Update -> Single news component
-    setSingleNews([newSingleNews]);
+    setSingleNews(newSingleNews);
   };
 
   // Getting data <- Input
@@ -253,17 +322,6 @@ function App() {
     }
   };
 
-  // Update page -> Scroll to top
-  const ScrollToTop = () => {
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [pathname]);
-
-    return null;
-  };
-
   return (
     <>
       {/* Context transfer */}
@@ -275,12 +333,19 @@ function App() {
           singleProduct,
           shoppingBasketOpen,
           orderSent,
-          activeName,
+          activeNameMenu,
           singleNews,
           isSkeletonLoading,
+          activeIndex,
+          activeIndexCategories,
+          relatedProducts,
 
           handleSearch,
+          OpenTheNewPageAndScrollToTop,
+          setActiveIndex,
+          setSortType,
           handleMenuClickAndSave,
+          setActiveIndexCategories,
           enableScroll,
           showSingleNews,
           disableScroll,
@@ -296,7 +361,6 @@ function App() {
         {/* Page navigation */}
         <BrowserRouter>
           {/* Scroll to top */}
-          <ScrollToTop />
           {/* Navigation menu */}
           <Navigation />
           <Routes>

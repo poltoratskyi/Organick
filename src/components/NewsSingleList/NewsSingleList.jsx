@@ -5,11 +5,9 @@ import "./Style.scss";
 const NewsSingleList = ({
   img,
   dataNumber,
-  dataName,
   author,
   title,
   description,
-  showSingleNews,
 
   fullDataName,
   year,

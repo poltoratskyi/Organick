@@ -7,7 +7,7 @@ import "./Style.scss";
 import Context from "../../../context/Context";
 
 const About = () => {
-  const { handleMenuClickAndSave } = useContext(Context);
+  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
 
   return (
     <section className="about">
@@ -72,7 +72,7 @@ const About = () => {
             </div>
 
             <button
-              onClick={() => handleMenuClickAndSave("About")}
+              onClick={() => OpenTheNewPageAndScrollToTop("About")}
               className="button button_about"
             >
               <Link id="link" to="/AboutUs">

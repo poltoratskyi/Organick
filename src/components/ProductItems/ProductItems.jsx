@@ -19,12 +19,12 @@ const ProductItems = ({
   salePrice,
   discount,
 }) => {
-  const { setShoppingBasketOpen, enableScroll, handleMenuClickAndSave } =
+  const { setShoppingBasketOpen, enableScroll, OpenTheNewPageAndScrollToTop } =
     useContext(Context);
 
   const getSingleProduct = () => {
     // Props transfer
-    showSingleProduct(
+    showSingleProduct({
       parent_id,
       description,
       tag,
@@ -32,13 +32,13 @@ const ProductItems = ({
       img,
       name,
       price,
-      salePrice
-    );
+      salePrice,
+    });
   };
 
   const handleClick = () => {
     getSingleProduct();
-    handleMenuClickAndSave("Shop");
+    OpenTheNewPageAndScrollToTop("Shop");
     setShoppingBasketOpen(false);
     enableScroll();
   };
@@ -74,7 +74,7 @@ const ProductItems = ({
           alt={`Product ${name}`}
         />
 
-        <Link onClick={handleClick} to={`/Shop/${name}`}>
+        <Link onClick={() => handleClick()} to={`/Shop/${name}`}>
           <span className="product-items__item-badge-name">{name}</span>
         </Link>
 
@@ -99,7 +99,7 @@ const ProductItems = ({
       </div>
 
       <button
-        onClick={handleClick}
+        onClick={() => handleClick()}
         id="shop-now"
         className="button button_shop-now"
       >

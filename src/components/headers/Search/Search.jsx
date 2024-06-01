@@ -45,7 +45,7 @@ const Search = ({
 
   const getSingleProduct = () => {
     // Props transfer
-    showSingleProduct(
+    showSingleProduct({
       parent_id,
       description,
       tag,
@@ -53,8 +53,8 @@ const Search = ({
       img,
       name,
       price,
-      salePrice
-    );
+      salePrice,
+    });
   };
 
   const handleClick = () => {
@@ -81,7 +81,7 @@ const Search = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <Link onClick={handleClick} to={`/Shop/${name}`}>
+          <Link onClick={() => handleClick()} to={`/Shop/${name}`}>
             <span className="search-items__item-product-cover-exposition-name">
               {name}
             </span>
