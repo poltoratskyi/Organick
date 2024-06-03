@@ -2,7 +2,4 @@ node_modules
 design organick
 package-lock.json
 
-####### Components #######
-src/components/headers/SideBlock
-
-####### Pages #######
+redux

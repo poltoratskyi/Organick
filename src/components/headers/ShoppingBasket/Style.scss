@@ -10,7 +10,6 @@
   transform: translate(-50%, -50%);
   background-color: $white;
   z-index: 2;
-  border-radius: 16px;
   opacity: 0;
   visibility: hidden;
   transition: 0.5s ease;
@@ -28,12 +27,10 @@
 
   &:hover::-webkit-scrollbar-thumb {
     background-color: #000;
-    border-radius: 16px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #e0e0e0;
-    border-radius: 16px;
   }
 
   &__header {

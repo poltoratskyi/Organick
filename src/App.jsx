@@ -17,7 +17,6 @@ import News from "./pages/News/News";
 import Team from "./pages/Team/Team";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import PasswordProtected from "./pages/PasswordProtected/PasswordProtected";
-
 import Footer from "./components/footers/Footer/Footer";
 
 function App() {
@@ -87,25 +86,25 @@ function App() {
       // Wait for the request -> Success
       let queryParams = "";
 
-      if (activeNameMenu === "Shop" || activeNameMenu === "Home") {
-        if (activeNameMenu === "Home" || shoppingBasketOpen || searchProduct) {
-          queryParams = "";
-        } else {
-          if (sortType !== "All") {
-            queryParams += `tag=${sortType}`;
-          }
-          if (activeIndex === 1) {
-            queryParams += "&sortBy=price&order=asc";
-          }
-          if (activeIndex === 2) {
-            queryParams += "&sortBy=price&order=desc";
-          }
-          if (activeIndex === 3) {
-            queryParams += "&sortBy=name&order=asc";
-          }
-          if (activeIndex === 4) {
-            queryParams += "&sortBy=name&order=desc";
-          }
+      if (activeNameMenu === "Shop") {
+        if (sortType !== "All") {
+          queryParams += `tag=${sortType}`;
+        }
+
+        if (activeIndex === 1) {
+          queryParams += "&sortBy=price&order=asc";
+        }
+
+        if (activeIndex === 2) {
+          queryParams += "&sortBy=price&order=desc";
+        }
+
+        if (activeIndex === 3) {
+          queryParams += "&sortBy=name&order=asc";
+        }
+
+        if (activeIndex === 4) {
+          queryParams += "&sortBy=name&order=desc";
         }
 
         // Fetch products only if activeNameMenu is "Shop"
@@ -139,13 +138,7 @@ function App() {
     fetchData();
 
     // Do one request
-  }, [
-    sortType,
-    activeIndex,
-    activeNameMenu,
-    shoppingBasketOpen,
-    searchProduct,
-  ]);
+  }, [sortType, activeIndex, activeNameMenu]);
 
   /* In the future modify -> // Get shopping cart products <- Backend (mockAPI)
   useEffect(() => {

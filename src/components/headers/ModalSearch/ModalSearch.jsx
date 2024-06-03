@@ -4,13 +4,15 @@ import Context from "../../../context/Context";
 
 import Search from "../Search/Search";
 
+import products from "../../../data/products";
+
 const SearchModal = () => {
   // Getting data <- Context
-  const { catalogue, searchProduct, showSingleProduct } = useContext(Context);
+  const { searchProduct, showSingleProduct } = useContext(Context);
 
   return (
     <ul className="search-items">
-      {catalogue
+      {products
         .filter(
           (product) =>
             // Filter the product(s) <- searchProduct (Input)

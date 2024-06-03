@@ -19,10 +19,11 @@ import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import gallery from "../../data/gallery";
 import posts from "../../data/posts";
 
+import staticData from "../../data/products";
+
 const Home = () => {
   // Getting data <- Context
   const {
-    catalogue,
     showSingleProduct,
     showSingleNews,
     isSkeletonLoading,
@@ -51,7 +52,7 @@ const Home = () => {
 
               {isSkeletonLoading
                 ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-                : catalogue
+                : staticData
                     .filter((product) => product.parent_id <= 8)
                     .map((product) => (
                       <li
@@ -140,7 +141,7 @@ const Home = () => {
 
               {isSkeletonLoading
                 ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
-                : catalogue
+                : staticData
                     .filter(
                       // Product catalog ID 9 -> ID 12
                       (product) =>

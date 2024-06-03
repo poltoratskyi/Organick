@@ -19,6 +19,8 @@ const Header = () => {
     disableScroll,
   } = useContext(Context);
 
+  const [visibleInput, setVisibleInput] = useState(false);
+
   const menuItems = [
     { name: "Home", link: "/" },
     { name: "About", link: "/AboutUs" },
@@ -31,6 +33,18 @@ const Header = () => {
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (shoppingBasket) => {
     return shoppingBasket.length;
+  };
+
+  const actionInputSearch = () => {
+    setSearchProduct("");
+    setVisibleInput(!visibleInput);
+  };
+
+  const actionShopCart = () => {
+    setShoppingBasketOpen(!shoppingBasketOpen);
+    disableScroll();
+    setSearchProduct("");
+    setVisibleInput(false);
   };
 
   return (
@@ -76,39 +90,46 @@ const Header = () => {
 
           <div className="header__content-search">
             <input
-              className="header__content-search-input"
+              className={
+                searchProduct || visibleInput
+                  ? "header__content-search-input header__content-search-input_active"
+                  : "header__content-search-input"
+              }
               onChange={handleSearch}
               value={searchProduct}
               type="text"
               id="search"
-              placeholder="Search..."
             ></input>
 
-            <button
-              style={{
-                opacity: searchProduct.length ? 1 : 0,
-                pointerEvents: searchProduct.length ? "auto" : "none",
-              }}
-              className="header__content-search-clear-btn"
-              onClick={() => setSearchProduct("")}
-            >
-              &#x2716;
+            <button className="header__content-search-btn">
+              <svg
+                onClick={() => {
+                  actionInputSearch();
+                }}
+                id="input"
+                width="60"
+                height="60"
+                viewBox="0 0 57 56"
+                fill="none"
+              >
+                <circle cx="28.791" cy="28" r="28" fill="#7EB693" />
+                <path
+                  d="M40.4692 35.8921L35.7086 31.1315C36.8547 29.6057 37.4734 27.7485 37.4713 25.8402C37.4713 20.9657 33.5056 17 28.6312 17C23.7567 17 19.791 20.9657 19.791 25.8402C19.791 30.7146 23.7567 34.6803 28.6312 34.6803C30.5395 34.6824 32.3967 34.0637 33.9225 32.9175L38.6831 37.6781C38.9241 37.8936 39.2384 38.0085 39.5615 37.9995C39.8846 37.9905 40.192 37.8581 40.4205 37.6295C40.6491 37.401 40.7815 37.0936 40.7905 36.7705C40.7996 36.4474 40.6846 36.1331 40.4692 35.8921ZM22.3168 25.8402C22.3168 24.5913 22.6871 23.3705 23.3809 22.3321C24.0748 21.2937 25.061 20.4843 26.2148 20.0064C27.3686 19.5285 28.6382 19.4034 29.8631 19.6471C31.0879 19.8907 32.213 20.4921 33.0961 21.3752C33.9792 22.2583 34.5806 23.3834 34.8242 24.6083C35.0679 25.8332 34.9428 27.1028 34.4649 28.2566C33.987 29.4104 33.1777 30.3966 32.1393 31.0904C31.1009 31.7842 29.88 32.1546 28.6312 32.1546C26.9571 32.1526 25.3522 31.4866 24.1684 30.3029C22.9847 29.1192 22.3188 27.5142 22.3168 25.8402Z"
+                  fill="#FAFAFA"
+                />
+              </svg>
             </button>
 
             <button
-              className={`header__content-search-btn ${
+              className={`header__content-search-cart-btn ${
                 shoppingBasket && shoppingBasket.length > 0
                   ? ""
-                  : "header__content-search-btn_hidden"
+                  : "header__content-search-cart-btn_hidden"
               }`}
-              onClick={() => {
-                setShoppingBasketOpen(!shoppingBasketOpen);
-                setSearchProduct("");
-                disableScroll();
-              }}
+              onClick={() => actionShopCart()}
             >
               <span
-                className="header__content-search-btn-value"
+                className="header__content-search-cart-btn-value"
                 // if quantity of products > 0 -> visible else hidden
                 style={{
                   opacity: shoppingBasket.length ? 1 : 0,
@@ -117,7 +138,7 @@ const Header = () => {
                 {productQuantity(shoppingBasket)}
               </span>
 
-              <svg width="57" height="57" viewBox="0 0 57 56" fill="none">
+              <svg width="60" height="60" viewBox="0 0 57 56" fill="none">
                 <circle cx="28.791" cy="28" r="28" fill="#274C5B" />
                 <path
                   d="M25.5689 39.0001C26.2439 39.0001 26.7911 38.4529 26.7911 37.7779C26.7911 37.1029 26.2439 36.5557 25.5689 36.5557C24.8939 36.5557 24.3467 37.1029 24.3467 37.7779C24.3467 38.4529 24.8939 39.0001 25.5689 39.0001Z"

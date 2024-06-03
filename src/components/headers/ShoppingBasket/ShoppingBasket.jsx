@@ -7,6 +7,8 @@ import Context from "../../../context/Context";
 import ProductList from "../ProductList/ProductList";
 import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
 
+import staticData from "../../../data/products";
+
 const SideBlock = () => {
   // Getting data <- Context
   const {
@@ -14,7 +16,6 @@ const SideBlock = () => {
     showSingleProduct,
     setShoppingBasketOpen,
     shoppingBasketOpen,
-    catalogue,
     enableScroll,
   } = useContext(Context);
 
@@ -108,9 +109,8 @@ const SideBlock = () => {
           Recommended With Your Order
         </h2>
         <ul className="product-items product-items_basket">
-          {/*  Using the catalog of product <- Context */}
-          {catalogue
-            // Posts ID 1 -> ID 2
+          {staticData
+            // Product ID 1 -> ID 3
             .filter((product) => product.parent_id <= 3)
             .map((product) => (
               <li className="product-items__item" key={product.parent_id}>

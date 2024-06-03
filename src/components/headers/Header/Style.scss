@@ -59,47 +59,54 @@
       position: relative;
       align-items: center;
 
+      &-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        background-color: transparent;
+
+        #input {
+          z-index: 1;
+        }
+      }
+
       &-input {
         color: #000;
         font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 18px;
-        height: 60px;
-        border: 1px solid $dark-blue;
-        border-radius: 35px;
-        padding: 15px 70px 15px 15px;
-        width: 300px;
+        position: absolute;
+        transition: 0.5s ease;
+        width: 0px;
+        border: 1px solid #d3d3d3;
         background-color: #fafafa;
+        border-radius: 16px;
+        right: 70%;
+        padding: 15px 0px 15px 15px;
 
         &::placeholder {
           color: #ababab;
           font-style: italic;
         }
-      }
 
-      &-clear-btn {
-        position: absolute;
-        background-color: $white-gray;
-        border-radius: 100%;
-        color: $white;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 15px;
-        right: 25%;
-        transition: 0.5s ease;
-
-        &:hover {
-          background-color: $dark-blue;
+        &_active {
+          padding: 15px 50px 15px 15px;
+          width: 300px;
         }
       }
 
-      &-btn {
+      &-cart-btn {
         position: relative;
         margin-left: 10px;
         cursor: pointer;
         background-color: transparent;
 
         &-value {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           font-family: "Open Sans", sans-serif;
           border-radius: 50%;
           font-weight: 400;
@@ -110,7 +117,6 @@
           position: absolute;
           width: 30px;
           height: 30px;
-          padding: 5px;
           background-color: $light-green;
           color: $white;
         }
