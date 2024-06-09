@@ -1,15 +1,11 @@
-import React, { useContext } from "react";
-
-import Context from "../../context/Context";
+import React from "react";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import News from "../../components/home-pages/News/News";
 
 import posts from "../../data/posts";
 
-const NewsPage = () => {
-  const { showSingleNews } = useContext(Context);
-
+const NewsPage = ({ showSingleNews }) => {
   return (
     <>
       <div className="page-banner page-banner_news">

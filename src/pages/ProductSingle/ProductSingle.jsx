@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
-
-import Context from "../../context/Context";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import ProductSingleList from "../../components/ProductSingleList/ProductSingleList";
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
 const ProductSingle = () => {
-  const { singleProduct } = useContext(Context);
+  // Initial state selected -> singleProductSlice.js
+  const singleProduct = useSelector(
+    (state) => state.singleProduct.singleProduct
+  );
 
   return (
     <>

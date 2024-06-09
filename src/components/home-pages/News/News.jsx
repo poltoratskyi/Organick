@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setActiveName } from "../../../redux/slices/menuSlice";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
-
-import Context from "../../../context/Context";
 
 const News = ({
   id,
@@ -26,7 +25,14 @@ const News = ({
   conclusion,
   contentConclusion,
 }) => {
-  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
+  const dispatch = useDispatch();
+
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
 
   const getSingleNews = () => {
     // Props transfer
@@ -50,7 +56,7 @@ const News = ({
       contentConclusion,
     });
 
-    OpenTheNewPageAndScrollToTop("News");
+    handleClickPage("News");
   };
 
   return (

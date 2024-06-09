@@ -1,7 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
-import Context from "../../context/Context";
+import { setActiveName } from "../../redux/slices/menuSlice";
+import {
+  setRelatedProducts,
+  setSingleProduct,
+} from "../../redux/slices/singleProductSlice";
 
 import Skeleton from "../../components/Skeleton/Skeleton";
 
@@ -21,22 +25,59 @@ import posts from "../../data/posts";
 
 import staticData from "../../data/products";
 
-const Home = () => {
-  // Getting data <- Context
-  const {
-    showSingleProduct,
-    showSingleNews,
-    isSkeletonLoading,
-    OpenTheNewPageAndScrollToTop,
-  } = useContext(Context);
+const Home = ({ isSkeletonLoading, showSingleNews }) => {
+  const dispatch = useDispatch();
+
+  // Show single product
+  const showSingleProduct = (product) => {
+    // Show the new product -> Previous products
+    const newSingleProduct = [product];
+
+    // Request -> localStorage
+    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
+
+    // Update -> Single product component
+    dispatch(setSingleProduct(newSingleProduct));
+
+    // Search the product ID
+    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add related products -> Previous products
+      const newRelatedSingleProduct = [product, ...relatedProducts];
+
+      // Request -> localStorage
+      localStorage.setItem(
+        "relatedProducts",
+        JSON.stringify(newRelatedSingleProduct)
+      );
+
+      // Update state
+      dispatch(setRelatedProducts(newRelatedSingleProduct));
+    }
+  };
+
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
+
+  // Initial state selected -> singleProductSlice.js
+  const relatedProducts = useSelector(
+    (state) => state.singleProduct.relatedProducts
+  );
 
   return (
     <>
-      <Banner />
+      <Banner handleClickPage={handleClickPage} />
 
       <Card />
 
-      <About />
+      <About handleClickPage={handleClickPage} />
 
       <section className="product">
         <div className="container">
@@ -69,7 +110,10 @@ const Home = () => {
             </ul>
 
             <button
-              onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
+              onClick={() => {
+                handleClickPage("Shop");
+                window.scrollTo(0, 0);
+              }}
               className="button button_product"
             >
               <Link id="link" to="/Shop">
@@ -112,7 +156,10 @@ const Home = () => {
               </div>
 
               <button
-                onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
+                onClick={() => {
+                  handleClickPage("Shop");
+                  window.scrollTo(0, 0);
+                }}
                 className="button button_offer"
               >
                 <Link id="link" to="/Shop">
@@ -173,7 +220,11 @@ const Home = () => {
             <ul className="gallery__content-items">
               {gallery.map((item) => (
                 // Getting all object properties <- Spread operator
-                <Gallery key={item.id} {...item} />
+                <Gallery
+                  handleClickPage={handleClickPage}
+                  key={item.id}
+                  {...item}
+                />
               ))}
             </ul>
           </div>
@@ -194,7 +245,10 @@ const Home = () => {
               </div>
 
               <button
-                onClick={() => OpenTheNewPageAndScrollToTop("News")}
+                onClick={() => {
+                  handleClickPage("News");
+                  window.scrollTo(0, 0);
+                }}
                 className="button button_news"
               >
                 <Link id="link" to="/News">

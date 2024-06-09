@@ -1,8 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setShoppingCart } from "../../redux/slices/cartSlice";
+import {
+  setRelatedProducts,
+  setSingleProduct,
+} from "../../redux/slices/singleProductSlice";
 
 import "./Style.scss";
-
-import Context from "../../context/Context";
 
 import AdditionalProducts from "../../components/headers/AdditionalProducts/AdditionalProducts";
 
@@ -18,16 +22,83 @@ const ProductSingleList = ({
   additionalInfo,
   isNew,
 }) => {
-  const {
-    addProductShoppingBasket,
-    removeProductShoppingBasket,
-    isAdded,
-    relatedProducts,
-    showSingleProduct,
-  } = useContext(Context);
+  const dispatch = useDispatch();
+
+  // Initial state selected -> cartSlice.js
+  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+
+  // Initial state selected -> singleProductSlice.js
+  const relatedProducts = useSelector(
+    (state) => state.singleProduct.relatedProducts
+  );
 
   // Product descr buttons
   const [additional, setAdditional] = useState("description");
+
+  // Show single product
+  const showSingleProduct = (product) => {
+    // Show the new product -> Previous products
+    const newSingleProduct = [product];
+
+    // Request -> localStorage
+    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
+
+    // Update -> Single product component
+    dispatch(setSingleProduct(newSingleProduct));
+
+    // Search the product ID
+    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add related products -> Previous products
+      const newRelatedSingleProduct = [product, ...relatedProducts];
+
+      // Request -> localStorage
+      localStorage.setItem(
+        "relatedProducts",
+        JSON.stringify(newRelatedSingleProduct)
+      );
+
+      // Update state
+      dispatch(setRelatedProducts(newRelatedSingleProduct));
+    }
+  };
+
+  // Add the product -> Shopping cart -> Backend (mockAPI) / localStorage
+  const addProductShoppingBasket = async (product) => {
+    // Search the product ID
+    if (shoppingCart.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add the new product -> Previous products
+      const newShoppingBasket = [product, ...shoppingCart];
+
+      // Save shopping basket
+      dispatch(setShoppingCart(newShoppingBasket));
+
+      // Request -> localStorage
+      localStorage.setItem("shoppingCart", JSON.stringify(newShoppingBasket));
+    }
+  };
+
+  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
+  const removeProductShoppingBasket = async (parent_id) => {
+    // Search the product ID
+    if (shoppingCart.find((item) => item.parent_id === parent_id)) {
+      // Search product ID -> Shopping basket
+      const updatedItems = shoppingCart.filter(
+        (item) => item.parent_id !== parent_id
+      );
+
+      // Update -> Shopping basket
+      dispatch(setShoppingCart(updatedItems));
+
+      // Request -> localStorage
+      localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
+    }
+  };
 
   const handleAddToCart = () => {
     // Props transfer
@@ -44,6 +115,11 @@ const ProductSingleList = ({
       percentage,
       additionalInfo,
     });
+  };
+
+  // Found the products
+  const isAdded = (parent_id) => {
+    return shoppingCart.some((item) => item.parent_id === parent_id);
   };
 
   // Default value -> discount
@@ -184,28 +260,26 @@ const ProductSingleList = ({
         </div>
       </div>
 
-      {relatedProducts && (
-        <>
-          <h2 className=" customers customers_single">Related Products</h2>
-          <ul className="product-items product-items_basket">
-            {/*  Using the catalog of product <- Context */}
-            {relatedProducts
-              // Filter the product(s) -> 0 - 4
-              .slice(0, 4)
-              .map((product) => (
-                <li className="product-items__item" key={product.parent_id}>
-                  {/* Getting all object properties <- Spread operator <- Context */}
+      <>
+        <h2 className=" customers customers_single">Related Products</h2>
+        <ul className="product-items product-items_basket">
+          {/*  Using the catalog of product <- Context */}
+          {relatedProducts
+            // Filter the product(s) -> 0 - 4
+            .slice(0, 4)
+            .map((product) => (
+              <li className="product-items__item" key={product.parent_id}>
+                {/* Getting all object properties <- Spread operator <- Context */}
 
-                  <AdditionalProducts
-                    {...product}
-                    // Data tranfer -> Single product component
-                    showSingleProduct={() => showSingleProduct(product)}
-                  />
-                </li>
-              ))}
-          </ul>
-        </>
-      )}
+                <AdditionalProducts
+                  {...product}
+                  // Data tranfer -> Single product component
+                  showSingleProduct={() => showSingleProduct(product)}
+                />
+              </li>
+            ))}
+        </ul>
+      </>
     </>
   );
 };

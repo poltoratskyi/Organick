@@ -1,8 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
+import {
+  setRelatedProducts,
+  setSingleProduct,
+} from "../../../redux/slices/singleProductSlice";
 
 import "./Style.scss";
-
-import Context from "../../../context/Context";
 
 import ProductList from "../ProductList/ProductList";
 import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
@@ -10,38 +14,72 @@ import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
 import staticData from "../../../data/products";
 
 const SideBlock = () => {
-  // Getting data <- Context
-  const {
-    shoppingBasket,
-    showSingleProduct,
-    setShoppingBasketOpen,
-    shoppingBasketOpen,
-    enableScroll,
-  } = useContext(Context);
+  const dispatch = useDispatch();
+
+  // Initial state selected -> cartSlice.js
+  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+  const toggleShoppingCart = useSelector(
+    (state) => state.cart.toggleShoppingCart
+  );
+
+  // Initial state selected -> singleProductSlice.js
+  const relatedProducts = useSelector(
+    (state) => state.singleProduct.relatedProducts
+  );
+
+  // Show single product
+  const showSingleProduct = (product) => {
+    // Show the new product -> Previous products
+    const newSingleProduct = [product];
+
+    // Request -> localStorage
+    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
+
+    // Update -> Single product component
+    dispatch(setSingleProduct(newSingleProduct));
+
+    // Search the product ID
+    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add related products -> Previous products
+      const newRelatedSingleProduct = [product, ...relatedProducts];
+
+      // Request -> localStorage
+      localStorage.setItem(
+        "relatedProducts",
+        JSON.stringify(newRelatedSingleProduct)
+      );
+
+      // Update state
+      dispatch(setRelatedProducts(newRelatedSingleProduct));
+    }
+  };
 
   // The total amount
-  const totalPrice = (shoppingBasket) => {
-    return shoppingBasket.reduce((acc, item) => {
+  const totalPrice = (shoppingCart) => {
+    return shoppingCart.reduce((acc, item) => {
       const price = item.salePrice || item.price;
       return acc + price;
     }, 0);
   };
 
   // In shopping basket no products
-  const isBasketEmpty = shoppingBasket && shoppingBasket.length === 0;
+  const isBasketEmpty = shoppingCart && shoppingCart.length === 0;
 
   // Close / enable scroll -> shopping basket
   useEffect(() => {
     if (isBasketEmpty) {
-      setShoppingBasketOpen(false);
-      enableScroll();
+      dispatch(setToggleShoppingCart(false));
+      document.documentElement.style.overflow = "auto";
     }
-  }, [enableScroll, isBasketEmpty, setShoppingBasketOpen, shoppingBasketOpen]);
+  }, [dispatch, isBasketEmpty, toggleShoppingCart]);
 
   return (
     <section
       className={`shopping-basket ${
-        shoppingBasketOpen ? "shopping-basket_visible" : ""
+        toggleShoppingCart ? "shopping-basket_visible" : ""
       }`}
     >
       <div className="shopping-basket__header">
@@ -49,8 +87,8 @@ const SideBlock = () => {
 
         <span
           onClick={() => {
-            setShoppingBasketOpen(!shoppingBasketOpen);
-            enableScroll();
+            dispatch(setToggleShoppingCart(!toggleShoppingCart));
+            document.documentElement.style.overflow = "auto";
           }}
           className="shopping-basket__header-close"
         >
@@ -59,7 +97,7 @@ const SideBlock = () => {
       </div>
       <div className="layout">
         <ul className="product-list">
-          {shoppingBasket.map((product) => (
+          {shoppingCart.map((product) => (
             <li key={product.parent_id} className="product-list__item">
               <ProductList
                 {...product}
@@ -77,7 +115,7 @@ const SideBlock = () => {
             </span>
 
             <span className="checkout__total-price-value">
-              ${totalPrice(shoppingBasket).toFixed(2)} USD
+              ${totalPrice(shoppingCart).toFixed(2)} USD
             </span>
           </div>
 

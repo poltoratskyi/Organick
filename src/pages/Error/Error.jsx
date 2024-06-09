@@ -1,10 +1,20 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { setActiveName } from "../../redux/slices/menuSlice";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
 const Error = () => {
+  const dispatch = useDispatch();
+
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
+
   return (
     <div className="error">
       <div className="container">
@@ -16,7 +26,12 @@ const Error = () => {
               The page you are looking for doesn't exist or has been moved
             </p>
 
-            <button className="button button_error">
+            <button
+              onClick={() => {
+                handleClickPage("Home");
+              }}
+              className="button button_error"
+            >
               <Link id="link" to="/">
                 Go to Home page
                 <svg

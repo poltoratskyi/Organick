@@ -1,26 +1,70 @@
-import React, { useContext, useState } from "react";
-
-import Context from "../../context/Context";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setTagCategories,
+  setActiveIndex,
+  setPopupIndex,
+  setOpenSortMenu,
+} from "../../redux/slices/filtersSlice";
+import {
+  setRelatedProducts,
+  setSingleProduct,
+} from "../../redux/slices/singleProductSlice";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 import Catalog from "../../components/home-pages/Catalog/Catalog";
 import Skeleton from "../../components/Skeleton/Skeleton";
 
-const Shop = () => {
-  // Getting data <- Context
-  const {
-    catalogue,
-    showSingleProduct,
-    isSkeletonLoading,
-    setSortType,
-    activeIndex,
-    activeIndexCategories,
-    setActiveIndex,
-    setActiveIndexCategories,
-  } = useContext(Context);
+const Shop = ({
+  catalogue,
 
-  // Open / Close popup
-  const [openSortMenu, setOpenSortMenu] = useState(false);
+  activeIndex,
+
+  popupIndex,
+
+  isSkeletonLoading,
+}) => {
+  const dispatch = useDispatch();
+
+  // Initial state selected -> singleProductSlice.js
+  const relatedProducts = useSelector(
+    (state) => state.singleProduct.relatedProducts
+  );
+
+  // Initial state selected -> filtersSlice.js
+  const openSortMenu = useSelector((state) => state.filters.openSortMenu);
+
+  console.log(openSortMenu);
+
+  // Show single product
+  const showSingleProduct = (product) => {
+    // Show the new product -> Previous products
+    const newSingleProduct = [product];
+
+    // Request -> localStorage
+    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
+
+    // Update -> Single product component
+    dispatch(setSingleProduct(newSingleProduct));
+
+    // Search the product ID
+    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
+      // if the product ID has been found
+      return;
+    } else {
+      // Add related products -> Previous products
+      const newRelatedSingleProduct = [product, ...relatedProducts];
+
+      // Request -> localStorage
+      localStorage.setItem(
+        "relatedProducts",
+        JSON.stringify(newRelatedSingleProduct)
+      );
+
+      // Update state
+      dispatch(setRelatedProducts(newRelatedSingleProduct));
+    }
+  };
 
   // Menu categories
   const categories = ["All", "Vegetable", "Fresh", "Millets", "Nuts", "Health"];
@@ -34,13 +78,13 @@ const Shop = () => {
   ];
 
   const selectedCategories = (category, index) => {
-    setActiveIndexCategories(index);
-    setSortType(category);
+    dispatch(setPopupIndex(index));
+    dispatch(setTagCategories(category));
   };
 
   const handleClosePopup = (index) => {
-    setActiveIndex(index);
-    setOpenSortMenu(false);
+    dispatch(setOpenSortMenu(false));
+    dispatch(setActiveIndex(index));
   };
 
   // Getting the quantity products
@@ -66,7 +110,7 @@ const Shop = () => {
                     onClick={() => selectedCategories(category, index)}
                     key={index}
                     className={`product-categories__list-item ${
-                      activeIndexCategories === index
+                      popupIndex === index
                         ? "product-categories__list-item_active"
                         : ""
                     }`}
@@ -87,7 +131,7 @@ const Shop = () => {
                   <div className="product-top__text">
                     Sort by:
                     <span
-                      onClick={() => setOpenSortMenu(!openSortMenu)}
+                      onClick={() => dispatch(setOpenSortMenu(!openSortMenu))}
                       className={`product-top__text-arrow ${
                         openSortMenu ? "product-top__text-arrow_active" : ""
                       }`}

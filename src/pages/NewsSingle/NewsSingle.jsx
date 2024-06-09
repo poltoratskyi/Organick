@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
-
-import Context from "../../context/Context";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import NewsSingleList from "../../components/NewsSingleList/NewsSingleList";
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
 const NewsSingle = () => {
-  // Getting data <- Context
-  const { singleNews } = useContext(Context);
+  // Initial state selected -> singleNewsSlice.js
+  const singleNews = useSelector((state) => state.singleNews.singleNews);
 
   return (
     <>

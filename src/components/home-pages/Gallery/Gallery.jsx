@@ -1,14 +1,9 @@
-import React, { useContext } from "react";
-
+import React from "react";
 import { Link } from "react-router-dom";
-
-import Context from "../../../context/Context";
 
 import "./Style.scss";
 
-const Gallery = ({ img, text }) => {
-  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
-
+const Gallery = ({ img, text, handleClickPage }) => {
   return (
     <li className="gallery__content-items-item">
       <img
@@ -19,7 +14,7 @@ const Gallery = ({ img, text }) => {
       />
       <Link to="/Shop">
         <span
-          onClick={() => OpenTheNewPageAndScrollToTop("Shop")}
+          onClick={() => handleClickPage("Shop")}
           className="gallery__content-items-item-text"
         >
           {text}

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setToggleShoppingCart } from "../../redux/slices/cartSlice";
+import { setActiveName } from "../../redux/slices/menuSlice";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
-
-import Context from "../../context/Context";
 
 const ProductItems = ({
   parent_id,
@@ -19,8 +19,7 @@ const ProductItems = ({
   salePrice,
   discount,
 }) => {
-  const { setShoppingBasketOpen, enableScroll, OpenTheNewPageAndScrollToTop } =
-    useContext(Context);
+  const dispatch = useDispatch();
 
   const getSingleProduct = () => {
     // Props transfer
@@ -36,11 +35,14 @@ const ProductItems = ({
     });
   };
 
-  const handleClick = () => {
+  const handleClickPage = (name) => {
     getSingleProduct();
-    OpenTheNewPageAndScrollToTop("Shop");
-    setShoppingBasketOpen(false);
-    enableScroll();
+    dispatch(setActiveName(name));
+    dispatch(setToggleShoppingCart(false));
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = "auto";
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
   };
 
   return (
@@ -74,7 +76,7 @@ const ProductItems = ({
           alt={`Product ${name}`}
         />
 
-        <Link onClick={() => handleClick()} to={`/Shop/${name}`}>
+        <Link onClick={() => handleClickPage("Shop")} to={`/Shop/${name}`}>
           <span className="product-items__item-badge-name">{name}</span>
         </Link>
 
@@ -99,7 +101,7 @@ const ProductItems = ({
       </div>
 
       <button
-        onClick={() => handleClick()}
+        onClick={() => handleClickPage("Shop")}
         id="shop-now"
         className="button button_shop-now"
       >

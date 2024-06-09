@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
-
-import Context from "../../../context/Context";
+import React from "react";
+import { useSelector } from "react-redux";
 
 import Search from "../Search/Search";
 
@@ -8,7 +7,9 @@ import products from "../../../data/products";
 
 const SearchModal = () => {
   // Getting data <- Context
-  const { searchProduct, showSingleProduct } = useContext(Context);
+
+  // Initial state selected -> inputSlice.js
+  const searchProduct = useSelector((state) => state.input.searchProduct);
 
   return (
     <ul className="search-items">
@@ -26,11 +27,7 @@ const SearchModal = () => {
         // Show filtered products
         .map((product) => (
           <li className="search-items__item" key={product.parent_id}>
-            <Search
-              {...product}
-              // Data tranfer -> Single product component
-              showSingleProduct={() => showSingleProduct(product)}
-            />
+            <Search {...product} />
           </li>
         ))}
     </ul>

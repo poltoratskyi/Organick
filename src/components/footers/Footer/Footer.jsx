@@ -1,13 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
-import Context from "../../../context/Context";
-
 const Footer = () => {
-  // Getting data <- Context
-  const { activeNameMenu, OpenTheNewPageAndScrollToTop } = useContext(Context);
+  // Initial state selected -> menuSlice.js
+  const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
+
+  const dispatch = useDispatch();
+
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
 
   const footerItems = [
     { name: "Contact Us", link: "/ContactUs" },
@@ -170,7 +179,7 @@ const Footer = () => {
             <ul className="footer__content-block-items">
               {footerItems.map((item) => (
                 <li
-                  onClick={() => OpenTheNewPageAndScrollToTop(item.name)}
+                  onClick={() => handleClickPage(item.name)}
                   key={item.name}
                   className={
                     activeNameMenu === item.name
@@ -179,7 +188,7 @@ const Footer = () => {
                   }
                 >
                   <Link
-                    onClick={() => OpenTheNewPageAndScrollToTop(item.name)}
+                    onClick={() => handleClickPage(item.name)}
                     className="footer__content-block-items-item-link"
                     to={item.link}
                   >

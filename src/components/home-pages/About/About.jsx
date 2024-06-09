@@ -1,14 +1,9 @@
-import React, { useContext } from "react";
-
+import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-import Context from "../../../context/Context";
-
-const About = () => {
-  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
-
+const About = ({ handleClickPage }) => {
   return (
     <section className="about">
       <div className="container">
@@ -72,7 +67,7 @@ const About = () => {
             </div>
 
             <button
-              onClick={() => OpenTheNewPageAndScrollToTop("About")}
+              onClick={() => handleClickPage("About")}
               className="button button_about"
             >
               <Link id="link" to="/AboutUs">

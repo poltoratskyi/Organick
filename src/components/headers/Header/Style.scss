@@ -83,8 +83,10 @@
         border: 1px solid #d3d3d3;
         background-color: #fafafa;
         border-radius: 16px;
-        right: 70%;
-        padding: 15px 0px 15px 15px;
+        right: 60%;
+        padding: 15px 50px 15px 15px;
+        visibility: hidden;
+        opacity: 0;
 
         &::placeholder {
           color: #ababab;
@@ -92,7 +94,8 @@
         }
 
         &_active {
-          padding: 15px 50px 15px 15px;
+          visibility: visible;
+          opacity: 1;
           width: 300px;
         }
       }

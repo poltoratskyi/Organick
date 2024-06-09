@@ -1,25 +1,42 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
+import {
+  setVisibleInput,
+  setSearchProduct,
+} from "../../../redux/slices/inputSlice";
+import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
-import Context from "../../../context/Context";
-
 const Header = () => {
-  // Getting data <- Context
-  const {
-    handleSearch,
-    activeNameMenu,
-    handleMenuClickAndSave,
-    searchProduct,
-    setSearchProduct,
-    shoppingBasketOpen,
-    setShoppingBasketOpen,
-    shoppingBasket,
-    disableScroll,
-  } = useContext(Context);
+  const dispatch = useDispatch();
 
-  const [visibleInput, setVisibleInput] = useState(false);
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
+
+  // Input -> Getting data
+  const handleSearch = (e) => {
+    dispatch(setSearchProduct(e.target.value));
+  };
+
+  // Initial state selected -> cartSlice.js
+  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+  const toggleShoppingCart = useSelector(
+    (state) => state.cart.toggleShoppingCart
+  );
+
+  // Initial state selected -> menuSlice.js
+  const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
+
+  // Initial state selected -> inputSlice.js
+  const { visibleInput, searchProduct } = useSelector((state) => state.input);
 
   const menuItems = [
     { name: "Home", link: "/" },
@@ -30,21 +47,24 @@ const Header = () => {
     { name: "News", link: "/News" },
   ];
 
+  const shoppingBasketSection = document.querySelector(".shopping-basket");
+
   // Getting the quantity of products <- Shopping cart
-  const productQuantity = (shoppingBasket) => {
-    return shoppingBasket.length;
+  const productQuantity = (cartValue) => {
+    return cartValue.length;
   };
 
   const actionInputSearch = () => {
-    setSearchProduct("");
-    setVisibleInput(!visibleInput);
+    dispatch(setSearchProduct(""));
+    dispatch(setVisibleInput(!visibleInput));
   };
 
   const actionShopCart = () => {
-    setShoppingBasketOpen(!shoppingBasketOpen);
-    disableScroll();
-    setSearchProduct("");
-    setVisibleInput(false);
+    shoppingBasketSection.scrollTo(0, 0);
+    document.documentElement.style.overflow = "hidden";
+    dispatch(setSearchProduct(""));
+    dispatch(setVisibleInput(false));
+    dispatch(setToggleShoppingCart(!toggleShoppingCart));
   };
 
   return (
@@ -67,7 +87,7 @@ const Header = () => {
               <ul className="header__content-menu-navigation-items">
                 {menuItems.map((item) => (
                   <li
-                    onClick={() => handleMenuClickAndSave(item.name)}
+                    onClick={() => handleClickPage(item.name)}
                     key={item.name}
                     className={
                       activeNameMenu === item.name
@@ -76,7 +96,7 @@ const Header = () => {
                     }
                   >
                     <Link
-                      onClick={() => handleMenuClickAndSave(item.name)}
+                      onClick={() => handleClickPage(item.name)}
                       className="header__content-menu-navigation-items-item-link"
                       to={item.link}
                     >
@@ -91,7 +111,7 @@ const Header = () => {
           <div className="header__content-search">
             <input
               className={
-                searchProduct || visibleInput
+                visibleInput
                   ? "header__content-search-input header__content-search-input_active"
                   : "header__content-search-input"
               }
@@ -122,7 +142,7 @@ const Header = () => {
 
             <button
               className={`header__content-search-cart-btn ${
-                shoppingBasket && shoppingBasket.length > 0
+                shoppingCart && shoppingCart.length > 0
                   ? ""
                   : "header__content-search-cart-btn_hidden"
               }`}
@@ -132,10 +152,10 @@ const Header = () => {
                 className="header__content-search-cart-btn-value"
                 // if quantity of products > 0 -> visible else hidden
                 style={{
-                  opacity: shoppingBasket.length ? 1 : 0,
+                  opacity: shoppingCart.length ? 1 : 0,
                 }}
               >
-                {productQuantity(shoppingBasket)}
+                {productQuantity(shoppingCart)}
               </span>
 
               <svg width="60" height="60" viewBox="0 0 57 56" fill="none">

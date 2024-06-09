@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-import Context from "../../../context/Context";
-
-const Banner = () => {
-  const { OpenTheNewPageAndScrollToTop } = useContext(Context);
-
+const Banner = ({ handleClickPage }) => {
   return (
     <article className="banner">
       <div className="container">
@@ -23,7 +19,7 @@ const Banner = () => {
           </div>
 
           <button
-            onClick={() => OpenTheNewPageAndScrollToTop("Services")}
+            onClick={() => handleClickPage("Services")}
             className="button button_banner"
           >
             <Link id="link" to="/Services">

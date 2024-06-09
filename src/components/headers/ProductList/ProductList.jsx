@@ -1,10 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
+import { setShoppingCart } from "../../../redux/slices/cartSlice";
+import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
-
-import Context from "../../../context/Context";
 
 const ProductList = ({
   parent_id,
@@ -18,12 +19,10 @@ const ProductList = ({
   showSingleProduct,
   isNew,
 }) => {
-  const {
-    handleMenuClickAndSave,
-    removeProductShoppingBasket,
-    setShoppingBasketOpen,
-    enableScroll,
-  } = useContext(Context);
+  const dispatch = useDispatch();
+
+  // Initial state selected -> cartSlice.js
+  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
 
   const getSingleProduct = () => {
     // Props transfer
@@ -39,11 +38,32 @@ const ProductList = ({
     });
   };
 
-  const handleClick = () => {
+  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
+  const removeProductShoppingBasket = async (parent_id) => {
+    // Search the product ID
+    if (shoppingCart.find((item) => item.parent_id === parent_id)) {
+      // Search product ID -> Shopping basket
+      const updatedItems = shoppingCart.filter(
+        (item) => item.parent_id !== parent_id
+      );
+
+      // Update -> Shopping basket
+      dispatch(setShoppingCart(updatedItems));
+
+      // Request -> localStorage
+      localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
+    }
+  };
+
+  const handleClickPage = (name) => {
     getSingleProduct();
-    setShoppingBasketOpen(false);
-    enableScroll();
-    handleMenuClickAndSave("Shop");
+    dispatch(setActiveName(name));
+    dispatch(setToggleShoppingCart(false));
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = "auto";
+
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
   };
 
   // Default value -> discount
@@ -59,7 +79,7 @@ const ProductList = ({
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link onClick={() => handleClick()} to={`/Shop/${name}`}>
+        <Link onClick={() => handleClickPage("Shop")} to={`/Shop/${name}`}>
           <span className="product-list__item-exposition-name">{name}</span>
         </Link>
 

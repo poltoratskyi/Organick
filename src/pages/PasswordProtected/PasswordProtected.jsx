@@ -1,11 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setActiveName } from "../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
 import Newsletter from "../../components/footers/Newsletter/Newsletter";
 
 const PasswordProtected = () => {
+  const dispatch = useDispatch();
+
+  const handleClickPage = (name) => {
+    dispatch(setActiveName(name));
+    window.scrollTo(0, 0);
+
+    // Request -> localStorage
+    localStorage.setItem("selectedPage", JSON.stringify(name));
+  };
+
   return (
     <>
       <div className="page-banner page-banner_protected-page">
@@ -38,7 +50,10 @@ const PasswordProtected = () => {
                   />
                 </div>
 
-                <button className="button button_protection">
+                <button
+                  onClick={() => handleClickPage("404 Not Found")}
+                  className="button button_protection"
+                >
                   <Link id="link" to="/Error">
                     Send Now
                     <svg
