@@ -8,12 +8,12 @@ import {
 
 import "./Style.scss";
 
-import ProductList from "../ProductList/ProductList";
-import AdditionalProducts from "../AdditionalProducts/AdditionalProducts";
+import ProductList from "../ProductList";
+import AdditionalProducts from "../AdditionalProducts";
 
 import staticData from "../../../data/products";
 
-const SideBlock = () => {
+const ShoppingCart = ({ cartRef }) => {
   const dispatch = useDispatch();
 
   // Initial state selected -> cartSlice.js
@@ -78,6 +78,7 @@ const SideBlock = () => {
 
   return (
     <section
+      ref={cartRef}
       className={`shopping-basket ${
         toggleShoppingCart ? "shopping-basket_visible" : ""
       }`}
@@ -167,4 +168,4 @@ const SideBlock = () => {
   );
 };
 
-export default SideBlock;
+export default ShoppingCart;

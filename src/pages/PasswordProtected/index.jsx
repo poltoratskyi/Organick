@@ -5,7 +5,7 @@ import { setActiveName } from "../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import Newsletter from "../../components/footers/Newsletter";
 
 const PasswordProtected = () => {
   const dispatch = useDispatch();

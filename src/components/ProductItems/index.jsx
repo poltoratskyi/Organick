@@ -11,6 +11,7 @@ const ProductItems = ({
   description,
   descriptionMore,
   showSingleProduct,
+  additionalInfo,
   tag,
   isNew,
   img,
@@ -28,10 +29,13 @@ const ProductItems = ({
       description,
       tag,
       descriptionMore,
+      additionalInfo,
       img,
       name,
       price,
       salePrice,
+      isNew,
+      discount,
     });
   };
 

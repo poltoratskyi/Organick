@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import ProductSingleList from "../../components/ProductSingleList/ProductSingleList";
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import ProductSingleList from "../../components/ProductSingleList";
+import Newsletter from "../../components/footers/Newsletter";
 
 const ProductSingle = () => {
   // Initial state selected -> singleProductSlice.js

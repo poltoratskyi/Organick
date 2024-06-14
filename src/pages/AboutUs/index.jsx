@@ -1,10 +1,10 @@
 import React from "react";
 import "./Style.scss";
 
-import Choose from "../../components/about-us/Choose/Choose";
-import MiniTeam from "../../components/about-us/MiniTeam/MiniTeam";
-import MiniOffer from "../../components/about-us/MiniOffer/MiniOffer";
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import Choose from "../../components/about-us/Choose";
+import MiniTeam from "../../components/about-us/MiniTeam";
+import MiniOffer from "../../components/about-us/MiniOffer";
+import Newsletter from "../../components/footers/Newsletter";
 
 const AboutUs = () => {
   return (

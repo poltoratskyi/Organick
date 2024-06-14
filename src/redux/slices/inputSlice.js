@@ -4,8 +4,14 @@ const initialState = {
   // Visible <-> Hidden input
   visibleInput: false,
 
+  // Visible <-> Hidden search
+  visibleSearch: false,
+
   // Input search value
   searchProduct: "",
+
+  // Visible <-> Hidden search products
+  showNoResults: false,
 };
 
 const inputSlice = createSlice({
@@ -21,14 +27,27 @@ const inputSlice = createSlice({
       state.visibleInput = action.payload;
     },
 
+    setVisibleSearch(state, action) {
+      state.visibleSearch = action.payload;
+    },
+
     setSearchProduct(state, action) {
       state.searchProduct = action.payload;
+    },
+
+    setShowNoResults(state, action) {
+      state.showNoResults = action.payload;
     },
   },
 });
 
 // Export the function
-export const { setVisibleInput, setSearchProduct } = inputSlice.actions;
+export const {
+  setVisibleInput,
+  setVisibleSearch,
+  setSearchProduct,
+  setShowNoResults,
+} = inputSlice.actions;
 
 // Export the reducer
 export default inputSlice.reducer;

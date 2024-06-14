@@ -8,7 +8,7 @@ import {
 
 import "./Style.scss";
 
-import AdditionalProducts from "../../components/headers/AdditionalProducts/AdditionalProducts";
+import AdditionalProducts from "../headers/AdditionalProducts";
 
 const ProductSingleList = ({
   parent_id,

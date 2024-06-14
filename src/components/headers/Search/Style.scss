@@ -1,14 +1,17 @@
 @import "../../../Variables.scss";
 
 .search-items {
-  position: absolute;
-  right: 0%;
-  width: 550px;
+  display: none;
+  position: relative;
   z-index: 2;
   padding: 0px 20px;
   background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+
+  &_active {
+    display: block;
+  }
 
   &__item {
     padding: 15px 0px;

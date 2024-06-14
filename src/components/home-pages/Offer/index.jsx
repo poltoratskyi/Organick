@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./Style.scss";
 
-import ProductItems from "../../ProductItems/ProductItems";
+import ProductItems from "../../ProductItems";
 
 // Getting data <- props
 const Offer = ({

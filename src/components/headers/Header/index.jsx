@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,12 +6,13 @@ import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
 import {
   setVisibleInput,
   setSearchProduct,
+  setVisibleSearch,
 } from "../../../redux/slices/inputSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
-const Header = () => {
+const Header = ({ cartRef }) => {
   const dispatch = useDispatch();
 
   const handleClickPage = (name) => {
@@ -19,11 +20,6 @@ const Header = () => {
     window.scrollTo(0, 0);
     // Request -> localStorage
     localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
-
-  // Input -> Getting data
-  const handleSearch = (e) => {
-    dispatch(setSearchProduct(e.target.value));
   };
 
   // Initial state selected -> cartSlice.js
@@ -35,9 +31,6 @@ const Header = () => {
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
 
-  // Initial state selected -> inputSlice.js
-  const { visibleInput, searchProduct } = useSelector((state) => state.input);
-
   const menuItems = [
     { name: "Home", link: "/" },
     { name: "About", link: "/AboutUs" },
@@ -47,20 +40,34 @@ const Header = () => {
     { name: "News", link: "/News" },
   ];
 
-  const shoppingBasketSection = document.querySelector(".shopping-basket");
-
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (cartValue) => {
     return cartValue.length;
   };
 
+  // Close shopping cart -> Escape
+  const handleEscape = (e) => {
+    if (e.key === "Escape") {
+      dispatch(setToggleShoppingCart(!toggleShoppingCart));
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   const actionInputSearch = () => {
     dispatch(setSearchProduct(""));
-    dispatch(setVisibleInput(!visibleInput));
+    dispatch(setVisibleInput(true));
+    dispatch(setVisibleSearch(true));
   };
 
   const actionShopCart = () => {
-    shoppingBasketSection.scrollTo(0, 0);
+    cartRef.current.scrollTo(0, 0);
     document.documentElement.style.overflow = "hidden";
     dispatch(setSearchProduct(""));
     dispatch(setVisibleInput(false));
@@ -109,24 +116,11 @@ const Header = () => {
           </div>
 
           <div className="header__content-search">
-            <input
-              className={
-                visibleInput
-                  ? "header__content-search-input header__content-search-input_active"
-                  : "header__content-search-input"
-              }
-              onChange={handleSearch}
-              value={searchProduct}
-              type="text"
-              id="search"
-            ></input>
-
             <button className="header__content-search-btn">
               <svg
                 onClick={() => {
                   actionInputSearch();
                 }}
-                id="input"
                 width="60"
                 height="60"
                 viewBox="0 0 57 56"
@@ -142,7 +136,7 @@ const Header = () => {
 
             <button
               className={`header__content-search-cart-btn ${
-                shoppingCart && shoppingCart.length > 0
+                shoppingCart.length > 0
                   ? ""
                   : "header__content-search-cart-btn_hidden"
               }`}

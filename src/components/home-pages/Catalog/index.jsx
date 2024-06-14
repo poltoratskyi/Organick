@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./Style.scss";
 
-import ProductItems from "../../ProductItems/ProductItems";
+import ProductItems from "../../ProductItems";
 
 // Getting data <- Props
 const Catalog = ({
@@ -14,6 +14,7 @@ const Catalog = ({
   salePrice,
   showSingleProduct,
   isNew,
+  additionalInfo,
 }) => {
   const [percentage, setPercentage] = useState(0);
 
@@ -27,6 +28,7 @@ const Catalog = ({
       <ProductItems
         descriptionMore={descriptionMore}
         showSingleProduct={showSingleProduct}
+        additionalInfo={additionalInfo}
         isNew={isNew}
         tag={tag}
         img={img}

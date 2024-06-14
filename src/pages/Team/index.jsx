@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import team from "../../data/team";
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import Newsletter from "../../components/footers/Newsletter";
 
 const Team = () => {
   return (

@@ -1,0 +1,30 @@
+@import "../../../Variables.scss";
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.input {
+  color: #000;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px 55px 20px 20px;
+  width: 100%;
+  margin-right: 15px;
+
+  &::placeholder {
+    color: #ababab;
+    font-style: italic;
+  }
+}
+
+.input-close-btn {
+  cursor: pointer;
+  background-color: transparent;
+}

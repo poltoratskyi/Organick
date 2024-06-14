@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import ProductItems from "../../ProductItems/ProductItems";
+import ProductItems from "../../ProductItems";
 
 // Getting data <- props
 const Additional = ({

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setTagCategories,
@@ -11,9 +11,9 @@ import {
   setSingleProduct,
 } from "../../redux/slices/singleProductSlice";
 
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
-import Catalog from "../../components/home-pages/Catalog/Catalog";
-import Skeleton from "../../components/Skeleton/Skeleton";
+import Newsletter from "../../components/footers/Newsletter";
+import Catalog from "../../components/home-pages/Catalog";
+import Skeleton from "../../components/Skeleton/Shop";
 
 const Shop = ({
   catalogue,
@@ -25,6 +25,7 @@ const Shop = ({
   isSkeletonLoading,
 }) => {
   const dispatch = useDispatch();
+  const sortRef = useRef();
 
   // Initial state selected -> singleProductSlice.js
   const relatedProducts = useSelector(
@@ -33,8 +34,6 @@ const Shop = ({
 
   // Initial state selected -> filtersSlice.js
   const openSortMenu = useSelector((state) => state.filters.openSortMenu);
-
-  console.log(openSortMenu);
 
   // Show single product
   const showSingleProduct = (product) => {
@@ -68,6 +67,7 @@ const Shop = ({
 
   // Menu categories
   const categories = ["All", "Vegetable", "Fresh", "Millets", "Nuts", "Health"];
+
   // Menu sort
   const menuSort = [
     "Relevance",
@@ -81,6 +81,20 @@ const Shop = ({
     dispatch(setPopupIndex(index));
     dispatch(setTagCategories(category));
   };
+
+  // Outside clicked popup
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        dispatch(setOpenSortMenu(false));
+      }
+    };
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, [dispatch]);
 
   const handleClosePopup = (index) => {
     dispatch(setOpenSortMenu(false));
@@ -131,6 +145,7 @@ const Shop = ({
                   <div className="product-top__text">
                     Sort by:
                     <span
+                      ref={sortRef}
                       onClick={() => dispatch(setOpenSortMenu(!openSortMenu))}
                       className={`product-top__text-arrow ${
                         openSortMenu ? "product-top__text-arrow_active" : ""

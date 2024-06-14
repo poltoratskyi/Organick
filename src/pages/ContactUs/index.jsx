@@ -1,8 +1,8 @@
 import React from "react";
 
-import Feedback from "../../components/contact-us/Feedback/Feedback";
-import Location from "../../components/contact-us/Location/Location";
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import Feedback from "../../components/contact-us/Feedback";
+import Location from "../../components/contact-us/Location";
+import Newsletter from "../../components/footers/Newsletter";
 
 const PasswordProtected = () => {
   return (

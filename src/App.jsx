@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,19 +15,19 @@ import {
 import { setCatalogue } from "./redux/slices/catalogueSlice";
 import { setSkeletonIsLoading } from "./redux/slices/skeletonSlice";
 
-import Home from "./pages/Home/Home";
-import Navigation from "./components/headers/Navigation/Navigation";
-import Error from "./pages/Error/Error";
-import AboutUs from "./pages/AboutUs/AboutUs";
-import Shop from "./pages/Shop/Shop";
-import ProductSingle from "./pages/ProductSingle/ProductSingle";
-import NewsSingle from "./pages/NewsSingle/NewsSingle";
-import Services from "./pages/Services/Services";
-import News from "./pages/News/News";
-import Team from "./pages/Team/Team";
-import ContactUs from "./pages/ContactUs/ContactUs";
-import PasswordProtected from "./pages/PasswordProtected/PasswordProtected";
-import Footer from "./components/footers/Footer/Footer";
+import Home from "./pages/Home";
+import Navigation from "./components/headers/Navigation";
+import Error from "./pages/Error";
+import AboutUs from "./pages/AboutUs";
+import Shop from "./pages/Shop";
+import ProductSingle from "./pages/ProductSingle";
+import NewsSingle from "./pages/NewsSingle";
+import Services from "./pages/Services";
+import News from "./pages/News";
+import Team from "./pages/Team";
+import ContactUs from "./pages/ContactUs";
+import PasswordProtected from "./pages/PasswordProtected";
+import Footer from "./components/footers/Footer";
 
 function App() {
   const dispatch = useDispatch();

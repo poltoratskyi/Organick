@@ -7,18 +7,18 @@ import {
   setSingleProduct,
 } from "../../redux/slices/singleProductSlice";
 
-import Skeleton from "../../components/Skeleton/Skeleton";
+import Skeleton from "../../components/Skeleton/Shop";
 
-import Banner from "../../components/home-pages/Banner/Banner";
-import Card from "../../components/home-pages/Card/Card";
-import About from "../../components/home-pages/About/About";
-import Catalog from "../../components/home-pages/Catalog/Catalog";
-import Testimonial from "../../components/home-pages/Testimonial/Testimonial";
-import Offer from "../../components/home-pages/Offer/Offer";
-import Story from "../../components/home-pages/Story/Story";
-import Gallery from "../../components/home-pages/Gallery/Gallery";
-import News from "../../components/home-pages/News/News";
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
+import Banner from "../../components/home-pages/Banner";
+import Card from "../../components/home-pages/Card";
+import About from "../../components/home-pages/About";
+import Catalog from "../../components/home-pages/Catalog";
+import Testimonial from "../../components/home-pages/Testimonial";
+import Offer from "../../components/home-pages/Offer";
+import Story from "../../components/home-pages/Story";
+import Gallery from "../../components/home-pages/Gallery";
+import News from "../../components/home-pages/News";
+import Newsletter from "../../components/footers/Newsletter";
 
 import gallery from "../../data/gallery";
 import posts from "../../data/posts";

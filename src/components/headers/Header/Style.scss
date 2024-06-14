@@ -56,48 +56,11 @@
 
     &-search {
       display: flex;
-      position: relative;
       align-items: center;
 
       &-btn {
-        position: relative;
-        display: flex;
-        align-items: center;
-        position: relative;
         cursor: pointer;
         background-color: transparent;
-
-        #input {
-          z-index: 1;
-        }
-      }
-
-      &-input {
-        color: #000;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 18px;
-        position: absolute;
-        transition: 0.5s ease;
-        width: 0px;
-        border: 1px solid #d3d3d3;
-        background-color: #fafafa;
-        border-radius: 16px;
-        right: 60%;
-        padding: 15px 50px 15px 15px;
-        visibility: hidden;
-        opacity: 0;
-
-        &::placeholder {
-          color: #ababab;
-          font-style: italic;
-        }
-
-        &_active {
-          visibility: visible;
-          opacity: 1;
-          width: 300px;
-        }
       }
 
       &-cart-btn {

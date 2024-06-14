@@ -1,7 +1,7 @@
 import React from "react";
 
-import Newsletter from "../../components/footers/Newsletter/Newsletter";
-import News from "../../components/home-pages/News/News";
+import Newsletter from "../../components/footers/Newsletter";
+import News from "../../components/home-pages/News";
 
 import posts from "../../data/posts";
 
