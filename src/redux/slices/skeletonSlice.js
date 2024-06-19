@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // Skeleton content loader -> Shop
+  // Skeleton content loader
   isSkeletonLoading: true,
 };
 

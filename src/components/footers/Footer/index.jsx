@@ -5,6 +5,14 @@ import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
+const footerItems = [
+  { name: "Contact Us", link: "/ContactUs" },
+  { name: "Password Protected", link: "/PasswordProtected" },
+  { name: "Licences", link: "/Error" },
+  { name: "Changelog", link: "/Error" },
+  { name: "404 Not Found", link: "/Error" },
+];
+
 const Footer = () => {
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
@@ -17,14 +25,6 @@ const Footer = () => {
     // Request -> localStorage
     localStorage.setItem("selectedPage", JSON.stringify(name));
   };
-
-  const footerItems = [
-    { name: "Contact Us", link: "/ContactUs" },
-    { name: "Password Protected", link: "/PasswordProtected" },
-    { name: "Licences", link: "/Error" },
-    { name: "Changelog", link: "/Error" },
-    { name: "404 Not Found", link: "/Error" },
-  ];
 
   return (
     <footer className="footer">

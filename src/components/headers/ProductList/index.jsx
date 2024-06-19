@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-import { setShoppingCart } from "../../../redux/slices/cartSlice";
+import { setRemoveProduct } from "../../../redux/slices/cartSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
@@ -39,20 +39,16 @@ const ProductList = ({
   };
 
   // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const removeProductShoppingBasket = async (parent_id) => {
-    // Search the product ID
-    if (shoppingCart.find((item) => item.parent_id === parent_id)) {
-      // Search product ID -> Shopping basket
-      const updatedItems = shoppingCart.filter(
-        (item) => item.parent_id !== parent_id
-      );
+  const removeProduct = (parent_id) => {
+    // To remove product
+    dispatch(setRemoveProduct(parent_id));
 
-      // Update -> Shopping basket
-      dispatch(setShoppingCart(updatedItems));
+    // Update localStorage
+    const updatedItems = shoppingCart.filter(
+      (item) => item.parent_id !== parent_id
+    );
 
-      // Request -> localStorage
-      localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
-    }
+    localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
   };
 
   const handleClickPage = (name) => {
@@ -123,7 +119,7 @@ const ProductList = ({
       </div>
 
       <span
-        onClick={() => removeProductShoppingBasket(parent_id)}
+        onClick={() => removeProduct(parent_id)}
         style={{ cursor: "pointer" }}
       >
         <svg fill="#274C5B" width="24" height="24" viewBox="-21 0 384 384">

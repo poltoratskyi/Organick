@@ -1,0 +1,36 @@
+@import "../../Variables.scss";
+
+.paginate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+
+  li {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      color: $dark-blue;
+      font-size: 20px;
+      line-height: 1.8;
+      padding: 10px 15px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.5s ease;
+
+      &:hover {
+        border-bottom: 2px solid #6dd194;
+      }
+    }
+
+    &.selected a {
+      border-bottom: 2px solid #6dd194;
+    }
+  }
+}

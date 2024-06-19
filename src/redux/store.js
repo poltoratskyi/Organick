@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // Connect reducer
-import filters from "./slices/filtersSlice";
+import shop from "./slices/shopSlice";
 import cart from "./slices/cartSlice";
 import menu from "./slices/menuSlice";
 import input from "./slices/inputSlice";
@@ -13,7 +13,7 @@ import skeleton from "./slices/skeletonSlice";
 export const store = configureStore({
   // Reducer -> Connect the function
   reducer: {
-    filters,
+    shop,
     cart,
     menu,
     input,

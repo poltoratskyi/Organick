@@ -38,22 +38,22 @@ const ShoppingCart = ({ cartRef }) => {
     // Update -> Single product component
     dispatch(setSingleProduct(newSingleProduct));
 
-    // Search the product ID
-    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
-      // if the product ID has been found
-      return;
-    } else {
-      // Add related products -> Previous products
-      const newRelatedSingleProduct = [product, ...relatedProducts];
+    const existingRelatedProduct = relatedProducts.find(
+      (item) => item.parent_id === product.parent_id
+    );
+
+    // if product ID not found
+    if (!existingRelatedProduct) {
+      const newRelatedProducts = [product, ...relatedProducts];
 
       // Request -> localStorage
       localStorage.setItem(
         "relatedProducts",
-        JSON.stringify(newRelatedSingleProduct)
+        JSON.stringify(newRelatedProducts)
       );
 
       // Update state
-      dispatch(setRelatedProducts(newRelatedSingleProduct));
+      dispatch(setRelatedProducts(newRelatedProducts));
     }
   };
 

@@ -18,19 +18,21 @@
   }
 
   &__item {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    justify-content: flex-start;
+    justify-items: center;
     border-bottom: 1px solid #e0e0e0;
     padding: 20px 0px;
 
     &-img {
       object-fit: contain;
-      min-width: 170px;
-      height: 195px;
+      width: 140px;
+      height: 190px;
     }
 
     &-exposition {
+      width: 500px;
       &-name {
         font-family: "Roboto", sans-serif;
         font-weight: 700;
@@ -38,6 +40,7 @@
         color: $dark-blue;
         line-height: 1.6;
         cursor: pointer;
+        transition: 0.5s ease;
 
         &:hover {
           color: $light-green;
@@ -50,10 +53,11 @@
         font-size: 18px;
         color: $dark-gray;
         line-height: 1.8;
+        margin-top: 15px;
       }
 
       &-mark {
-        margin-top: 15px;
+        margin-top: 5px;
 
         &-tag,
         &-new,
@@ -86,13 +90,11 @@
     &-action {
       display: flex;
       align-items: center;
-      margin-right: 30px;
 
       &-value {
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-width: 150px;
 
         &-original {
           font-family: "Open Sans", sans-serif;

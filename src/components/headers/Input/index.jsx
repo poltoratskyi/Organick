@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSearchProduct,
   setVisibleSearch,
   setVisibleInput,
 } from "../../../redux/slices/inputSlice";
+import debounce from "lodash.debounce";
 
 import "./Style.scss";
 
@@ -14,21 +15,36 @@ const Input = () => {
   const dispatch = useDispatch();
 
   // Initial state selected -> inputSlice.js
-  const searchProduct = useSelector((state) => state.input.searchProduct);
+  const { searchProduct, visibleInput } = useSelector((state) => state.input);
+
+  // Local initial state -> input value -> searchProduct state
+  const [inputValue, setInputValue] = useState(searchProduct);
+
+  // Debounced
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      dispatch(setSearchProduct(value));
+    }, 250),
+    []
+  );
 
   // Input -> Getting data
   const handleSearch = (e) => {
     const value = e.target.value.trim();
-    dispatch(setSearchProduct(value));
+    // Update local state
+    setInputValue(value);
+    // Transfer data -> Debounced
+    debouncedSearch(value);
   };
 
   const actionInputSearch = () => {
     dispatch(setSearchProduct(""));
+    setInputValue("");
     dispatch(setVisibleInput(false));
     dispatch(setVisibleSearch(false));
   };
 
-  // Close shopping cart -> Escape
+  // Close input search -> Escape
   const handleEscape = (e) => {
     if (e.key === "Escape") {
       actionInputSearch();
@@ -36,12 +52,15 @@ const Input = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", handleEscape);
+    visibleInput
+      ? document.addEventListener("keydown", handleEscape)
+      : document.removeEventListener("keydown", handleEscape);
 
+    // Clear event
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [visibleInput]);
 
   return (
     <>
@@ -49,7 +68,7 @@ const Input = () => {
         <input
           className="input"
           onChange={handleSearch}
-          value={searchProduct}
+          value={inputValue}
           type="text"
           id="search"
           placeholder="Start your healthy eating journey here..."

@@ -144,20 +144,27 @@ a {
   transition: margin-left 0.3s ease;
 }
 
-// Link
+// 404
+#error,
+// Delete from cart
+#del, 
+// Default link
 #link {
   display: flex;
   align-items: center;
   padding: 30px 40px;
-  min-width: 230px;
 }
 
-// Delete From Cart
+#error {
+  min-width: 280px;
+}
+
 #del {
-  display: flex;
-  align-items: center;
-  padding: 30px 40px;
   min-width: 270px;
+}
+
+#link {
+  min-width: 230px;
 }
 
 // Page Banner

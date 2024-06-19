@@ -12,6 +12,15 @@ import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
+const menuItems = [
+  { name: "Home", link: "/" },
+  { name: "About", link: "/AboutUs" },
+  { name: "Team", link: "/Team" },
+  { name: "Services", link: "/Services" },
+  { name: "Shop", link: "/Shop" },
+  { name: "News", link: "/News" },
+];
+
 const Header = ({ cartRef }) => {
   const dispatch = useDispatch();
 
@@ -23,22 +32,12 @@ const Header = ({ cartRef }) => {
   };
 
   // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
-  const toggleShoppingCart = useSelector(
-    (state) => state.cart.toggleShoppingCart
+  const { shoppingCart, toggleShoppingCart } = useSelector(
+    (state) => state.cart
   );
 
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
-
-  const menuItems = [
-    { name: "Home", link: "/" },
-    { name: "About", link: "/AboutUs" },
-    { name: "Team", link: "/Team" },
-    { name: "Services", link: "/Services" },
-    { name: "Shop", link: "/Shop" },
-    { name: "News", link: "/News" },
-  ];
 
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (cartValue) => {
@@ -53,12 +52,15 @@ const Header = ({ cartRef }) => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", handleEscape);
+    toggleShoppingCart
+      ? document.addEventListener("keydown", handleEscape)
+      : document.removeEventListener("keydown", handleEscape);
 
+    // Clear event
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [toggleShoppingCart]);
 
   const actionInputSearch = () => {
     dispatch(setSearchProduct(""));

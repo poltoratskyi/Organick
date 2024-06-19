@@ -39,9 +39,10 @@
           &-name {
             font-family: "Roboto", sans-serif;
             font-weight: 500;
-            font-size: 20px;
+            font-size: 24px;
             color: $dark-blue;
             line-height: 1.6;
+            transition: 0.3s ease;
             cursor: pointer;
 
             &:hover {
@@ -104,7 +105,7 @@
 
           &-original {
             font-family: "Open Sans", sans-serif;
-            font-weight: 600;
+            font-weight: 400;
             font-size: 15px;
             color: $dark-gray-sail-price;
             text-decoration: line-through red;

@@ -17,18 +17,25 @@ const cartSlice = createSlice({
 
   // The basic function
   reducers: {
-    setShoppingCart(state, action) {
+    setAddProduct(state, action) {
       state.shoppingCart = action.payload;
     },
 
     setToggleShoppingCart(state, action) {
       state.toggleShoppingCart = action.payload;
     },
+
+    setRemoveProduct(state, action) {
+      state.shoppingCart = state.shoppingCart.filter(
+        (item) => item.parent_id !== action.payload
+      );
+    },
   },
 });
 
 // Export the function
-export const { setShoppingCart, setToggleShoppingCart } = cartSlice.actions;
+export const { setAddProduct, setToggleShoppingCart, setRemoveProduct } =
+  cartSlice.actions;
 
 // Export the reducer
 export default cartSlice.reducer;

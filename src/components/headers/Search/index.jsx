@@ -11,7 +11,10 @@ import {
   setSingleProduct,
 } from "../../../redux/slices/singleProductSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
-import { setShoppingCart } from "../../../redux/slices/cartSlice";
+import {
+  setAddProduct,
+  setRemoveProduct,
+} from "../../../redux/slices/cartSlice";
 
 import "./Style.scss";
 
@@ -48,63 +51,53 @@ const Search = ({
     // Update -> Single product component
     dispatch(setSingleProduct(newSingleProduct));
 
-    // Search the product ID
-    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
-      // if the product ID has been found
-      return;
-    } else {
-      // Add related products -> Previous products
-      const newRelatedSingleProduct = [product, ...relatedProducts];
+    const existingRelatedProduct = relatedProducts.find(
+      (item) => item.parent_id === product.parent_id
+    );
+
+    // if product ID not found
+    if (!existingRelatedProduct) {
+      const newRelatedProducts = [product, ...relatedProducts];
 
       // Request -> localStorage
       localStorage.setItem(
         "relatedProducts",
-        JSON.stringify(newRelatedSingleProduct)
+        JSON.stringify(newRelatedProducts)
       );
 
       // Update state
-      dispatch(setRelatedProducts(newRelatedSingleProduct));
+      dispatch(setRelatedProducts(newRelatedProducts));
     }
   };
 
   // Add the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const addProductShoppingBasket = async (product) => {
-    // Search the product ID
-    if (shoppingCart.find((item) => item.parent_id === product.parent_id)) {
-      // if the product ID has been found
-      return;
-    } else {
-      // Add the new product -> Previous products
-      const newShoppingBasket = [product, ...shoppingCart];
+  const addProduct = (product) => {
+    // Add the new product -> Previous products
+    const newShoppingBasket = [product, ...shoppingCart];
 
-      // Save shopping basket
-      dispatch(setShoppingCart(newShoppingBasket));
+    // Save shopping basket
+    dispatch(setAddProduct(newShoppingBasket));
 
-      // Request -> localStorage
-      localStorage.setItem("shoppingCart", JSON.stringify(newShoppingBasket));
-    }
+    // Request -> localStorage
+    localStorage.setItem("shoppingCart", JSON.stringify(newShoppingBasket));
   };
 
   // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const removeProductShoppingBasket = async (parent_id) => {
-    // Search the product ID
-    if (shoppingCart.find((item) => item.parent_id === parent_id)) {
-      // Search product ID -> Shopping basket
-      const updatedItems = shoppingCart.filter(
-        (item) => item.parent_id !== parent_id
-      );
+  const removeProduct = (parent_id) => {
+    // To remove product
+    dispatch(setRemoveProduct(parent_id));
 
-      // Update -> Shopping basket
-      dispatch(setShoppingCart(updatedItems));
+    // Update localStorage
+    const updatedItems = shoppingCart.filter(
+      (item) => item.parent_id !== parent_id
+    );
 
-      // Request -> localStorage
-      localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
-    }
+    localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
   };
 
   const handleAddToCart = () => {
     // Props transfer
-    addProductShoppingBasket({
+    addProduct({
       parent_id,
       tag,
       img,
@@ -218,7 +211,7 @@ const Search = ({
           onClick={() => {
             // isAdded === true
             isAdded(parent_id)
-              ? removeProductShoppingBasket(parent_id)
+              ? removeProduct(parent_id)
               : // isAdded === false
                 handleAddToCart();
           }}

@@ -13,6 +13,7 @@
   opacity: 0;
   visibility: hidden;
   transition: 0.5s ease;
+  border-radius: 8px;
 
   &_visible {
     top: 50%;

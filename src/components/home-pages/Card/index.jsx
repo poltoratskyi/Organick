@@ -2,22 +2,22 @@ import React from "react";
 
 import "./Style.scss";
 
-const Card = () => {
-  const miniBanners = [
-    {
-      id: 1,
-      img: "/img/Card/1-min.jpg",
-      title: "Natural!!",
-      descr: "Get Garden Fresh Fruits",
-    },
-    {
-      id: 2,
-      img: "/img/Card/2-min.jpg",
-      title: "Offer!!",
-      descr: "Get 10% off on Vegetables",
-    },
-  ];
+const miniBanners = [
+  {
+    id: 1,
+    img: "/img/Card/1-min.jpg",
+    title: "Natural!!",
+    descr: "Get Garden Fresh Fruits",
+  },
+  {
+    id: 2,
+    img: "/img/Card/2-min.jpg",
+    title: "Offer!!",
+    descr: "Get 10% off on Vegetables",
+  },
+];
 
+const Card = () => {
   return (
     <div className="card">
       <div className="container">

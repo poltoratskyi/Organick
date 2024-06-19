@@ -2,21 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // The active index menu of sort
-  activeIndex: 0,
-
-  // Index popup
-  popupIndex: 0,
+  activeIndex: "Relevance",
 
   // Tag categories
   categories: "All",
 
   // Open / Close popup
   openSortMenu: false,
+
+  // Current page
+  currentPage: 1,
 };
 
-const filtersSlice = createSlice({
+const shopSlice = createSlice({
   // Name is required
-  name: "filters",
+  name: "shop",
 
   // Connect initial state
   initialState,
@@ -27,16 +27,16 @@ const filtersSlice = createSlice({
       state.activeIndex = action.payload;
     },
 
-    setPopupIndex(state, action) {
-      state.popupIndex = action.payload;
-    },
-
     setTagCategories(state, action) {
       state.categories = action.payload;
     },
 
     setOpenSortMenu(state, action) {
       state.openSortMenu = action.payload;
+    },
+
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
     },
   },
 });
@@ -45,9 +45,9 @@ const filtersSlice = createSlice({
 export const {
   setTagCategories,
   setActiveIndex,
-  setPopupIndex,
   setOpenSortMenu,
-} = filtersSlice.actions;
+  setCurrentPage,
+} = shopSlice.actions;
 
 // Export the reducer
-export default filtersSlice.reducer;
+export default shopSlice.reducer;

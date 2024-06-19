@@ -87,7 +87,7 @@
 
   &__sort {
     font-family: "Roboto", sans-serif;
-    font-weight: 700;
+    font-weight: 500;
     background-color: $light-green;
     min-width: 200px;
     line-height: 1.8;
@@ -154,7 +154,7 @@
 .product-categories {
   &-heading {
     font-family: "Roboto", sans-serif;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 40px;
     color: $dark-blue;
     margin-bottom: 15px;
@@ -166,11 +166,11 @@
 
     &-item {
       padding: 12px 0px;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 600;
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      font-size: 20px;
       color: $dark-blue;
-      font-size: 18px;
-      line-height: 1.8;
+      line-height: 1.4;
       transition: 0.3s ease;
       cursor: pointer;
       border-bottom: 1px solid $line-color;

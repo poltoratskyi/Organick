@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setTagCategories,
   setActiveIndex,
-  setPopupIndex,
   setOpenSortMenu,
-} from "../../redux/slices/filtersSlice";
+} from "../../redux/slices/shopSlice";
 import {
   setRelatedProducts,
   setSingleProduct,
@@ -14,13 +13,33 @@ import {
 import Newsletter from "../../components/footers/Newsletter";
 import Catalog from "../../components/home-pages/Catalog";
 import Skeleton from "../../components/Skeleton/Shop";
+import Pagination from "../../components/Pagination";
+
+// Menu categories
+const menuCategories = [
+  "All",
+  "Vegetable",
+  "Fresh",
+  "Millets",
+  "Nuts",
+  "Health",
+];
+
+// Menu sort
+const menuSort = [
+  { value: "Relevance", label: "Relevance" },
+  { value: "PriceLowToHigh", label: "Price, Low To High" },
+  { value: "PriceHighToLow", label: "Price, High To Low" },
+  { value: "NameAToZ", label: "Name, A To Z" },
+  { value: "NameZToA", label: "Name, Z To A" },
+];
 
 const Shop = ({
   catalogue,
 
-  activeIndex,
+  categories,
 
-  popupIndex,
+  activeIndex,
 
   isSkeletonLoading,
 }) => {
@@ -32,8 +51,8 @@ const Shop = ({
     (state) => state.singleProduct.relatedProducts
   );
 
-  // Initial state selected -> filtersSlice.js
-  const openSortMenu = useSelector((state) => state.filters.openSortMenu);
+  // Initial state selected -> shopSlice.js
+  const openSortMenu = useSelector((state) => state.shop.openSortMenu);
 
   // Show single product
   const showSingleProduct = (product) => {
@@ -46,40 +65,23 @@ const Shop = ({
     // Update -> Single product component
     dispatch(setSingleProduct(newSingleProduct));
 
-    // Search the product ID
-    if (relatedProducts.find((item) => item.parent_id === product.parent_id)) {
-      // if the product ID has been found
-      return;
-    } else {
-      // Add related products -> Previous products
-      const newRelatedSingleProduct = [product, ...relatedProducts];
+    const existingRelatedProduct = relatedProducts.find(
+      (item) => item.parent_id === product.parent_id
+    );
+
+    // if product ID not found
+    if (!existingRelatedProduct) {
+      const newRelatedProducts = [product, ...relatedProducts];
 
       // Request -> localStorage
       localStorage.setItem(
         "relatedProducts",
-        JSON.stringify(newRelatedSingleProduct)
+        JSON.stringify(newRelatedProducts)
       );
 
       // Update state
-      dispatch(setRelatedProducts(newRelatedSingleProduct));
+      dispatch(setRelatedProducts(newRelatedProducts));
     }
-  };
-
-  // Menu categories
-  const categories = ["All", "Vegetable", "Fresh", "Millets", "Nuts", "Health"];
-
-  // Menu sort
-  const menuSort = [
-    "Relevance",
-    "Price, Low To High",
-    "Price, High To Low",
-    "Name, A To Z",
-    "Name, Z To A",
-  ];
-
-  const selectedCategories = (category, index) => {
-    dispatch(setPopupIndex(index));
-    dispatch(setTagCategories(category));
   };
 
   // Outside clicked popup
@@ -96,9 +98,9 @@ const Shop = ({
     };
   }, [dispatch]);
 
-  const handleClosePopup = (index) => {
+  const handleClosePopup = (value) => {
     dispatch(setOpenSortMenu(false));
-    dispatch(setActiveIndex(index));
+    dispatch(setActiveIndex(value));
   };
 
   // Getting the quantity products
@@ -119,12 +121,12 @@ const Shop = ({
               <h2 className="product-categories-heading">CATEGORIES</h2>
 
               <ul className="product-categories__list">
-                {categories.map((category, index) => (
+                {menuCategories.map((category, index) => (
                   <li
-                    onClick={() => selectedCategories(category, index)}
+                    onClick={() => dispatch(setTagCategories(category))}
                     key={index}
                     className={`product-categories__list-item ${
-                      popupIndex === index
+                      categories === category
                         ? "product-categories__list-item_active"
                         : ""
                     }`}
@@ -158,17 +160,17 @@ const Shop = ({
                       openSortMenu ? "product-top__sort_visible" : ""
                     }`}
                   >
-                    {menuSort.map((menu, index) => (
+                    {menuSort.map((item, index) => (
                       <li
-                        onClick={() => handleClosePopup(index)}
+                        onClick={() => handleClosePopup(item.value)}
                         key={index}
                         className={`product-top__sort-list ${
-                          activeIndex === index
+                          activeIndex === item.value
                             ? "product-top__sort-list_active"
                             : ""
                         }`}
                       >
-                        <span>{menu}</span>
+                        <span>{item.label}</span>
                       </li>
                     ))}
                   </ul>
@@ -177,7 +179,7 @@ const Shop = ({
 
               <ul className="product-items product-items_shop">
                 {isSkeletonLoading
-                  ? [...new Array(16)].map((_, index) => (
+                  ? [...new Array(6)].map((_, index) => (
                       <Skeleton key={index} />
                     ))
                   : catalogue.map((product) => (
@@ -193,6 +195,8 @@ const Shop = ({
                       </li>
                     ))}
               </ul>
+
+              <Pagination />
             </div>
           </div>
         </div>

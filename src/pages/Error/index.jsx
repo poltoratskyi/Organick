@@ -32,8 +32,8 @@ const Error = () => {
               }}
               className="button button_error"
             >
-              <Link id="link" to="/">
-                Go to Home page
+              <Link id="error" to="/">
+                Go To Home Page
                 <svg
                   id="arrow"
                   width="22"
