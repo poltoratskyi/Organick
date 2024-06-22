@@ -30,7 +30,8 @@ const Input = () => {
 
   // Input -> Getting data
   const handleSearch = (e) => {
-    const value = e.target.value.trim();
+    const value = e.target.value.trimStart();
+
     // Update local state
     setInputValue(value);
     // Transfer data -> Debounced

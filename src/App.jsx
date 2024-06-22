@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import qs from "qs";
@@ -14,8 +13,8 @@ import {
   setRelatedProducts,
   setSingleProduct,
 } from "./redux/slices/singleProductSlice";
-import { setCatalogue } from "./redux/slices/catalogueSlice";
-import { setSkeletonIsLoading } from "./redux/slices/skeletonSlice";
+import { fetchProducts } from "./redux/slices/catalogueSlice";
+import { setSkeletonIsLoading } from "./redux/slices/catalogueSlice";
 import {
   setTagCategories,
   setActiveIndex,
@@ -48,34 +47,12 @@ function App() {
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
 
-  // Initial state selected -> catalogueSlice.js
-  const catalogue = useSelector((state) => state.catalogue.catalogue);
-
-  // Initial state selected -> skeletonSlice.js
-  const isSkeletonLoading = useSelector(
-    (state) => state.skeleton.isSkeletonLoading
-  );
-
   useEffect(() => {
     const fetchData = async () => {
-      // Skeleton on
-      dispatch(setSkeletonIsLoading(true));
-
-      // Get products -> localStorage
-      const shoppingCart =
-        JSON.parse(localStorage.getItem("shoppingCart")) || [];
-      const reviewedProduct =
-        JSON.parse(localStorage.getItem("singleProduct")) || [];
-      const relatedProducts =
-        JSON.parse(localStorage.getItem("relatedProducts")) || [];
-      const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
-      const activeMenu =
-        JSON.parse(localStorage.getItem("selectedPage")) || activeNameMenu;
-
-      let queryParams = "";
-
       // Check activeNameMenu
       if (activeNameMenu === "Shop") {
+        let queryParams = "";
+
         if (categories !== "All") {
           queryParams += `tag=${categories}`;
         }
@@ -96,17 +73,21 @@ function App() {
           queryParams += "&sortBy=name&order=desc";
         }
 
-        try {
-          // Fetch products only if activeNameMenu is "Shop"
-          const response = await axios.get(
-            `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products?page=${currentPage}&limit=6&${queryParams}`
-          );
-          // Save products -> Catalogue
-          dispatch(setCatalogue(response.data));
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        }
+        dispatch(
+          fetchProducts({ queryParams, categories, activeIndex, currentPage })
+        );
       }
+
+      // Get products -> localStorage
+      const shoppingCart =
+        JSON.parse(localStorage.getItem("shoppingCart")) || [];
+      const reviewedProduct =
+        JSON.parse(localStorage.getItem("singleProduct")) || [];
+      const relatedProducts =
+        JSON.parse(localStorage.getItem("relatedProducts")) || [];
+      const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
+      const activeMenu =
+        JSON.parse(localStorage.getItem("selectedPage")) || activeNameMenu;
 
       // Save products -> Shopping basket
       dispatch(setAddProduct(shoppingCart));
@@ -191,8 +172,6 @@ function App() {
             <Home
               // Show single news
               showSingleNews={showSingleNews}
-              // Skeleton content loader
-              isSkeletonLoading={isSkeletonLoading}
             />
           }
         />
@@ -209,10 +188,6 @@ function App() {
             <Shop
               // The active index
               activeIndex={activeIndex}
-              // Skeleton content loader
-              isSkeletonLoading={isSkeletonLoading}
-              // Catalogue of products
-              catalogue={catalogue}
               // Tag categories
               categories={categories}
             />

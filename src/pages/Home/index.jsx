@@ -25,12 +25,17 @@ import posts from "../../data/posts";
 
 import staticData from "../../data/products";
 
-const Home = ({ isSkeletonLoading, showSingleNews }) => {
+const Home = ({ showSingleNews }) => {
   const dispatch = useDispatch();
 
   // Initial state selected -> singleProductSlice.js
   const relatedProducts = useSelector(
     (state) => state.singleProduct.relatedProducts
+  );
+
+  // Initial state selected -> catalogueSlice.js
+  const isSkeletonLoading = useSelector(
+    (state) => state.catalogue.isSkeletonLoading
   );
 
   // Show single product

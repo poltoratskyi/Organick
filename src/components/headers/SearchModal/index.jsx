@@ -20,11 +20,9 @@ const SearchModal = () => {
   );
 
   useEffect(() => {
-    if (filteredProducts.length <= 0) {
-      dispatch(setShowNoResults(true));
-    } else {
-      dispatch(setShowNoResults(false));
-    }
+    filteredProducts.length <= 0
+      ? dispatch(setShowNoResults(true))
+      : dispatch(setShowNoResults(false));
   }, [searchProduct, filteredProducts, dispatch]);
 
   return (

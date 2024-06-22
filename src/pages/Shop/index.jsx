@@ -35,13 +35,9 @@ const menuSort = [
 ];
 
 const Shop = ({
-  catalogue,
-
   categories,
 
   activeIndex,
-
-  isSkeletonLoading,
 }) => {
   const dispatch = useDispatch();
   const sortRef = useRef();
@@ -53,6 +49,11 @@ const Shop = ({
 
   // Initial state selected -> shopSlice.js
   const openSortMenu = useSelector((state) => state.shop.openSortMenu);
+
+  // Initial state selected -> catalogueSlice.js
+  const { catalogue, isSkeletonLoading } = useSelector(
+    (state) => state.catalogue
+  );
 
   // Show single product
   const showSingleProduct = (product) => {

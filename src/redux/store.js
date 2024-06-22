@@ -8,7 +8,6 @@ import input from "./slices/inputSlice";
 import singleNews from "./slices/singleNewsSlice";
 import singleProduct from "./slices/singleProductSlice";
 import catalogue from "./slices/catalogueSlice";
-import skeleton from "./slices/skeletonSlice";
 
 export const store = configureStore({
   // Reducer -> Connect the function
@@ -20,6 +19,5 @@ export const store = configureStore({
     singleNews,
     singleProduct,
     catalogue,
-    skeleton,
   },
 });
