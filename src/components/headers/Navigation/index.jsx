@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
+import { selectToggleShoppingCart } from "../../../redux/slices/cartSlice";
+import { selectVisibleInput } from "../../../redux/slices/inputSlice";
 
 import Header from "../Header";
 import ShoppingCart from "../ShoppingCart";
@@ -9,36 +11,26 @@ const Navigation = () => {
   const cartRef = useRef();
 
   // Initial state selected -> cartSlice.js
-  const toggleShoppingCart = useSelector(
-    (state) => state.cart.toggleShoppingCart
-  );
+  const toggleShoppingCart = useSelector(selectToggleShoppingCart);
 
   // Initial state selected -> inputSlice.js
-  const visibleInput = useSelector((state) => state.input.visibleInput);
+  const visibleInput = useSelector(selectVisibleInput);
 
   return (
     <>
       <Header cartRef={cartRef} />
 
       <div
-        className={toggleShoppingCart ? "overlay overlay_visible" : "overlay"}
-      >
-        <ShoppingCart cartRef={cartRef} />
-      </div>
+        className={
+          toggleShoppingCart || visibleInput
+            ? "overlay overlay_visible"
+            : "overlay"
+        }
+      ></div>
 
-      <div className={visibleInput ? "overlay overlay_visible" : "overlay"}>
-        <div
-          style={{
-            position: "relative",
-            width: "875px",
-            height: "100%",
-            margin: "0 auto",
-            padding: "40px 0px 0px",
-          }}
-        >
-          <Input />
-        </div>
-      </div>
+      <ShoppingCart cartRef={cartRef} />
+
+      <Input />
     </>
   );
 };

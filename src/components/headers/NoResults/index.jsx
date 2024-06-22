@@ -52,14 +52,38 @@ const NoResults = ({ searchProduct }) => {
               </g>
             </g>
           </svg>
-          <h4 className="no-results__content-search-text">
-            There were no search results for "{searchProduct}".
-          </h4>
+          {searchProduct === "" ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "20px",
+              }}
+            >
+              <h4 className="no-results__content-search-text">
+                Search everything online and in-store at Organic.
+              </h4>
+              <p className="no-results__content-return">
+                We have something to interest you.
+              </p>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "20px",
+              }}
+            >
+              <h4 className="no-results__content-search-text">
+                There were no search results for "{searchProduct}".
+              </h4>
+              <p className="no-results__content-return">
+                Please check your spelling or use different keywords.
+              </p>
+            </div>
+          )}
         </div>
-
-        <p className="no-results__content-return">
-          Please check your spelling or use different keywords.
-        </p>
       </div>
     </div>
   );

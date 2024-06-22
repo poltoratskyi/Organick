@@ -23,5 +23,8 @@ const menuSlice = createSlice({
 // Export the function
 export const { setActiveName } = menuSlice.actions;
 
+// Export the selector
+export const selectActiveNameMenu = (state) => state.menu.activeNameMenu;
+
 // Export the reducer
 export default menuSlice.reducer;

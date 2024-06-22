@@ -2,13 +2,20 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
+import {
+  setToggleShoppingCart,
+  selectCart,
+  selectToggleShoppingCart,
+} from "../../../redux/slices/cartSlice";
 import {
   setVisibleInput,
   setSearchProduct,
   setVisibleSearch,
 } from "../../../redux/slices/inputSlice";
-import { setActiveName } from "../../../redux/slices/menuSlice";
+import {
+  setActiveName,
+  selectActiveNameMenu,
+} from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
@@ -32,12 +39,11 @@ const Header = ({ cartRef }) => {
   };
 
   // Initial state selected -> cartSlice.js
-  const { shoppingCart, toggleShoppingCart } = useSelector(
-    (state) => state.cart
-  );
+  const shoppingCart = useSelector(selectCart);
+  const toggleShoppingCart = useSelector(selectToggleShoppingCart);
 
   // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
+  const activeNameMenu = useSelector(selectActiveNameMenu);
 
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (cartValue) => {

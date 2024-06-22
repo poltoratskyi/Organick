@@ -4,11 +4,17 @@ import {
   setTagCategories,
   setActiveIndex,
   setOpenSortMenu,
+  selectOpenSortMenu,
 } from "../../redux/slices/shopSlice";
 import {
   setRelatedProducts,
   setSingleProduct,
+  selectRelatedProducts,
 } from "../../redux/slices/singleProductSlice";
+import {
+  selectIsSkeletonLoading,
+  selectCatalogue,
+} from "../../redux/slices/catalogueSlice";
 
 import Newsletter from "../../components/footers/Newsletter";
 import Catalog from "../../components/home-pages/Catalog";
@@ -34,26 +40,19 @@ const menuSort = [
   { value: "NameZToA", label: "Name, Z To A" },
 ];
 
-const Shop = ({
-  categories,
-
-  activeIndex,
-}) => {
+const Shop = ({ categories, activeIndex }) => {
   const dispatch = useDispatch();
   const sortRef = useRef();
 
   // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(
-    (state) => state.singleProduct.relatedProducts
-  );
+  const relatedProducts = useSelector(selectRelatedProducts);
 
   // Initial state selected -> shopSlice.js
-  const openSortMenu = useSelector((state) => state.shop.openSortMenu);
+  const openSortMenu = useSelector(selectOpenSortMenu);
 
   // Initial state selected -> catalogueSlice.js
-  const { catalogue, isSkeletonLoading } = useSelector(
-    (state) => state.catalogue
-  );
+  const catalogue = useSelector(selectCatalogue);
+  const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   // Show single product
   const showSingleProduct = (product) => {
@@ -70,6 +69,7 @@ const Shop = ({
       (item) => item.parent_id === product.parent_id
     );
 
+    console.log(existingRelatedProduct);
     // if product ID not found
     if (!existingRelatedProduct) {
       const newRelatedProducts = [product, ...relatedProducts];

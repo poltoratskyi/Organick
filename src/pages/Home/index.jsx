@@ -5,7 +5,9 @@ import { setActiveName } from "../../redux/slices/menuSlice";
 import {
   setRelatedProducts,
   setSingleProduct,
+  selectRelatedProducts,
 } from "../../redux/slices/singleProductSlice";
+import { selectIsSkeletonLoading } from "../../redux/slices/catalogueSlice";
 
 import Skeleton from "../../components/Skeleton/Shop";
 
@@ -29,14 +31,10 @@ const Home = ({ showSingleNews }) => {
   const dispatch = useDispatch();
 
   // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(
-    (state) => state.singleProduct.relatedProducts
-  );
+  const relatedProducts = useSelector(selectRelatedProducts);
 
   // Initial state selected -> catalogueSlice.js
-  const isSkeletonLoading = useSelector(
-    (state) => state.catalogue.isSkeletonLoading
-  );
+  const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   // Show single product
   const showSingleProduct = (product) => {

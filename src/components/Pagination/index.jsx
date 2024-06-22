@@ -2,7 +2,10 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setCurrentPage } from "../../redux/slices/shopSlice";
+import {
+  selectCurrentPage,
+  setCurrentPage,
+} from "../../redux/slices/shopSlice";
 
 import "./Style.scss";
 
@@ -10,7 +13,7 @@ const Pagination = () => {
   const dispatch = useDispatch();
 
   // Initial state selected -> shopSlice.js
-  const currentPage = useSelector((state) => state.shop.currentPage);
+  const currentPage = useSelector(selectCurrentPage);
 
   return (
     <ReactPaginate

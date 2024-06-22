@@ -49,5 +49,10 @@ export const {
   setCurrentPage,
 } = shopSlice.actions;
 
+// Export the selectors
+export const selectOpenSortMenu = (state) => state.shop.openSortMenu;
+export const selectCurrentPage = (state) => state.shop.currentPage;
+export const selectFilters = (state) => state.shop;
+
 // Export the reducer
 export default shopSlice.reducer;

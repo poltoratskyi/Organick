@@ -49,5 +49,10 @@ export const {
   setShowNoResults,
 } = inputSlice.actions;
 
+// Export the selectors
+export const selectVisibleInput = (state) => state.input.visibleInput;
+export const selectSearchProduct = (state) => state.input.searchProduct;
+export const selectInputResults = (state) => state.input;
+
 // Export the reducer
 export default inputSlice.reducer;

@@ -6,7 +6,8 @@
   z-index: 2;
   padding: 0px 20px;
   background-color: #fff;
-  border-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   width: 100%;
 
   &_active {
@@ -146,5 +147,36 @@
 
   &__item:last-child {
     border-bottom: none;
+  }
+}
+
+.search-iner {
+  display: flex;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  padding: 15px 20px;
+  line-height: 1.6;
+  background-color: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom: 1px solid $white-gray;
+
+  &__text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin-left: 5px;
+  }
+
+  &__value {
+    margin-left: 5px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: $dark-gray-sail-price;
+    line-height: 1.8;
   }
 }

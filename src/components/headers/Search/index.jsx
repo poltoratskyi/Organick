@@ -14,7 +14,9 @@ import { setActiveName } from "../../../redux/slices/menuSlice";
 import {
   setAddProduct,
   setRemoveProduct,
+  selectCart,
 } from "../../../redux/slices/cartSlice";
+import { selectRelatedProducts } from "../../../redux/slices/singleProductSlice";
 
 import "./Style.scss";
 
@@ -33,12 +35,10 @@ const Search = ({
   const dispatch = useDispatch();
 
   // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+  const shoppingCart = useSelector(selectCart);
 
   // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(
-    (state) => state.singleProduct.relatedProducts
-  );
+  const relatedProducts = useSelector(selectRelatedProducts);
 
   // Show single product
   const showSingleProduct = (product) => {

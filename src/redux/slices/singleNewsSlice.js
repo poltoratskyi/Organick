@@ -23,5 +23,8 @@ const singleNewsSlice = createSlice({
 // Export the function
 export const { setSingleNews } = singleNewsSlice.actions;
 
+// Export the selector
+export const selectSingleNews = (state) => state.singleNews.singleNews;
+
 // Export the reducer
 export default singleNewsSlice.reducer;

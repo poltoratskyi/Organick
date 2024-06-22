@@ -1,14 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { selectSingleProduct } from "../../redux/slices/singleProductSlice";
 
 import ProductSingleList from "../../components/ProductSingleList";
 import Newsletter from "../../components/footers/Newsletter";
 
 const ProductSingle = () => {
   // Initial state selected -> singleProductSlice.js
-  const singleProduct = useSelector(
-    (state) => state.singleProduct.singleProduct
-  );
+  const singleProduct = useSelector(selectSingleProduct);
 
   return (
     <>

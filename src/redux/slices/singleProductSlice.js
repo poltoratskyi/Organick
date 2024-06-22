@@ -30,5 +30,10 @@ const singleProduct = createSlice({
 // Export the function
 export const { setSingleProduct, setRelatedProducts } = singleProduct.actions;
 
+// Export the selector
+export const selectRelatedProducts = (state) =>
+  state.singleProduct.relatedProducts;
+export const selectSingleProduct = (state) => state.singleProduct.singleProduct;
+
 // Export the reducer
 export default singleProduct.reducer;

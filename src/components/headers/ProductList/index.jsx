@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-import { setRemoveProduct } from "../../../redux/slices/cartSlice";
+import { setRemoveProduct, selectCart } from "../../../redux/slices/cartSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
@@ -22,7 +22,7 @@ const ProductList = ({
   const dispatch = useDispatch();
 
   // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+  const shoppingCart = useSelector(selectCart);
 
   const getSingleProduct = () => {
     // Props transfer

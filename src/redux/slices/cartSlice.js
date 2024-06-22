@@ -37,5 +37,10 @@ const cartSlice = createSlice({
 export const { setAddProduct, setToggleShoppingCart, setRemoveProduct } =
   cartSlice.actions;
 
+// Export the selectors
+export const selectCart = (state) => state.cart.shoppingCart;
+export const selectToggleShoppingCart = (state) =>
+  state.cart.toggleShoppingCart;
+
 // Export the reducer
 export default cartSlice.reducer;

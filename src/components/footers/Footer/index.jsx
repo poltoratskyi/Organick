@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setActiveName } from "../../../redux/slices/menuSlice";
+import {
+  setActiveName,
+  selectActiveNameMenu,
+} from "../../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
@@ -15,7 +18,7 @@ const footerItems = [
 
 const Footer = () => {
   // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
+  const activeNameMenu = useSelector(selectActiveNameMenu);
 
   const dispatch = useDispatch();
 

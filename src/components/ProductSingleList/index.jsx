@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAddProduct, setRemoveProduct } from "../../redux/slices/cartSlice";
+import {
+  setAddProduct,
+  setRemoveProduct,
+  selectCart,
+} from "../../redux/slices/cartSlice";
 import {
   setRelatedProducts,
   setSingleProduct,
+  selectRelatedProducts,
 } from "../../redux/slices/singleProductSlice";
 
 import "./Style.scss";
@@ -25,12 +30,10 @@ const ProductSingleList = ({
   const dispatch = useDispatch();
 
   // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector((state) => state.cart.shoppingCart);
+  const shoppingCart = useSelector(selectCart);
 
   // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(
-    (state) => state.singleProduct.relatedProducts
-  );
+  const relatedProducts = useSelector(selectRelatedProducts);
 
   // Product descr buttons
   const [additional, setAdditional] = useState("description");

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./GlobalStyles.scss";
 
 import { setAddProduct } from "./redux/slices/cartSlice";
-import { setActiveName } from "./redux/slices/menuSlice";
+import { setActiveName, selectActiveNameMenu } from "./redux/slices/menuSlice";
 import { setSingleNews } from "./redux/slices/singleNewsSlice";
 import {
   setRelatedProducts,
@@ -19,6 +19,7 @@ import {
   setTagCategories,
   setActiveIndex,
   setCurrentPage,
+  selectFilters,
 } from "./redux/slices/shopSlice";
 
 import Home from "./pages/Home";
@@ -40,12 +41,10 @@ function App() {
   const navigate = useNavigate();
 
   // Initial state selected -> shopSlice.js
-  const { activeIndex, categories, currentPage } = useSelector(
-    (state) => state.shop
-  );
+  const { activeIndex, categories, currentPage } = useSelector(selectFilters);
 
   // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector((state) => state.menu.activeNameMenu);
+  const activeNameMenu = useSelector(selectActiveNameMenu);
 
   useEffect(() => {
     const fetchData = async () => {

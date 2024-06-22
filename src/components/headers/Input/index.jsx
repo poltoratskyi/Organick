@@ -4,6 +4,8 @@ import {
   setSearchProduct,
   setVisibleSearch,
   setVisibleInput,
+  selectVisibleInput,
+  selectSearchProduct,
 } from "../../../redux/slices/inputSlice";
 import debounce from "lodash.debounce";
 
@@ -15,7 +17,8 @@ const Input = () => {
   const dispatch = useDispatch();
 
   // Initial state selected -> inputSlice.js
-  const { searchProduct, visibleInput } = useSelector((state) => state.input);
+  const searchProduct = useSelector(selectSearchProduct);
+  const visibleInput = useSelector(selectVisibleInput);
 
   // Local initial state -> input value -> searchProduct state
   const [inputValue, setInputValue] = useState(searchProduct);
@@ -24,7 +27,7 @@ const Input = () => {
   const debouncedSearch = useCallback(
     debounce((value) => {
       dispatch(setSearchProduct(value));
-    }, 250),
+    }, 500),
     []
   );
 
@@ -64,7 +67,11 @@ const Input = () => {
   }, [visibleInput]);
 
   return (
-    <>
+    <div
+      className={
+        visibleInput ? "input-content" : "input-content input-content_hidden"
+      }
+    >
       <div className="input-wrapper">
         <input
           className="input"
@@ -103,7 +110,7 @@ const Input = () => {
       </div>
 
       <SearchModal />
-    </>
+    </div>
   );
 };
 
