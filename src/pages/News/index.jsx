@@ -1,13 +1,21 @@
 // pages/NewsPage.js
 import React from "react";
-import Newsletter from "../../components/footers/Newsletter";
-import News from "../../components/home-pages/News";
-import useShowSingleNews from "../../hooks/useShowSingleNews";
+import { useSelector } from "react-redux";
 
-import posts from "../../data/posts";
+import { selectPosts } from "../../redux/slices/postsSlice";
+
+import { selectIsSkeletonLoading } from "../../redux/slices/singlePostSlice";
+
+import Newsletter from "../../components/footers/Newsletter";
+import PostItems from "../../components/PostItems";
+import Skeleton from "../../components/Skeleton/SinglePost";
 
 const NewsPage = () => {
-  const showSingleNews = useShowSingleNews();
+  // Initial state selected -> postsSlice.js
+  const posts = useSelector(selectPosts);
+
+  // Initial state selected -> singlePostSlice.js
+  const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   return (
     <>
@@ -18,13 +26,11 @@ const NewsPage = () => {
       <div className="container">
         <div className="news__content">
           <ul className="news__content-posts">
-            {posts.map((post) => (
-              <News
-                key={post.id}
-                {...post}
-                showSingleNews={() => showSingleNews(post)}
-              />
-            ))}
+            {isSkeletonLoading
+              ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+              : posts.map((post) => (
+                  <PostItems key={post.parent_id} {...post} />
+                ))}
           </ul>
         </div>
       </div>

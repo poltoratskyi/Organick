@@ -94,7 +94,7 @@ const Search = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+          <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
             <span
               onClick={() => handleClickPage()}
               className="search-items__item-product-cover-exposition-name"

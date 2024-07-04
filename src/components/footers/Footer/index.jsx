@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
 
-import useActivePage from "../../../hooks/useActivePage.jsx";
+import useActivePage from "../../../hooks/useActivePage";
 
 import "./Style.scss";
 

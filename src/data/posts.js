@@ -1,6 +1,7 @@
 const posts = [
   {
-    id: 1,
+    id: "1",
+    parent_id: 1,
     dataNumber: 25,
     year: 2023,
     img: "../img/News/Salad-large-min.jpg",
@@ -25,7 +26,8 @@ const posts = [
   },
 
   {
-    id: 2,
+    id: "2",
+    parent_id: 2,
     dataNumber: 20,
     year: 2023,
     img: "../img/News/Tomato-large-min.jpg",
@@ -50,7 +52,8 @@ const posts = [
   },
 
   {
-    id: 3,
+    id: "3",
+    parent_id: 3,
     dataNumber: 15,
     year: 2023,
     img: "../img/News/Vitamin-large-min.jpg",
@@ -76,7 +79,8 @@ const posts = [
   },
 
   {
-    id: 4,
+    id: "4",
+    parent_id: 4,
     dataNumber: 10,
     year: 2023,
     img: "../img/News/Organic-large-min.jpg",
@@ -103,7 +107,8 @@ const posts = [
   },
 
   {
-    id: 5,
+    id: "5",
+    parent_id: 5,
     dataNumber: 5,
     year: 2024,
     img: "../img/News/Fresh-large-min.jpg",
@@ -130,7 +135,8 @@ const posts = [
   },
 
   {
-    id: 6,
+    id: "6",
+    parent_id: 6,
     dataNumber: 1,
     year: 2024,
     img: "../img/News/Plastic-large-min.jpg",

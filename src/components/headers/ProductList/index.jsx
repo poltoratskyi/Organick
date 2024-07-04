@@ -63,7 +63,7 @@ const ProductList = ({
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
           <span
             onClick={() => {
               toSingleProduct();

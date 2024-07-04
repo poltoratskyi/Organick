@@ -80,7 +80,7 @@ const ProductItems = ({
           alt={`Product ${name}`}
         />
 
-        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
           <span
             onClick={() => {
               toSingleProduct();
@@ -126,7 +126,7 @@ const ProductItems = ({
         id="shop-now"
         className="button button_shop-now"
       >
-        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`} id="link">
+        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`} id="link">
           Shop Now
           <svg
             id="arrow"

@@ -8,7 +8,7 @@ import "./GlobalStyles.scss";
 
 import { setAddProduct } from "./redux/slices/cartSlice";
 import { selectActiveNameMenu } from "./redux/slices/menuSlice";
-import { setSingleNews } from "./redux/slices/singleNewsSlice";
+import { fetchPosts } from "./redux/slices/postsSlice";
 import { setViewedProducts } from "./redux/slices/singleProductSlice";
 import { fetchProducts } from "./redux/slices/catalogueSlice";
 import { setSkeletonIsLoading } from "./redux/slices/catalogueSlice";
@@ -25,13 +25,14 @@ import Error from "./pages/Error";
 import AboutUs from "./pages/AboutUs";
 import Shop from "./pages/Shop";
 import ProductSingle from "./pages/ProductSingle";
-import NewsSingle from "./pages/NewsSingle";
+import NewsSingle from "./pages/PostSingle";
 import Services from "./pages/Services";
 import News from "./pages/News";
 import Team from "./pages/Team";
 import ContactUs from "./pages/ContactUs";
 import PasswordProtected from "./pages/PasswordProtected";
 import Footer from "./components/footers/Footer";
+import AuthorPosts from "./pages/AuthorsPosts";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector(selectActiveNameMenu);
 
+  // Shop page
   useEffect(() => {
     const fetchData = async () => {
       // Check activeNameMenu
@@ -79,13 +81,9 @@ function App() {
         JSON.parse(localStorage.getItem("shoppingCart")) || [];
       const viewedProducts =
         JSON.parse(localStorage.getItem("viewedProducts")) || [];
-      const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
 
       // Save products -> Shopping basket
       dispatch(setAddProduct(shoppingCart));
-
-      // Save reviewed news -> Single news
-      dispatch(setSingleNews(reviewedNews));
 
       // Save related products
       dispatch(setViewedProducts(viewedProducts));
@@ -96,6 +94,18 @@ function App() {
 
     fetchData();
   }, [categories, activeIndex, activeNameMenu, currentPage]);
+
+  // News page
+  useEffect(() => {
+    const fetchDataPosts = async () => {
+      // Check activeNameMenu
+      if (activeNameMenu === "News") {
+        dispatch(fetchPosts());
+      }
+    };
+
+    fetchDataPosts();
+  }, [activeNameMenu]);
 
   useEffect(() => {
     // Check if the active menu is "Shop"
@@ -159,7 +169,8 @@ function App() {
 
         {/* News route for NewsSingle */}
         <Route path="/News" element={<News />} />
-        <Route path="/blog/:blogName" element={<NewsSingle />} />
+        <Route path="/blog/:blogName/:postId" element={<NewsSingle />} />
+        <Route path="/posts/:year/:author" element={<AuthorPosts />} />
 
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/PasswordProtected" element={<PasswordProtected />} />
