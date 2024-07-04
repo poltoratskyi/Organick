@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-const Banner = ({ handleClickPage }) => {
+const Banner = () => {
   return (
     <article className="banner">
       <div className="container">
@@ -19,7 +19,9 @@ const Banner = ({ handleClickPage }) => {
           </div>
 
           <button
-            onClick={() => handleClickPage("Services")}
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
             className="button button_banner"
           >
             <Link id="link" to="/Services">

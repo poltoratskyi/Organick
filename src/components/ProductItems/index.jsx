@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { setToggleShoppingCart } from "../../redux/slices/cartSlice";
 import { setActiveName } from "../../redux/slices/menuSlice";
-import { Link } from "react-router-dom";
+
+import { useViewedProducts, useDiscount } from "../../hooks/useProductActions";
 
 import "./Style.scss";
 
 const ProductItems = ({
+  id,
   parent_id,
   description,
   descriptionMore,
-  showSingleProduct,
   additionalInfo,
   tag,
   isNew,
@@ -18,35 +21,32 @@ const ProductItems = ({
   name,
   price,
   salePrice,
-  discount,
 }) => {
   const dispatch = useDispatch();
 
-  const getSingleProduct = () => {
-    // Props transfer
-    showSingleProduct({
+  // Viewed product
+  const { handleViewItem } = useViewedProducts();
+
+  // Product discount
+  const percentage = useDiscount(price, salePrice);
+
+  const toSingleProduct = () => {
+    const productToAdd = {
+      id,
       parent_id,
       description,
-      tag,
       descriptionMore,
       additionalInfo,
+      tag,
+      isNew,
       img,
       name,
       price,
       salePrice,
-      isNew,
-      discount,
-    });
-  };
+      percentage,
+    };
 
-  const handleClickPage = (name) => {
-    getSingleProduct();
-    dispatch(setActiveName(name));
-    dispatch(setToggleShoppingCart(false));
-    window.scrollTo(0, 0);
-    document.documentElement.style.overflow = "auto";
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
+    handleViewItem(productToAdd);
   };
 
   return (
@@ -69,7 +69,7 @@ const ProductItems = ({
           {/* is salePrice === true */}
           {salePrice && (
             <span className="product-items__item-badge-info-header-percentage">
-              -{discount}%
+              -{percentage}%
             </span>
           )}
         </div>
@@ -80,8 +80,19 @@ const ProductItems = ({
           alt={`Product ${name}`}
         />
 
-        <Link onClick={() => handleClickPage("Shop")} to={`/Shop/${name}`}>
-          <span className="product-items__item-badge-name">{name}</span>
+        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+          <span
+            onClick={() => {
+              toSingleProduct();
+              dispatch(setActiveName(""));
+              window.scrollTo(0, 0);
+              dispatch(setToggleShoppingCart(false));
+              document.documentElement.style.overflow = "auto";
+            }}
+            className="product-items__item-badge-name"
+          >
+            {name}
+          </span>
         </Link>
 
         <span className="product-items__item-badge-line"></span>
@@ -105,11 +116,17 @@ const ProductItems = ({
       </div>
 
       <button
-        onClick={() => handleClickPage("Shop")}
+        onClick={() => {
+          toSingleProduct();
+          dispatch(setActiveName(""));
+          window.scrollTo(0, 0);
+          dispatch(setToggleShoppingCart(false));
+          document.documentElement.style.overflow = "auto";
+        }}
         id="shop-now"
         className="button button_shop-now"
       >
-        <Link to={`/Shop/${name}`} id="link">
+        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`} id="link">
           Shop Now
           <svg
             id="arrow"

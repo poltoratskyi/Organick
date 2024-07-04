@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectRelatedProducts } from "../../redux/slices/singleProductSlice";
 import {
-  setAddProduct,
-  setRemoveProduct,
-  selectCart,
-} from "../../redux/slices/cartSlice";
-import {
-  setRelatedProducts,
-  setSingleProduct,
-  selectRelatedProducts,
-} from "../../redux/slices/singleProductSlice";
+  useDiscount,
+  useAddProduct,
+  useRemoveProduct,
+  useIsAdded,
+} from "../../hooks/useProductActions";
 
 import "./Style.scss";
 
-import AdditionalProducts from "../headers/AdditionalProducts";
+import ProductItems from "../ProductItems";
 
 const ProductSingleList = ({
+  id,
   parent_id,
   img,
   name,
@@ -27,75 +25,15 @@ const ProductSingleList = ({
   additionalInfo,
   isNew,
 }) => {
-  const dispatch = useDispatch();
-
-  // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector(selectCart);
-
   // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(selectRelatedProducts);
+  const viewedProducts = useSelector(selectRelatedProducts);
 
   // Product descr buttons
   const [additional, setAdditional] = useState("description");
 
-  // Show single product
-  const showSingleProduct = (product) => {
-    // Show the new product -> Previous products
-    const newSingleProduct = [product];
-
-    // Request -> localStorage
-    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
-
-    // Update -> Single product component
-    dispatch(setSingleProduct(newSingleProduct));
-
-    const existingRelatedProduct = relatedProducts.find(
-      (item) => item.parent_id === product.parent_id
-    );
-
-    // if product ID not found
-    if (!existingRelatedProduct) {
-      const newRelatedProducts = [product, ...relatedProducts];
-
-      // Request -> localStorage
-      localStorage.setItem(
-        "relatedProducts",
-        JSON.stringify(newRelatedProducts)
-      );
-
-      // Update state
-      dispatch(setRelatedProducts(newRelatedProducts));
-    }
-  };
-
-  // Add the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const addProduct = (product) => {
-    // Add the new product -> Previous products
-    const newShoppingBasket = [product, ...shoppingCart];
-
-    // Save shopping basket
-    dispatch(setAddProduct(newShoppingBasket));
-
-    // Request -> localStorage
-    localStorage.setItem("shoppingCart", JSON.stringify(newShoppingBasket));
-  };
-
-  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const removeProduct = (parent_id) => {
-    // To remove product
-    dispatch(setRemoveProduct(parent_id));
-
-    // Update localStorage
-    const updatedItems = shoppingCart.filter(
-      (item) => item.parent_id !== parent_id
-    );
-
-    localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
-  };
-
   const handleAddToCart = () => {
-    // Props transfer
-    addProduct({
+    const productToAdd = {
+      id,
       parent_id,
       tag,
       img,
@@ -107,21 +45,22 @@ const ProductSingleList = ({
       isNew,
       percentage,
       additionalInfo,
-    });
+    };
+
+    addProduct(productToAdd);
   };
 
-  // Found the products
-  const isAdded = (parent_id) => {
-    return shoppingCart.some((item) => item.parent_id === parent_id);
-  };
+  // Product discount
+  const percentage = useDiscount(price, salePrice);
 
-  // Default value -> discount
-  const [percentage, setPercentage] = useState(0);
+  // Add the product -> Shopping cart (redux) / localStorage
+  const { addProduct } = useAddProduct();
 
-  useEffect(() => {
-    const calculatedPercentage = ((price - salePrice) / price) * 100;
-    setPercentage(calculatedPercentage.toFixed(0));
-  }, [price, salePrice]);
+  // Remove the product -> Shopping cart (redux) / localStorage
+  const { removeProduct } = useRemoveProduct(parent_id);
+
+  // Found the product -> -> Shopping cart (redux) / localStorage
+  const { isAdded } = useIsAdded(parent_id);
 
   return (
     <>
@@ -252,21 +191,14 @@ const ProductSingleList = ({
       </div>
 
       <>
-        <h2 className=" customers customers_single">Related Products</h2>
+        <h2 className="customers customers_single">Related Products</h2>
         <ul className="product-items product-items_basket">
-          {/*  Using the catalog of product <- Context */}
-          {relatedProducts
+          {viewedProducts
             // Filter the product(s) -> 0 - 4
             .slice(0, 4)
             .map((product) => (
               <li className="product-items__item" key={product.parent_id}>
-                {/* Getting all object properties <- Spread operator <- Context */}
-
-                <AdditionalProducts
-                  {...product}
-                  // Data tranfer -> Single product component
-                  showSingleProduct={() => showSingleProduct(product)}
-                />
+                <ProductItems {...product} />
               </li>
             ))}
         </ul>

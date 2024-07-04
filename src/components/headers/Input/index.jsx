@@ -7,6 +7,8 @@ import {
   selectVisibleInput,
   selectSearchProduct,
 } from "../../../redux/slices/inputSlice";
+import { fetchInputProducts } from "../../../redux/slices/inputSlice";
+
 import debounce from "lodash.debounce";
 
 import "./Style.scss";
@@ -27,6 +29,7 @@ const Input = () => {
   const debouncedSearch = useCallback(
     debounce((value) => {
       dispatch(setSearchProduct(value));
+      dispatch(fetchInputProducts(value));
     }, 500),
     []
   );
@@ -42,8 +45,6 @@ const Input = () => {
   };
 
   const actionInputSearch = () => {
-    dispatch(setSearchProduct(""));
-    setInputValue("");
     dispatch(setVisibleInput(false));
     dispatch(setVisibleSearch(false));
   };
@@ -54,6 +55,13 @@ const Input = () => {
       actionInputSearch();
     }
   };
+
+  useEffect(() => {
+    if (visibleInput) {
+      dispatch(setSearchProduct(""));
+      setInputValue("");
+    }
+  }, [visibleInput]);
 
   useEffect(() => {
     visibleInput

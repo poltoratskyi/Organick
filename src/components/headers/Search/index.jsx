@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import {
-  setVisibleInput,
-  setSearchProduct,
-} from "../../../redux/slices/inputSlice";
-import {
-  setRelatedProducts,
-  setSingleProduct,
-} from "../../../redux/slices/singleProductSlice";
+import { setVisibleInput } from "../../../redux/slices/inputSlice";
+
 import { setActiveName } from "../../../redux/slices/menuSlice";
 import {
-  setAddProduct,
-  setRemoveProduct,
-  selectCart,
-} from "../../../redux/slices/cartSlice";
-import { selectRelatedProducts } from "../../../redux/slices/singleProductSlice";
+  useViewedProducts,
+  useDiscount,
+  useRemoveProduct,
+  useAddProduct,
+  useIsAdded,
+} from "../../../hooks/useProductActions";
 
 import "./Style.scss";
 
 const Search = ({
+  id,
   parent_id,
   tag,
   img,
@@ -34,70 +30,31 @@ const Search = ({
 }) => {
   const dispatch = useDispatch();
 
-  // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector(selectCart);
-
-  // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(selectRelatedProducts);
-
-  // Show single product
-  const showSingleProduct = (product) => {
-    // Show the new product -> Previous products
-    const newSingleProduct = [product];
-
-    // Request -> localStorage
-    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
-
-    // Update -> Single product component
-    dispatch(setSingleProduct(newSingleProduct));
-
-    const existingRelatedProduct = relatedProducts.find(
-      (item) => item.parent_id === product.parent_id
-    );
-
-    // if product ID not found
-    if (!existingRelatedProduct) {
-      const newRelatedProducts = [product, ...relatedProducts];
-
-      // Request -> localStorage
-      localStorage.setItem(
-        "relatedProducts",
-        JSON.stringify(newRelatedProducts)
-      );
-
-      // Update state
-      dispatch(setRelatedProducts(newRelatedProducts));
-    }
-  };
-
-  // Add the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const addProduct = (product) => {
-    // Add the new product -> Previous products
-    const newShoppingBasket = [product, ...shoppingCart];
-
-    // Save shopping basket
-    dispatch(setAddProduct(newShoppingBasket));
-
-    // Request -> localStorage
-    localStorage.setItem("shoppingCart", JSON.stringify(newShoppingBasket));
-  };
-
-  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const removeProduct = (parent_id) => {
-    // To remove product
-    dispatch(setRemoveProduct(parent_id));
-
-    // Update localStorage
-    const updatedItems = shoppingCart.filter(
-      (item) => item.parent_id !== parent_id
-    );
-
-    localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
-  };
-
   const handleAddToCart = () => {
-    // Props transfer
-    addProduct({
+    const productToAdd = {
+      id,
+      parent_id,
+      tag,
+      img,
+      name,
+      description,
+      descriptionMore,
+      additionalInfo,
+      price,
+      salePrice,
+      isNew,
+      percentage,
+    };
+
+    addProduct(productToAdd);
+    handleViewItem(productToAdd);
+  };
+
+  const handleClickPage = () => {
+    dispatch(setActiveName(""));
+    dispatch(setVisibleInput(false));
+    handleViewItem({
+      id,
       parent_id,
       tag,
       img,
@@ -112,43 +69,20 @@ const Search = ({
     });
   };
 
-  const getSingleProduct = () => {
-    // Props transfer
-    showSingleProduct({
-      parent_id,
-      description,
-      tag,
-      descriptionMore,
-      additionalInfo,
-      img,
-      name,
-      price,
-      salePrice,
-    });
-  };
+  // Product discount
+  const percentage = useDiscount(price, salePrice);
 
-  // Found the products
-  const isAdded = (parent_id) => {
-    return shoppingCart.some((item) => item.parent_id === parent_id);
-  };
+  // Add the product -> Shopping cart (redux) / localStorage
+  const { addProduct } = useAddProduct();
 
-  const handleClickPage = (name) => {
-    getSingleProduct();
-    dispatch(setSearchProduct(""));
-    dispatch(setVisibleInput(false));
-    dispatch(setActiveName(name));
-    window.scrollTo(0, 0);
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
+  // Viewed product
+  const { handleViewItem } = useViewedProducts();
 
-  // Default value -> discount
-  const [percentage, setPercentage] = useState(0);
+  // Remove the product -> Shopping cart (redux) / localStorage
+  const { removeProduct } = useRemoveProduct(parent_id);
 
-  useEffect(() => {
-    const calculatedPercentage = ((price - salePrice) / price) * 100;
-    setPercentage(calculatedPercentage.toFixed(0));
-  }, [price, salePrice]);
+  // Found the product -> -> Shopping cart (redux) / localStorage
+  const { isAdded } = useIsAdded(parent_id);
 
   return (
     <div className="search-items__item-product">
@@ -160,8 +94,11 @@ const Search = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <Link onClick={() => handleClickPage("Shop")} to={`/Shop/${name}`}>
-            <span className="search-items__item-product-cover-exposition-name">
+          <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+            <span
+              onClick={() => handleClickPage()}
+              className="search-items__item-product-cover-exposition-name"
+            >
               {name}
             </span>
           </Link>

@@ -5,16 +5,11 @@ import {
   selectCart,
   selectToggleShoppingCart,
 } from "../../../redux/slices/cartSlice";
-import {
-  setRelatedProducts,
-  setSingleProduct,
-  selectRelatedProducts,
-} from "../../../redux/slices/singleProductSlice";
 
 import "./Style.scss";
 
 import ProductList from "../ProductList";
-import AdditionalProducts from "../AdditionalProducts";
+import ProductItems from "../../ProductItems";
 
 import staticData from "../../../data/products";
 
@@ -24,39 +19,6 @@ const ShoppingCart = ({ cartRef }) => {
   // Initial state selected -> cartSlice.js
   const shoppingCart = useSelector(selectCart);
   const toggleShoppingCart = useSelector(selectToggleShoppingCart);
-
-  // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(selectRelatedProducts);
-
-  // Show single product
-  const showSingleProduct = (product) => {
-    // Show the new product -> Previous products
-    const newSingleProduct = [product];
-
-    // Request -> localStorage
-    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
-
-    // Update -> Single product component
-    dispatch(setSingleProduct(newSingleProduct));
-
-    const existingRelatedProduct = relatedProducts.find(
-      (item) => item.parent_id === product.parent_id
-    );
-
-    // if product ID not found
-    if (!existingRelatedProduct) {
-      const newRelatedProducts = [product, ...relatedProducts];
-
-      // Request -> localStorage
-      localStorage.setItem(
-        "relatedProducts",
-        JSON.stringify(newRelatedProducts)
-      );
-
-      // Update state
-      dispatch(setRelatedProducts(newRelatedProducts));
-    }
-  };
 
   // The total amount
   const totalPrice = (shoppingCart) => {
@@ -101,11 +63,7 @@ const ShoppingCart = ({ cartRef }) => {
         <ul className="product-list">
           {shoppingCart.map((product) => (
             <li key={product.parent_id} className="product-list__item">
-              <ProductList
-                {...product}
-                // Data tranfer -> Single product component
-                showSingleProduct={() => showSingleProduct(product)}
-              />
+              <ProductList {...product} />
             </li>
           ))}
         </ul>
@@ -154,13 +112,7 @@ const ShoppingCart = ({ cartRef }) => {
             .filter((product) => product.parent_id <= 3)
             .map((product) => (
               <li className="product-items__item" key={product.parent_id}>
-                {/* Getting all object properties <- Spread operator <- Context */}
-
-                <AdditionalProducts
-                  {...product}
-                  // Data tranfer -> Single product component
-                  showSingleProduct={() => showSingleProduct(product)}
-                />
+                <ProductItems {...product} />
               </li>
             ))}
         </ul>

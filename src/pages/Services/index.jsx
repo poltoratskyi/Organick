@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Style.scss";
 
 import Intro from "../../components/Intro";

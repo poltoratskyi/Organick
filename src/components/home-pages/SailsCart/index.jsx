@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Style.scss";
 
-const miniBanners = [
+const sailsCartBanners = [
   {
     id: 1,
     img: "/img/Card/1-min.jpg",
@@ -17,12 +17,12 @@ const miniBanners = [
   },
 ];
 
-const Card = () => {
+const SailsCart = () => {
   return (
     <div className="card">
       <div className="container">
         <ul className="card__content">
-          {miniBanners.map((item) => (
+          {sailsCartBanners.map((item) => (
             <li
               style={{
                 backgroundImage: `url(${item.img})`,
@@ -55,4 +55,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default SailsCart;

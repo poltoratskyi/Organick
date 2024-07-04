@@ -7,12 +7,9 @@ import { useNavigate } from "react-router-dom";
 import "./GlobalStyles.scss";
 
 import { setAddProduct } from "./redux/slices/cartSlice";
-import { setActiveName, selectActiveNameMenu } from "./redux/slices/menuSlice";
+import { selectActiveNameMenu } from "./redux/slices/menuSlice";
 import { setSingleNews } from "./redux/slices/singleNewsSlice";
-import {
-  setRelatedProducts,
-  setSingleProduct,
-} from "./redux/slices/singleProductSlice";
+import { setViewedProducts } from "./redux/slices/singleProductSlice";
 import { fetchProducts } from "./redux/slices/catalogueSlice";
 import { setSkeletonIsLoading } from "./redux/slices/catalogueSlice";
 import {
@@ -80,39 +77,32 @@ function App() {
       // Get products -> localStorage
       const shoppingCart =
         JSON.parse(localStorage.getItem("shoppingCart")) || [];
-      const reviewedProduct =
-        JSON.parse(localStorage.getItem("singleProduct")) || [];
-      const relatedProducts =
-        JSON.parse(localStorage.getItem("relatedProducts")) || [];
+      const viewedProducts =
+        JSON.parse(localStorage.getItem("viewedProducts")) || [];
       const reviewedNews = JSON.parse(localStorage.getItem("singleNews")) || [];
-      const activeMenu =
-        JSON.parse(localStorage.getItem("selectedPage")) || activeNameMenu;
 
       // Save products -> Shopping basket
       dispatch(setAddProduct(shoppingCart));
 
-      // Save reviewed products -> Single product
-      dispatch(setSingleProduct(reviewedProduct));
-
       // Save reviewed news -> Single news
       dispatch(setSingleNews(reviewedNews));
 
-      // Save reviewed pages -> Active name
-      dispatch(setActiveName(activeMenu));
-
       // Save related products
-      dispatch(setRelatedProducts(relatedProducts));
+      dispatch(setViewedProducts(viewedProducts));
 
       // Skeleton off
       dispatch(setSkeletonIsLoading(false));
     };
 
     fetchData();
-  }, [categories, activeIndex, activeNameMenu, dispatch, currentPage]);
+  }, [categories, activeIndex, activeNameMenu, currentPage]);
 
   useEffect(() => {
     // Check if the active menu is "Shop"
-    if (activeNameMenu === "Shop") {
+    if (activeNameMenu !== "Shop") {
+      // Update URL
+      navigate();
+    } else {
       // Create the obj of str JSone links -> categories, currentPage, activeIndex
       const queryStr = qs.stringify({
         categories,
@@ -126,7 +116,7 @@ function App() {
       // Update URL -> queryStr
       navigate(`?${queryStr}`);
     }
-  }, [activeNameMenu, categories, activeIndex, currentPage, navigate]);
+  }, [activeNameMenu, categories, activeIndex, currentPage]);
 
   useEffect(() => {
     // Get data URL -> localStorage
@@ -147,33 +137,13 @@ function App() {
     }
   }, [dispatch]);
 
-  // Show single news
-  const showSingleNews = (news) => {
-    // Show the new news -> Previous news
-    const newSingleNews = [news];
-
-    // Request -> localStorage
-    localStorage.setItem("singleNews", JSON.stringify(newSingleNews));
-
-    // Update -> Single news component
-    dispatch(setSingleNews(newSingleNews));
-  };
-
   return (
     <>
       {/* Navigation menu */}
       <Navigation />
       <Routes>
         {/* Default home page */}
-        <Route
-          path="/"
-          element={
-            <Home
-              // Show single news
-              showSingleNews={showSingleNews}
-            />
-          }
-        />
+        <Route path="/" element={<Home />} />
 
         {/* Other pages */}
         <Route path="/AboutUs" element={<AboutUs />} />
@@ -181,30 +151,15 @@ function App() {
         <Route path="/Services" element={<Services />} />
 
         {/* Shop route for ProductSingle */}
+        <Route path="/Shop" element={<Shop />} />
         <Route
-          path="/Shop"
-          element={
-            <Shop
-              // The active index
-              activeIndex={activeIndex}
-              // Tag categories
-              categories={categories}
-            />
-          }
+          path="/product/:productName/:productId"
+          element={<ProductSingle />}
         />
-        <Route path="/Shop/:productId" element={<ProductSingle />} />
 
         {/* News route for NewsSingle */}
-        <Route
-          path="/News"
-          element={
-            <News
-              // Show single news
-              showSingleNews={showSingleNews}
-            />
-          }
-        />
-        <Route path="/News/:newsId" element={<NewsSingle />} />
+        <Route path="/News" element={<News />} />
+        <Route path="/blog/:blogName" element={<NewsSingle />} />
 
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/PasswordProtected" element={<PasswordProtected />} />

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -9,13 +9,11 @@ import {
 } from "../../../redux/slices/cartSlice";
 import {
   setVisibleInput,
-  setSearchProduct,
   setVisibleSearch,
 } from "../../../redux/slices/inputSlice";
-import {
-  setActiveName,
-  selectActiveNameMenu,
-} from "../../../redux/slices/menuSlice";
+import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
+
+import useActivePage from "../../../hooks/useActivePage.jsx";
 
 import "./Style.scss";
 
@@ -30,13 +28,9 @@ const menuItems = [
 
 const Header = ({ cartRef }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const handleClickPage = (name) => {
-    dispatch(setActiveName(name));
-    window.scrollTo(0, 0);
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
+  useActivePage(menuItems, location);
 
   // Initial state selected -> cartSlice.js
   const shoppingCart = useSelector(selectCart);
@@ -69,7 +63,6 @@ const Header = ({ cartRef }) => {
   }, [toggleShoppingCart]);
 
   const actionInputSearch = () => {
-    dispatch(setSearchProduct(""));
     dispatch(setVisibleInput(true));
     dispatch(setVisibleSearch(true));
   };
@@ -77,7 +70,6 @@ const Header = ({ cartRef }) => {
   const actionShopCart = () => {
     cartRef.current.scrollTo(0, 0);
     document.documentElement.style.overflow = "hidden";
-    dispatch(setSearchProduct(""));
     dispatch(setVisibleInput(false));
     dispatch(setToggleShoppingCart(!toggleShoppingCart));
   };
@@ -102,7 +94,6 @@ const Header = ({ cartRef }) => {
               <ul className="header__content-menu-navigation-items">
                 {menuItems.map((item) => (
                   <li
-                    onClick={() => handleClickPage(item.name)}
                     key={item.name}
                     className={
                       activeNameMenu === item.name
@@ -111,7 +102,6 @@ const Header = ({ cartRef }) => {
                     }
                   >
                     <Link
-                      onClick={() => handleClickPage(item.name)}
                       className="header__content-menu-navigation-items-item-link"
                       to={item.link}
                     >

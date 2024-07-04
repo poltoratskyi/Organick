@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // The active name of page
-  activeNameMenu: "Home",
+  activeNameMenu: "",
 };
 
 const menuSlice = createSlice({

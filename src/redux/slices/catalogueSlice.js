@@ -1,17 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Get all products -> Input
-export const fetchInputProducts = createAsyncThunk(
-  "catalogue/fetchInputProductsStatus",
-  async () => {
-    const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products`
-    );
-    return response.data;
-  }
-);
-
 // Get all / filtered products -> Shop
 export const fetchProducts = createAsyncThunk(
   "users/fetchProductsStatus",
@@ -25,9 +14,6 @@ export const fetchProducts = createAsyncThunk(
 );
 
 const initialState = {
-  // Input products
-  inputProducts: [],
-
   // Catalogue products
   catalogue: [],
 
@@ -76,23 +62,6 @@ const catalogue = createSlice({
       // Empty catalogue
       state.catalogue = [];
     });
-
-    // Get all products -> Input
-    builder.addCase(fetchInputProducts.pending, (state) => {
-      state.status = "loading";
-    });
-
-    builder.addCase(fetchInputProducts.fulfilled, (state, action) => {
-      state.status = "success";
-
-      state.inputProducts = action.payload;
-    });
-
-    builder.addCase(fetchInputProducts.rejected, (state) => {
-      state.status = "error";
-      // Empty allProducts
-      state.inputProducts = [];
-    });
   },
 });
 
@@ -100,7 +69,6 @@ const catalogue = createSlice({
 export const { setSkeletonIsLoading } = catalogue.actions;
 
 // Export the selectors
-export const selectInputProducts = (state) => state.catalogue.inputProducts;
 export const selectCatalogue = (state) => state.catalogue.catalogue;
 export const selectIsSkeletonLoading = (state) =>
   state.catalogue.isSkeletonLoading;

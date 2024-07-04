@@ -1,11 +1,14 @@
+// pages/NewsPage.js
 import React from "react";
-
 import Newsletter from "../../components/footers/Newsletter";
 import News from "../../components/home-pages/News";
+import useShowSingleNews from "../../hooks/useShowSingleNews";
 
 import posts from "../../data/posts";
 
-const NewsPage = ({ showSingleNews }) => {
+const NewsPage = () => {
+  const showSingleNews = useShowSingleNews();
+
   return (
     <>
       <div className="page-banner page-banner_news">
@@ -19,7 +22,6 @@ const NewsPage = ({ showSingleNews }) => {
               <News
                 key={post.id}
                 {...post}
-                // Data tranfer -> Single news component
                 showSingleNews={() => showSingleNews(post)}
               />
             ))}

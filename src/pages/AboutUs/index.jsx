@@ -83,42 +83,9 @@ const AboutUs = () => {
 
       <Choose />
 
-      <section className="team-us">
-        <div className="container">
-          <div className="team-us__content">
-            <div className="team-us__content-title">
-              <span className="team-us__content-title-subheading">Team</span>
-              <h2 className="team-us__content-title-heading">
-                Our Organic Experts
-              </h2>
-            </div>
+      <MiniTeam />
 
-            <ul className="team-us__content-items">
-              <MiniTeam />
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="mini-offer">
-        <div className="container">
-          <div className="mini-offer__content">
-            <div className="mini-offer__content-title">
-              <span className="mini-offer__content-title-subheading">
-                The Products
-              </span>
-
-              <h2 className="mini-offer__content-title-heading">
-                What We Offer Organic for You
-              </h2>
-            </div>
-
-            <ul className="mini-offer__content-items">
-              <MiniOffer />
-            </ul>
-          </div>
-        </div>
-      </section>
+      <MiniOffer />
 
       <Newsletter />
     </>

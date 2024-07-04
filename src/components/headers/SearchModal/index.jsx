@@ -4,10 +4,6 @@ import {
   setShowNoResults,
   selectInputResults,
 } from "../../../redux/slices/inputSlice";
-import {
-  selectInputProducts,
-  fetchInputProducts,
-} from "../../../redux/slices/catalogueSlice";
 
 import Search from "../Search";
 import NoResults from "../NoResults";
@@ -16,17 +12,8 @@ const SearchModal = () => {
   const dispatch = useDispatch();
 
   // Initial state selected -> inputSlice.js
-  const { searchProduct, showNoResults, visibleInput } =
+  const { searchProduct, showNoResults, inputProducts } =
     useSelector(selectInputResults);
-
-  // Initial state selected -> catalogueSlice.js
-  const inputProducts = useSelector(selectInputProducts);
-
-  useEffect(() => {
-    if (searchProduct !== "" || visibleInput) {
-      dispatch(fetchInputProducts());
-    }
-  }, [searchProduct, visibleInput]);
 
   const filteredProducts = inputProducts.filter(
     (product) =>
@@ -40,7 +27,7 @@ const SearchModal = () => {
     filteredProducts.length <= 0 || searchProduct === ""
       ? dispatch(setShowNoResults(true))
       : dispatch(setShowNoResults(false));
-  }, [searchProduct, filteredProducts, dispatch]);
+  }, [searchProduct, filteredProducts]);
 
   return (
     <>

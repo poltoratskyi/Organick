@@ -1,33 +1,25 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  setActiveName,
-  selectActiveNameMenu,
-} from "../../../redux/slices/menuSlice";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
+
+import useActivePage from "../../../hooks/useActivePage.jsx";
 
 import "./Style.scss";
 
 const footerItems = [
   { name: "Contact Us", link: "/ContactUs" },
   { name: "Password Protected", link: "/PasswordProtected" },
-  { name: "Licences", link: "/Error" },
-  { name: "Changelog", link: "/Error" },
   { name: "404 Not Found", link: "/Error" },
 ];
 
 const Footer = () => {
+  const location = useLocation();
+
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector(selectActiveNameMenu);
 
-  const dispatch = useDispatch();
-
-  const handleClickPage = (name) => {
-    dispatch(setActiveName(name));
-    window.scrollTo(0, 0);
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
+  useActivePage(footerItems, location);
 
   return (
     <footer className="footer">
@@ -182,7 +174,9 @@ const Footer = () => {
             <ul className="footer__content-block-items">
               {footerItems.map((item) => (
                 <li
-                  onClick={() => handleClickPage(item.name)}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                  }}
                   key={item.name}
                   className={
                     activeNameMenu === item.name
@@ -191,7 +185,6 @@ const Footer = () => {
                   }
                 >
                   <Link
-                    onClick={() => handleClickPage(item.name)}
                     className="footer__content-block-items-item-link"
                     to={item.link}
                   >

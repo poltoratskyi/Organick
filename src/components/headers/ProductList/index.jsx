@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setToggleShoppingCart } from "../../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
-import { setRemoveProduct, selectCart } from "../../../redux/slices/cartSlice";
+import {
+  setToggleShoppingCart,
+  selectToggleShoppingCart,
+} from "../../../redux/slices/cartSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
+import {
+  useViewedProducts,
+  useDiscount,
+  useRemoveProduct,
+} from "../../../hooks/useProductActions";
 
 import "./Style.scss";
 
 const ProductList = ({
+  id,
   parent_id,
   img,
   name,
@@ -16,67 +24,57 @@ const ProductList = ({
   salePrice,
   description,
   descriptionMore,
-  showSingleProduct,
   isNew,
 }) => {
   const dispatch = useDispatch();
 
-  // Initial state selected -> cartSlice.js
-  const shoppingCart = useSelector(selectCart);
+  // Viewed product
+  const { handleViewItem } = useViewedProducts();
 
-  const getSingleProduct = () => {
-    // Props transfer
-    showSingleProduct({
+  // Product discount
+  const percentage = useDiscount(price, salePrice);
+
+  // Remove the product -> Shopping cart (redux) / localStorage
+  const { removeProduct } = useRemoveProduct(parent_id);
+
+  // Initial state selected -> cartSlice.js
+  const toggleShoppingCart = useSelector(selectToggleShoppingCart);
+
+  const toSingleProduct = () => {
+    const productToAdd = {
+      id,
       parent_id,
-      description,
-      tag,
-      descriptionMore,
       img,
       name,
+      tag,
       price,
       salePrice,
-    });
+      description,
+      descriptionMore,
+      isNew,
+      percentage,
+    };
+
+    handleViewItem(productToAdd);
   };
-
-  // Remove the product -> Shopping cart -> Backend (mockAPI) / localStorage
-  const removeProduct = (parent_id) => {
-    // To remove product
-    dispatch(setRemoveProduct(parent_id));
-
-    // Update localStorage
-    const updatedItems = shoppingCart.filter(
-      (item) => item.parent_id !== parent_id
-    );
-
-    localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
-  };
-
-  const handleClickPage = (name) => {
-    getSingleProduct();
-    dispatch(setActiveName(name));
-    dispatch(setToggleShoppingCart(false));
-    window.scrollTo(0, 0);
-    document.documentElement.style.overflow = "auto";
-
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
-
-  // Default value -> discount
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    const calculatedPercentage = ((price - salePrice) / price) * 100;
-    setPercentage(calculatedPercentage.toFixed(0));
-  }, [price, salePrice]);
 
   return (
     <>
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link onClick={() => handleClickPage("Shop")} to={`/Shop/${name}`}>
-          <span className="product-list__item-exposition-name">{name}</span>
+        <Link to={`/product/${name.replace(/\s+/g, "-")}/${id}`}>
+          <span
+            onClick={() => {
+              toSingleProduct();
+              dispatch(setActiveName(""));
+              dispatch(setToggleShoppingCart(!toggleShoppingCart));
+              document.documentElement.style.overflow = "auto";
+            }}
+            className="product-list__item-exposition-name"
+          >
+            {name}
+          </span>
         </Link>
 
         <p className="product-list__item-exposition-description">

@@ -1,6 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+// Get filtered products -> Input
+export const fetchInputProducts = createAsyncThunk(
+  "catalogue/fetchInputProductsStatus",
+  async (filterLetter) => {
+    const response = await axios.get(
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products?filter=${filterLetter}`
+    );
+    return response.data;
+  }
+);
 
 const initialState = {
+  // Input products
+  inputProducts: [],
+
   // Visible <-> Hidden input
   visibleInput: false,
 
@@ -12,6 +27,9 @@ const initialState = {
 
   // Visible <-> Hidden search products
   showNoResults: false,
+
+  // Fetch status
+  status: "",
 };
 
 const inputSlice = createSlice({
@@ -39,6 +57,29 @@ const inputSlice = createSlice({
       state.showNoResults = action.payload;
     },
   },
+
+  // The extra function
+  extraReducers: (builder) => {
+    // Get filtered products -> Input
+    builder.addCase(fetchInputProducts.pending, (state) => {
+      state.status = "loading";
+
+      // Skeleton on
+      state.isSkeletonLoading = true;
+    });
+
+    builder.addCase(fetchInputProducts.fulfilled, (state, action) => {
+      state.status = "success";
+
+      state.inputProducts = action.payload;
+    });
+
+    builder.addCase(fetchInputProducts.rejected, (state) => {
+      state.status = "error";
+      // Empty allProducts
+      state.inputProducts = [];
+    });
+  },
 });
 
 // Export the function
@@ -50,9 +91,10 @@ export const {
 } = inputSlice.actions;
 
 // Export the selectors
+export const selectInputResults = (state) => state.input;
 export const selectVisibleInput = (state) => state.input.visibleInput;
 export const selectSearchProduct = (state) => state.input.searchProduct;
-export const selectInputResults = (state) => state.input;
+export const selectInputProducts = (state) => state.input.inputProducts;
 
 // Export the reducer
 export default inputSlice.reducer;

@@ -5,19 +5,17 @@ import {
   setActiveIndex,
   setOpenSortMenu,
   selectOpenSortMenu,
+  selectFilters,
 } from "../../redux/slices/shopSlice";
-import {
-  setRelatedProducts,
-  setSingleProduct,
-  selectRelatedProducts,
-} from "../../redux/slices/singleProductSlice";
 import {
   selectIsSkeletonLoading,
   selectCatalogue,
 } from "../../redux/slices/catalogueSlice";
 
+import "./Style.scss";
+
 import Newsletter from "../../components/footers/Newsletter";
-import Catalog from "../../components/home-pages/Catalog";
+import ProductItems from "../../components/ProductItems";
 import Skeleton from "../../components/Skeleton/Shop";
 import Pagination from "../../components/Pagination";
 
@@ -40,50 +38,17 @@ const menuSort = [
   { value: "NameZToA", label: "Name, Z To A" },
 ];
 
-const Shop = ({ categories, activeIndex }) => {
+const Shop = () => {
   const dispatch = useDispatch();
   const sortRef = useRef();
 
-  // Initial state selected -> singleProductSlice.js
-  const relatedProducts = useSelector(selectRelatedProducts);
-
   // Initial state selected -> shopSlice.js
+  const { activeIndex, categories } = useSelector(selectFilters);
   const openSortMenu = useSelector(selectOpenSortMenu);
 
   // Initial state selected -> catalogueSlice.js
   const catalogue = useSelector(selectCatalogue);
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
-
-  // Show single product
-  const showSingleProduct = (product) => {
-    // Show the new product -> Previous products
-    const newSingleProduct = [product];
-
-    // Request -> localStorage
-    localStorage.setItem("singleProduct", JSON.stringify(newSingleProduct));
-
-    // Update -> Single product component
-    dispatch(setSingleProduct(newSingleProduct));
-
-    const existingRelatedProduct = relatedProducts.find(
-      (item) => item.parent_id === product.parent_id
-    );
-
-    console.log(existingRelatedProduct);
-    // if product ID not found
-    if (!existingRelatedProduct) {
-      const newRelatedProducts = [product, ...relatedProducts];
-
-      // Request -> localStorage
-      localStorage.setItem(
-        "relatedProducts",
-        JSON.stringify(newRelatedProducts)
-      );
-
-      // Update state
-      dispatch(setRelatedProducts(newRelatedProducts));
-    }
-  };
 
   // Outside clicked popup
   useEffect(() => {
@@ -138,7 +103,7 @@ const Shop = ({ categories, activeIndex }) => {
               </ul>
             </div>
 
-            <div>
+            <div style={{ width: "100%" }}>
               <div className="product-top">
                 <div className="product-top__value">
                   There are {productQuantity(catalogue)} products.
@@ -188,11 +153,7 @@ const Shop = ({ categories, activeIndex }) => {
                         className="product-items__item product-items__item_shop"
                         key={product.parent_id}
                       >
-                        <Catalog
-                          {...product}
-                          // Data tranfer -> Single product component
-                          showSingleProduct={() => showSingleProduct(product)}
-                        />
+                        <ProductItems {...product} />
                       </li>
                     ))}
               </ul>

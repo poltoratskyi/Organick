@@ -1,20 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setActiveName } from "../../redux/slices/menuSlice";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
 const Error = () => {
-  const dispatch = useDispatch();
-
-  const handleClickPage = (name) => {
-    dispatch(setActiveName(name));
-    window.scrollTo(0, 0);
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
-
   return (
     <div className="error">
       <div className="container">
@@ -28,7 +18,7 @@ const Error = () => {
 
             <button
               onClick={() => {
-                handleClickPage("Home");
+                window.scrollTo(0, 0);
               }}
               className="button button_error"
             >

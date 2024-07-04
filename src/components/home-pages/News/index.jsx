@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setActiveName } from "../../../redux/slices/menuSlice";
 import { Link } from "react-router-dom";
 
 import "./Style.scss";
@@ -25,17 +23,7 @@ const News = ({
   conclusion,
   contentConclusion,
 }) => {
-  const dispatch = useDispatch();
-
-  const handleClickPage = (name) => {
-    dispatch(setActiveName(name));
-    window.scrollTo(0, 0);
-    // Request -> localStorage
-    localStorage.setItem("selectedPage", JSON.stringify(name));
-  };
-
   const getSingleNews = () => {
-    // Props transfer
     showSingleNews({
       id,
       img,
@@ -56,7 +44,7 @@ const News = ({
       contentConclusion,
     });
 
-    handleClickPage("News");
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -87,7 +75,10 @@ const News = ({
               />
             </svg>
 
-            <Link onClick={getSingleNews} to={`/News/${id}`}>
+            <Link
+              onClick={getSingleNews}
+              to={`/blog/${title.replace(/\s+/g, "-")}`}
+            >
               <span className="news__content-posts-post-info-content-author-name">
                 By {author}
               </span>
@@ -95,7 +86,10 @@ const News = ({
           </div>
 
           <div className="news__content-posts-post-info-content-description">
-            <Link onClick={getSingleNews} to={`/News/${id}`}>
+            <Link
+              onClick={getSingleNews}
+              to={`/blog/${title.replace(/\s+/g, "-")}`}
+            >
               <h4 className="news__content-posts-post-info-content-description-title">
                 {title}
               </h4>
@@ -107,7 +101,11 @@ const News = ({
           </div>
 
           <button className="button button_more-news">
-            <Link id="link" onClick={getSingleNews} to={`/News/${id}`}>
+            <Link
+              id="link"
+              onClick={getSingleNews}
+              to={`/blog/${title.replace(/\s+/g, "-")}`}
+            >
               Read More
               <svg
                 id="arrow"
