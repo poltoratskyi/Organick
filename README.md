@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-   <img src="https://img.shields.io/badge/Node.js-20.9.0-%23026e00" alt="Node.js">
-   <img src="https://img.shields.io/badge/React-v18.3.1-%2361dafb" alt="React">
-   <img src="https://img.shields.io/badge/License-MIT-%233Ea638" alt="License">
+      <img src="https://img.shields.io/badge/React-v18.3.1-blue" alt="React">
+      <img src="https://img.shields.io/badge/%20Redux%20Tookit-2.2.5-purple" alt=ReduxToolkit>
+      <img src="https://img.shields.io/badge/License-MIT-%233Ea638" alt="License">
 </p>
 
 
