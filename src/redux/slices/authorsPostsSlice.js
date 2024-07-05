@@ -5,7 +5,7 @@ export const fetchAuthorPost = createAsyncThunk(
   "users/fetchAuthorPostStatus",
   async (author) => {
     const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?filter=${author}`
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc&filter=${author}`
     );
 
     return response.data;
@@ -31,15 +31,7 @@ const authorsPosts = createSlice({
   initialState,
 
   // The basic function
-  reducers: {
-    setAuthorsPosts(state, action) {
-      state.authorsPosts = action.payload;
-    },
-
-    setSkeletonIsLoading(state, action) {
-      state.isSkeletonLoading = action.payload;
-    },
-  },
+  reducers: {},
 
   // The extra function
   extraReducers: (builder) => {
@@ -67,9 +59,6 @@ const authorsPosts = createSlice({
     });
   },
 });
-
-// Export the function
-export const { setAuthorsPosts } = authorsPosts.actions;
 
 // Export the selector
 export const selectAuthorsPosts = (state) => state.authorsPosts.authorsPosts;

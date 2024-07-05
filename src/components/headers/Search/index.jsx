@@ -51,7 +51,7 @@ const Search = ({
   };
 
   const handleClickPage = () => {
-    dispatch(setActiveName(""));
+    dispatch(setActiveName("SingleProduct"));
     dispatch(setVisibleInput(false));
     handleViewItem({
       id,

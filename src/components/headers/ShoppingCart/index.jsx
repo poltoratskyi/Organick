@@ -107,14 +107,11 @@ const ShoppingCart = ({ cartRef }) => {
           Recommended With Your Order
         </h2>
         <ul className="product-items product-items_basket">
-          {staticData
-            // Product ID 1 -> ID 3
-            .filter((product) => product.parent_id <= 3)
-            .map((product) => (
-              <li className="product-items__item" key={product.parent_id}>
-                <ProductItems {...product} />
-              </li>
-            ))}
+          {staticData.slice(13, 16).map((product) => (
+            <li className="product-items__item" key={product.parent_id}>
+              <ProductItems {...product} />
+            </li>
+          ))}
         </ul>
       </>
     </section>

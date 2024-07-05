@@ -48,7 +48,7 @@ const PostItems = ({
               <span
                 onClick={() => {
                   window.scrollTo(0, 0);
-                  dispatch(setActiveName(""));
+                  dispatch(setActiveName("SingleProduct"));
                 }}
                 className="news__content-posts-post-info-content-author-name"
               >
@@ -62,7 +62,7 @@ const PostItems = ({
               <h4
                 onClick={() => {
                   window.scrollTo(0, 0);
-                  dispatch(setActiveName(""));
+                  dispatch(setActiveName("SingleProduct"));
                 }}
                 className="news__content-posts-post-info-content-description-title"
               >
@@ -78,7 +78,7 @@ const PostItems = ({
           <button
             onClick={() => {
               window.scrollTo(0, 0);
-              dispatch(setActiveName(""));
+              dispatch(setActiveName("SingleProduct"));
             }}
             className="button button_more-news"
           >

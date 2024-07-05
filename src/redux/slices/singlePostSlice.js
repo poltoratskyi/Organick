@@ -33,15 +33,7 @@ const singlePost = createSlice({
   initialState,
 
   // The basic function
-  reducers: {
-    setSinglePost(state, action) {
-      state.singlePost = action.payload;
-    },
-
-    setSkeletonIsLoading(state, action) {
-      state.isSkeletonLoading = action.payload;
-    },
-  },
+  reducers: {},
 
   // The extra function
   extraReducers: (builder) => {
@@ -69,9 +61,6 @@ const singlePost = createSlice({
     });
   },
 });
-
-// Export the function
-export const { setSinglePost } = singlePost.actions;
 
 // Export the selector
 export const selectSinglePost = (state) => state.singlePost.singlePost;

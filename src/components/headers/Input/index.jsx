@@ -28,8 +28,10 @@ const Input = () => {
   // Debounced
   const debouncedSearch = useCallback(
     debounce((value) => {
+      if (value !== "") {
+        dispatch(fetchInputProducts(value));
+      }
       dispatch(setSearchProduct(value));
-      dispatch(fetchInputProducts(value));
     }, 500),
     []
   );

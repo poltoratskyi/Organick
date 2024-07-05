@@ -1,13 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectPosts } from "../../../redux/slices/postsSlice";
 
 import "./Style.scss";
-
-import staticPosts from "../../../data/posts";
 
 import PostItems from "../../PostItems";
 
 const News = () => {
+  // Initial state selected -> singlePostSlice.js
+  const posts = useSelector(selectPosts);
+
   return (
     <section className="news">
       <div className="container">
@@ -50,9 +53,8 @@ const News = () => {
           </div>
 
           <ul className="news__content-posts">
-            {staticPosts
-              // Posts ID 1 -> ID 2
-              .filter((item) => item.parent_id <= 2)
+            {posts
+              .slice(0, 2)
 
               .map((post) => (
                 <PostItems key={post.parent_id} {...post} />

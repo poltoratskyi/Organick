@@ -67,7 +67,7 @@ const ProductList = ({
           <span
             onClick={() => {
               toSingleProduct();
-              dispatch(setActiveName(""));
+              dispatch(setActiveName("SingleProduct"));
               dispatch(setToggleShoppingCart(!toggleShoppingCart));
               document.documentElement.style.overflow = "auto";
             }}

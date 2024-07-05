@@ -72,6 +72,9 @@ const inputSlice = createSlice({
       state.status = "success";
 
       state.inputProducts = action.payload;
+
+      // Skeleton off
+      state.isSkeletonLoading = false;
     });
 
     builder.addCase(fetchInputProducts.rejected, (state) => {
@@ -95,6 +98,7 @@ export const selectInputResults = (state) => state.input;
 export const selectVisibleInput = (state) => state.input.visibleInput;
 export const selectSearchProduct = (state) => state.input.searchProduct;
 export const selectInputProducts = (state) => state.input.inputProducts;
+export const selectIsSkeletonLoading = (state) => state.input.isSkeletonLoading;
 
 // Export the reducer
 export default inputSlice.reducer;

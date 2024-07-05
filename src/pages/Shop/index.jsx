@@ -6,11 +6,9 @@ import {
   setOpenSortMenu,
   selectOpenSortMenu,
   selectFilters,
-} from "../../redux/slices/shopSlice";
-import {
   selectIsSkeletonLoading,
-  selectCatalogue,
-} from "../../redux/slices/catalogueSlice";
+  selectShopProducts,
+} from "../../redux/slices/shopSlice";
 
 import "./Style.scss";
 
@@ -45,9 +43,7 @@ const Shop = () => {
   // Initial state selected -> shopSlice.js
   const { activeIndex, categories } = useSelector(selectFilters);
   const openSortMenu = useSelector(selectOpenSortMenu);
-
-  // Initial state selected -> catalogueSlice.js
-  const catalogue = useSelector(selectCatalogue);
+  const shopProducts = useSelector(selectShopProducts);
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   // Outside clicked popup
@@ -106,7 +102,7 @@ const Shop = () => {
             <div style={{ width: "100%" }}>
               <div className="product-top">
                 <div className="product-top__value">
-                  There are {productQuantity(catalogue)} products.
+                  There are {productQuantity(shopProducts)} products.
                 </div>
 
                 <div style={{ position: "relative" }}>
@@ -148,7 +144,7 @@ const Shop = () => {
                   ? [...new Array(6)].map((_, index) => (
                       <Skeleton key={index} />
                     ))
-                  : catalogue.map((product) => (
+                  : shopProducts.map((product) => (
                       <li
                         className="product-items__item product-items__item_shop"
                         key={product.parent_id}

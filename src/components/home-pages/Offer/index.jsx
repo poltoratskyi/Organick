@@ -4,16 +4,18 @@ import { Link } from "react-router-dom";
 
 import "./Style.scss";
 
-import { selectIsSkeletonLoading } from "../../../redux/slices/catalogueSlice";
+import {
+  selectIsSkeletonLoading,
+  selectCatalogue,
+} from "../../../redux/slices/catalogueSlice";
 
 import Skeleton from "../../../components/Skeleton/Shop";
 import ProductItems from "../../ProductItems";
 
-import staticData from "../../../data/products";
-
 const Offer = () => {
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
+  const catalogue = useSelector(selectCatalogue);
 
   return (
     <section className="offer">
@@ -60,17 +62,11 @@ const Offer = () => {
           <ul className="product-items">
             {isSkeletonLoading
               ? [...new Array(4)].map((_, index) => <Skeleton key={index} />)
-              : staticData
-                  .filter(
-                    // Product catalog ID 9 -> ID 12
-                    (product) =>
-                      product.parent_id >= 9 && product.parent_id <= 12
-                  )
-                  .map((product) => (
-                    <li className="product-items__item" key={product.parent_id}>
-                      <ProductItems {...product} />
-                    </li>
-                  ))}
+              : catalogue.slice(8, 12).map((product) => (
+                  <li className="product-items__item" key={product.parent_id}>
+                    <ProductItems {...product} />
+                  </li>
+                ))}
           </ul>
         </div>
       </div>

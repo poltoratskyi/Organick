@@ -2,7 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { selectIsSkeletonLoading } from "../../../redux/slices/catalogueSlice";
+import {
+  selectIsSkeletonLoading,
+  selectCatalogue,
+} from "../../../redux/slices/catalogueSlice";
 
 import "./Style.scss";
 
@@ -14,6 +17,7 @@ import staticData from "../../../data/products";
 const Catalog = () => {
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
+  const catalogue = useSelector(selectCatalogue);
 
   return (
     <section className="product">
@@ -28,8 +32,9 @@ const Catalog = () => {
           <ul className="product-items product-items_list">
             {isSkeletonLoading
               ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-              : staticData
-                  .filter((product) => product.parent_id <= 8)
+              : catalogue
+                  .slice(0, 8)
+
                   .map((product) => (
                     <li
                       className="product-items__item product-items__item_list"

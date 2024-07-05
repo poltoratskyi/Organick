@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Get all / filtered products -> Shop
+// Get products -> Home
 export const fetchProducts = createAsyncThunk(
   "users/fetchProductsStatus",
-  async ({ queryParams, currentPage }) => {
+  async () => {
     const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products?page=${currentPage}&limit=6&${queryParams}`
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products`
     );
 
     return response.data;
@@ -19,11 +19,12 @@ const initialState = {
 
   // Skeleton content loader
   isSkeletonLoading: true,
+
   // Fetch status
   status: "",
 };
 
-const catalogue = createSlice({
+const catalogueSlice = createSlice({
   // Name is required
   name: "catalogue",
 
@@ -31,11 +32,7 @@ const catalogue = createSlice({
   initialState,
 
   // The basic function
-  reducers: {
-    setSkeletonIsLoading(state, action) {
-      state.isSkeletonLoading = action.payload;
-    },
-  },
+  reducers: {},
 
   // The extra function
   extraReducers: (builder) => {
@@ -65,13 +62,10 @@ const catalogue = createSlice({
   },
 });
 
-// Export the function
-export const { setSkeletonIsLoading } = catalogue.actions;
-
 // Export the selectors
 export const selectCatalogue = (state) => state.catalogue.catalogue;
 export const selectIsSkeletonLoading = (state) =>
   state.catalogue.isSkeletonLoading;
 
 // Export the reducer
-export default catalogue.reducer;
+export default catalogueSlice.reducer;

@@ -5,7 +5,7 @@ export const fetchPosts = createAsyncThunk(
   "users/fetchSinglePostStatus",
   async () => {
     const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts`
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc`
     );
 
     return response.data;
@@ -28,11 +28,7 @@ const postsSlice = createSlice({
   initialState,
 
   // The basic function
-  reducers: {
-    setPosts(state, action) {
-      state.posts = action.payload;
-    },
-  },
+  reducers: {},
 
   // The extra function
   extraReducers: (builder) => {
@@ -54,9 +50,6 @@ const postsSlice = createSlice({
     });
   },
 });
-
-// Export the function
-export const { setPosts } = postsSlice.actions;
 
 // Export the selector
 export const selectPosts = (state) => state.posts.posts;

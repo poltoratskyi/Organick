@@ -4,19 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
-import "./GlobalStyles.scss";
-
 import { setAddProduct } from "./redux/slices/cartSlice";
 import { selectActiveNameMenu } from "./redux/slices/menuSlice";
 import { fetchPosts } from "./redux/slices/postsSlice";
-import { setViewedProducts } from "./redux/slices/singleProductSlice";
 import { fetchProducts } from "./redux/slices/catalogueSlice";
-import { setSkeletonIsLoading } from "./redux/slices/catalogueSlice";
+import { setViewedProducts } from "./redux/slices/singleProductSlice";
 import {
   setTagCategories,
   setActiveIndex,
   setCurrentPage,
   selectFilters,
+  fetchShopProducts,
 } from "./redux/slices/shopSlice";
 
 import Home from "./pages/Home";
@@ -34,6 +32,8 @@ import PasswordProtected from "./pages/PasswordProtected";
 import Footer from "./components/footers/Footer";
 import AuthorPosts from "./pages/AuthorsPosts";
 
+import "./GlobalStyles.scss";
+
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,9 +44,21 @@ function App() {
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector(selectActiveNameMenu);
 
-  // Shop page
+  // Fetch products -> Home page
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchHomeData = async () => {
+      // Check activeNameMenu
+      if (activeNameMenu === "Home") {
+        dispatch(fetchProducts());
+      }
+    };
+
+    fetchHomeData();
+  }, [activeNameMenu]);
+
+  // Fetch products -> Shop page
+  useEffect(() => {
+    const fetchShopData = async () => {
       // Check activeNameMenu
       if (activeNameMenu === "Shop") {
         let queryParams = "";
@@ -72,39 +84,38 @@ function App() {
         }
 
         dispatch(
-          fetchProducts({ queryParams, categories, activeIndex, currentPage })
+          fetchShopProducts({
+            queryParams,
+            currentPage,
+          })
         );
       }
-
-      // Get products -> localStorage
-      const shoppingCart =
-        JSON.parse(localStorage.getItem("shoppingCart")) || [];
-      const viewedProducts =
-        JSON.parse(localStorage.getItem("viewedProducts")) || [];
-
-      // Save products -> Shopping basket
-      dispatch(setAddProduct(shoppingCart));
-
-      // Save related products
-      dispatch(setViewedProducts(viewedProducts));
-
-      // Skeleton off
-      dispatch(setSkeletonIsLoading(false));
     };
 
-    fetchData();
+    // Get products -> localStorage
+    const shoppingCart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+    const viewedProducts =
+      JSON.parse(localStorage.getItem("viewedProducts")) || [];
+
+    // Save products -> Shopping basket
+    dispatch(setAddProduct(shoppingCart));
+
+    // Save related products
+    dispatch(setViewedProducts(viewedProducts));
+
+    fetchShopData();
   }, [categories, activeIndex, activeNameMenu, currentPage]);
 
-  // News page
+  // Fetch posts -> News page
   useEffect(() => {
-    const fetchDataPosts = async () => {
+    const fetchPostsData = async () => {
       // Check activeNameMenu
-      if (activeNameMenu === "News") {
+      if (activeNameMenu === "News" || activeNameMenu === "Home") {
         dispatch(fetchPosts());
       }
     };
 
-    fetchDataPosts();
+    fetchPostsData();
   }, [activeNameMenu]);
 
   useEffect(() => {

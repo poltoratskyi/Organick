@@ -6,6 +6,7 @@ import {
   selectSinglePost,
 } from "../../redux/slices/singlePostSlice";
 import { useParams } from "react-router-dom";
+import { setActiveName } from "../../redux/slices/menuSlice";
 
 import Newsletter from "../../components/footers/Newsletter";
 
@@ -53,7 +54,13 @@ const NewsSingle = () => {
                   />
                 </svg>
 
-                <Link to={`/posts/${item.year}/${item.author}`}>
+                <Link
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    dispatch(setActiveName("SinglePost"));
+                  }}
+                  to={`/posts/${item.year}/${item.author}`}
+                >
                   <span className="news-single__header-author-name">
                     By {item.author}
                   </span>

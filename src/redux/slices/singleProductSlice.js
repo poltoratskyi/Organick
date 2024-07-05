@@ -40,14 +40,6 @@ const singleProduct = createSlice({
     setViewedProducts(state, action) {
       state.viewedProducts = action.payload;
     },
-
-    setSingleProduct(state, action) {
-      state.singleProduct = action.payload;
-    },
-
-    setSkeletonIsLoading(state, action) {
-      state.isSkeletonLoading = action.payload;
-    },
   },
 
   // The extra function
@@ -78,7 +70,7 @@ const singleProduct = createSlice({
 });
 
 // Export the function
-export const { setSingleProduct, setViewedProducts } = singleProduct.actions;
+export const { setViewedProducts } = singleProduct.actions;
 
 // Export the selector
 export const selectRelatedProducts = (state) =>
