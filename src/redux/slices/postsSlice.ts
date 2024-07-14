@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { PostItem } from "../../components/PostItems";
+import { Status } from "./authorsPostsSlice";
 
 export const fetchPosts = createAsyncThunk<PostItem[]>(
-  "users/fetchSinglePostStatus",
+  "users/fetchPostsStatus",
   async () => {
     const response = await axios.get(
       `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc`
@@ -14,21 +15,26 @@ export const fetchPosts = createAsyncThunk<PostItem[]>(
   }
 );
 
-// Only obj
 interface PostsState {
   // Posts
   posts: PostItem[];
 
+  // Skeleton content loader
+  isSkeletonLoading: boolean;
+
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 }
 
 const initialState: PostsState = {
   // Posts
   posts: [],
 
+  // Skeleton content loader
+  isSkeletonLoading: true,
+
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 };
 
 const postsSlice = createSlice({
@@ -43,30 +49,39 @@ const postsSlice = createSlice({
 
   // The extra function
   extraReducers: (builder) => {
-    builder.addCase(fetchPosts.pending, (state) => {
-      state.status = "loading";
-    });
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = Status.LOADING;
 
-    builder.addCase(
-      fetchPosts.fulfilled,
-      (state, action: PayloadAction<PostItem[]>) => {
-        state.status = "success";
+        state.isSkeletonLoading = true;
+      })
 
-        state.posts = action.payload;
-      }
-    );
+      .addCase(
+        fetchPosts.fulfilled,
+        (state, action: PayloadAction<PostItem[]>) => {
+          state.status = Status.SUCCESS;
 
-    builder.addCase(fetchPosts.rejected, (state) => {
-      state.status = "error";
+          state.isSkeletonLoading = false;
 
-      // Empty catalogue
-      state.posts = [];
-    });
+          state.posts = action.payload;
+        }
+      )
+
+      .addCase(fetchPosts.rejected, (state) => {
+        state.status = Status.ERROR;
+
+        state.isSkeletonLoading = true;
+
+        // Empty catalogue
+        state.posts = [];
+      });
   },
 });
 
 // Export the selector
 export const selectPosts = (state: RootState) => state.posts.posts;
+export const selectIsSkeletonLoading = (state: RootState) =>
+  state.posts.isSkeletonLoading;
 
 // Export the reducer
 export default postsSlice.reducer;

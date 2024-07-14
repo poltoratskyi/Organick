@@ -4,6 +4,7 @@ import {
   fetchAuthorPost,
   selectAuthorsPosts,
   selectIsSkeletonLoading,
+  setClearAuthorsPosts,
 } from "../../redux/slices/authorsPostsSlice";
 
 import { useParams } from "react-router-dom";
@@ -11,9 +12,10 @@ import { useParams } from "react-router-dom";
 import Newsletter from "../../components/footers/Newsletter";
 import PostItems, { PostItem } from "../../components/PostItems";
 import Skeleton from "../../components/Skeleton/SinglePost";
+import { AppDispatch } from "../../redux/store";
 
 const AuthorPosts: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { author } = useParams();
 
   // Initial state selected -> authorsPostsSlice.js
@@ -22,9 +24,12 @@ const AuthorPosts: React.FC = () => {
 
   useEffect(() => {
     if (author) {
-      // @ts-ignore
-      dispatch(fetchAuthorPost(author));
+      dispatch(fetchAuthorPost({ author }));
     }
+
+    return () => {
+      dispatch(setClearAuthorsPosts());
+    };
   }, [author]);
 
   const postWord = authorsPosts.length === 1 ? "Post" : "Posts";

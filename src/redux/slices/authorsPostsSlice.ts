@@ -3,9 +3,13 @@ import { PostItem } from "../../components/PostItems";
 import axios from "axios";
 import { RootState } from "../store";
 
+type fetchAuthorProps = {
+  author: string;
+};
+
 export const fetchAuthorPost = createAsyncThunk<PostItem[], fetchAuthorProps>(
   "users/fetchAuthorPostStatus",
-  async (author) => {
+  async ({ author }) => {
     const response = await axios.get(
       `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc&filter=${author}`
     );
@@ -14,11 +18,12 @@ export const fetchAuthorPost = createAsyncThunk<PostItem[], fetchAuthorProps>(
   }
 );
 
-type fetchAuthorProps = {
-  author: string;
-};
+export enum Status {
+  LOADING = "LOADING",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}
 
-// Only obj
 interface AuthorsPostsState {
   // Author's posts
   authorsPosts: PostItem[];
@@ -27,7 +32,7 @@ interface AuthorsPostsState {
   isSkeletonLoading: boolean;
 
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 }
 
 const initialState: AuthorsPostsState = {
@@ -38,7 +43,7 @@ const initialState: AuthorsPostsState = {
   isSkeletonLoading: true,
 
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 };
 
 const authorsPosts = createSlice({
@@ -49,37 +54,46 @@ const authorsPosts = createSlice({
   initialState,
 
   // The basic function
-  reducers: {},
+  reducers: {
+    setClearAuthorsPosts(state) {
+      state.authorsPosts = [];
+    },
+  },
 
   // The extra function
   extraReducers: (builder) => {
-    builder.addCase(fetchAuthorPost.pending, (state) => {
-      state.status = "loading";
+    builder
+      .addCase(fetchAuthorPost.pending, (state) => {
+        state.status = Status.LOADING;
 
-      // Skeleton on
-      state.isSkeletonLoading = true;
-    });
+        state.isSkeletonLoading = true;
+      })
 
-    builder.addCase(
-      fetchAuthorPost.fulfilled,
-      (state, action: PayloadAction<PostItem[]>) => {
-        state.status = "success";
+      .addCase(
+        fetchAuthorPost.fulfilled,
+        (state, action: PayloadAction<PostItem[]>) => {
+          state.status = Status.SUCCESS;
 
-        state.authorsPosts = action.payload;
+          state.authorsPosts = action.payload;
 
-        // Skeleton off
-        state.isSkeletonLoading = false;
-      }
-    );
+          state.isSkeletonLoading = false;
+        }
+      )
 
-    builder.addCase(fetchAuthorPost.rejected, (state) => {
-      state.status = "error";
+      .addCase(fetchAuthorPost.rejected, (state) => {
+        state.status = Status.ERROR;
 
-      // Empty catalogue
-      state.authorsPosts = [];
-    });
+        // Empty catalogue
+        state.authorsPosts = [];
+
+        // Skeleton true
+        state.isSkeletonLoading = true;
+      });
   },
 });
+
+// Export the fnc
+export const { setClearAuthorsPosts } = authorsPosts.actions;
 
 // Export the selector
 export const selectAuthorsPosts = (state: RootState) =>

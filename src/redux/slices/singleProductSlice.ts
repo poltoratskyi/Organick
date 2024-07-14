@@ -2,25 +2,23 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Product } from "../../components/headers/SearchModal";
 import { RootState } from "../store";
-
-export const fetchSingleProduct = createAsyncThunk<Product[], fetchSingleProps>(
-  "users/fetchSingleProductStatus",
-  async (productId) => {
-    const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products/` + productId
-    );
-
-    const resultData = [response.data];
-
-    return resultData as Product[];
-  }
-);
+import { Status } from "./authorsPostsSlice";
 
 type fetchSingleProps = {
   productId: string;
 };
 
-// Only obj
+export const fetchSingleProduct = createAsyncThunk<Product[], fetchSingleProps>(
+  "users/fetchSingleProductStatus",
+  async ({ productId }) => {
+    const response = await axios.get(
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products/` + productId
+    );
+
+    return [response.data] as Product[];
+  }
+);
+
 interface SingleProductState {
   // Related products
   viewedProducts: Product[];
@@ -32,7 +30,7 @@ interface SingleProductState {
   isSkeletonLoading: boolean;
 
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 }
 
 const initialState: SingleProductState = {
@@ -46,7 +44,7 @@ const initialState: SingleProductState = {
   isSkeletonLoading: true,
 
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 };
 
 const singleProduct = createSlice({
@@ -61,40 +59,46 @@ const singleProduct = createSlice({
     setViewedProducts(state, action: PayloadAction<Product[]>) {
       state.viewedProducts = action.payload;
     },
+
+    setClearSingleProduct(state) {
+      state.singleProduct = [];
+    },
   },
 
   // The extra function
   extraReducers: (builder) => {
-    builder.addCase(fetchSingleProduct.pending, (state) => {
-      state.status = "loading";
+    builder
+      .addCase(fetchSingleProduct.pending, (state) => {
+        state.status = Status.LOADING;
 
-      // Skeleton on
-      state.isSkeletonLoading = true;
-    });
+        state.isSkeletonLoading = true;
+      })
 
-    builder.addCase(
-      fetchSingleProduct.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
-        state.status = "success";
+      .addCase(
+        fetchSingleProduct.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = Status.SUCCESS;
 
-        state.singleProduct = action.payload;
+          state.singleProduct = action.payload;
 
-        // Skeleton off
-        state.isSkeletonLoading = false;
-      }
-    );
+          state.isSkeletonLoading = false;
+        }
+      )
 
-    builder.addCase(fetchSingleProduct.rejected, (state) => {
-      state.status = "error";
+      .addCase(fetchSingleProduct.rejected, (state) => {
+        state.status = Status.ERROR;
 
-      // Empty catalogue
-      state.singleProduct = [];
-    });
+        state.isSkeletonLoading = true;
+
+        // Empty catalogue
+        state.singleProduct = [];
+      });
   },
 });
 
 // Export the function
-export const { setViewedProducts } = singleProduct.actions;
+export const { setViewedProducts, setClearSingleProduct } =
+  singleProduct.actions;
 
 // Export the selector
 export const selectRelatedProducts = (state: RootState) =>

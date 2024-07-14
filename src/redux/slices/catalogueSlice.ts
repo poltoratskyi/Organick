@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { Product } from "../../components/headers/SearchModal";
+import { Status } from "./authorsPostsSlice";
 
 // Get products -> Home
 export const fetchProducts = createAsyncThunk<Product[]>(
@@ -15,7 +16,6 @@ export const fetchProducts = createAsyncThunk<Product[]>(
   }
 );
 
-// Only obj
 interface CatalogueState {
   // Catalogue products
   catalogue: Product[];
@@ -24,7 +24,7 @@ interface CatalogueState {
   isSkeletonLoading: boolean;
 
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 }
 
 const initialState: CatalogueState = {
@@ -35,7 +35,7 @@ const initialState: CatalogueState = {
   isSkeletonLoading: true,
 
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 };
 
 const catalogueSlice = createSlice({
@@ -51,31 +51,33 @@ const catalogueSlice = createSlice({
   // The extra function
   extraReducers: (builder) => {
     // Get all / filtered products -> Shop
-    builder.addCase(fetchProducts.pending, (state) => {
-      state.status = "loading";
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.status = Status.LOADING;
 
-      // Skeleton on
-      state.isSkeletonLoading = true;
-    });
+        state.isSkeletonLoading = true;
+      })
 
-    builder.addCase(
-      fetchProducts.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
-        state.status = "success";
+      .addCase(
+        fetchProducts.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = Status.SUCCESS;
 
-        state.catalogue = action.payload;
+          state.catalogue = action.payload;
 
-        // Skeleton off
-        state.isSkeletonLoading = false;
-      }
-    );
+          state.isSkeletonLoading = false;
+        }
+      )
 
-    builder.addCase(fetchProducts.rejected, (state) => {
-      state.status = "error";
+      .addCase(fetchProducts.rejected, (state) => {
+        state.status = Status.ERROR;
 
-      // Empty catalogue
-      state.catalogue = [];
-    });
+        // Empty catalogue
+        state.catalogue = [];
+
+        // Skeleton true
+        state.isSkeletonLoading = true;
+      });
   },
 });
 

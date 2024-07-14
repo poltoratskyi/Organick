@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
 import {
   setSearchProduct,
   setVisibleSearch,
@@ -16,7 +17,7 @@ import "./Style.scss";
 import SearchModal from "../SearchModal";
 
 const Input: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Initial state selected -> inputSlice.js
   const searchProduct = useSelector(selectSearchProduct);
@@ -27,12 +28,11 @@ const Input: React.FC = () => {
 
   // Debounced
   const debouncedSearch = useCallback(
-    debounce((value: string) => {
-      if (value !== "") {
-        // @ts-ignore
-        dispatch(fetchInputProducts(value));
+    debounce((filterLetter: string) => {
+      if (filterLetter !== "") {
+        dispatch(fetchInputProducts({ filterLetter }));
       }
-      dispatch(setSearchProduct(value));
+      dispatch(setSearchProduct(filterLetter));
     }, 500),
     []
   );

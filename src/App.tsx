@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectActiveNameMenu } from "./redux/slices/menuSlice";
-import { fetchPosts } from "./redux/slices/postsSlice";
 import { setAddProduct } from "./redux/slices/cartSlice";
 import { setViewedProducts } from "./redux/slices/singleProductSlice";
-import { selectCart } from "./redux/slices/cartSlice";
 
 import Home from "./pages/Home";
 import Navigation from "./components/headers/Navigation";
@@ -24,25 +22,13 @@ import Footer from "./components/footers/Footer";
 import AuthorPosts from "./pages/AuthorsPosts";
 
 import "./GlobalStyles.scss";
+import { AppDispatch } from "./redux/store";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Initial state selected -> menuSlice.js
   const activeNameMenu = useSelector(selectActiveNameMenu);
-
-  // Fetch posts -> News page
-  useEffect(() => {
-    const fetchPostsData = async () => {
-      // Check activeNameMenu
-      if (activeNameMenu === "News" || activeNameMenu === "Home") {
-        //@ts-ignore
-        dispatch(fetchPosts());
-      }
-    };
-
-    fetchPostsData();
-  }, [activeNameMenu]);
 
   // Get products -> localStorage
   useEffect(() => {

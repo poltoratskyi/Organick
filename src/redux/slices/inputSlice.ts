@@ -2,19 +2,23 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { Product } from "../../components/headers/SearchModal";
+import { Status } from "./authorsPostsSlice";
+
+export type FetchInputProps = {
+  filterLetter: string;
+};
 
 // Get filtered products -> Input
-export const fetchInputProducts = createAsyncThunk(
+export const fetchInputProducts = createAsyncThunk<Product[], FetchInputProps>(
   "catalogue/fetchInputProductsStatus",
-  async (filterLetter) => {
+  async ({ filterLetter }) => {
     const response = await axios.get(
       `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Products?filter=${filterLetter}`
     );
-    return response.data;
+    return response.data as Product[];
   }
 );
 
-// Only obj
 interface InputState {
   // Input products
   inputProducts: Product[];
@@ -32,7 +36,7 @@ interface InputState {
   showNoResults: boolean;
 
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 
   // Skeleton content loader
   isSkeletonLoading: boolean;
@@ -55,7 +59,7 @@ const initialState: InputState = {
   showNoResults: false,
 
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 
   // Skeleton content loader
   isSkeletonLoading: false,
@@ -90,36 +94,34 @@ const inputSlice = createSlice({
   // The extra function
   extraReducers: (builder) => {
     // Get filtered products -> Input
-    builder.addCase(fetchInputProducts.pending, (state) => {
-      state.status = "loading";
+    builder
+      .addCase(fetchInputProducts.pending, (state) => {
+        state.status = Status.LOADING;
 
-      // Skeleton on
-      state.isSkeletonLoading = true;
-    });
+        state.isSkeletonLoading = true;
+      })
 
-    builder.addCase(
-      fetchInputProducts.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
-        state.status = "success";
+      .addCase(
+        fetchInputProducts.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = Status.SUCCESS;
 
-        state.showNoResults = true;
+          state.showNoResults = true;
 
-        state.inputProducts = action.payload;
+          state.inputProducts = action.payload;
 
-        // Skeleton off
+          state.isSkeletonLoading = false;
+        }
+      )
+
+      .addCase(fetchInputProducts.rejected, (state) => {
+        state.status = Status.ERROR;
+
         state.isSkeletonLoading = false;
-      }
-    );
 
-    builder.addCase(fetchInputProducts.rejected, (state) => {
-      state.status = "error";
-
-      // Skeleton off
-      state.isSkeletonLoading = false;
-
-      // Empty allProducts
-      state.inputProducts = [];
-    });
+        // Empty allProducts
+        state.inputProducts = [];
+      });
   },
 });
 

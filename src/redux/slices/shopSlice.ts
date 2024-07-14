@@ -2,6 +2,12 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Product } from "../../components/headers/SearchModal";
 import { RootState } from "../store";
+import { Status } from "./authorsPostsSlice";
+
+type FetchShopProps = {
+  queryParams: string;
+  currentPage: number;
+};
 
 // Get filtered products -> Shop
 export const fetchShopProducts = createAsyncThunk<Product[], FetchShopProps>(
@@ -15,12 +21,6 @@ export const fetchShopProducts = createAsyncThunk<Product[], FetchShopProps>(
   }
 );
 
-type FetchShopProps = {
-  queryParams: string;
-  currentPage: number;
-};
-
-// Only obj
 interface ShopState {
   // Shop products
   shopProducts: Product[];
@@ -41,7 +41,7 @@ interface ShopState {
   isSkeletonLoading: boolean;
 
   // Fetch status
-  status: "loading" | "success" | "error";
+  status: Status;
 }
 
 const initialState: ShopState = {
@@ -64,7 +64,7 @@ const initialState: ShopState = {
   isSkeletonLoading: true,
 
   // Fetch status
-  status: "loading",
+  status: Status.LOADING,
 };
 
 const shopSlice = createSlice({
@@ -96,31 +96,32 @@ const shopSlice = createSlice({
   // The extra function
   extraReducers: (builder) => {
     // Get all / filtered products -> Shop
-    builder.addCase(fetchShopProducts.pending, (state) => {
-      state.status = "loading";
+    builder
+      .addCase(fetchShopProducts.pending, (state) => {
+        state.status = Status.LOADING;
 
-      // Skeleton on
-      state.isSkeletonLoading = true;
-    });
+        state.isSkeletonLoading = true;
+      })
 
-    builder.addCase(
-      fetchShopProducts.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
-        state.status = "success";
+      .addCase(
+        fetchShopProducts.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = Status.SUCCESS;
 
-        state.shopProducts = action.payload;
+          state.shopProducts = action.payload;
 
-        // Skeleton off
-        state.isSkeletonLoading = false;
-      }
-    );
+          state.isSkeletonLoading = false;
+        }
+      )
 
-    builder.addCase(fetchShopProducts.rejected, (state) => {
-      state.status = "error";
+      .addCase(fetchShopProducts.rejected, (state) => {
+        state.status = Status.ERROR;
 
-      // Empty shop products
-      state.shopProducts = [];
-    });
+        state.isSkeletonLoading = true;
+
+        // Empty shop products
+        state.shopProducts = [];
+      });
   },
 });
 

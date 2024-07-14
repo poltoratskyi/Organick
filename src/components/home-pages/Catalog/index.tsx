@@ -14,9 +14,10 @@ import "./Style.scss";
 
 import Skeleton from "../../Skeleton/Shop";
 import ProductItems from "../../ProductItems";
+import { AppDispatch } from "../../../redux/store";
 
 const Catalog: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
@@ -30,7 +31,6 @@ const Catalog: React.FC = () => {
     const fetchHomeData = async () => {
       // Check activeNameMenu
       if (activeNameMenu === "Home") {
-        //@ts-ignore
         dispatch(fetchProducts());
       }
     };

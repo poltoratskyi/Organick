@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSingleProduct } from "../../redux/slices/singleProductSlice";
+import {
+  setClearSingleProduct,
+  selectSingleProduct,
+} from "../../redux/slices/singleProductSlice";
 import { useParams } from "react-router-dom";
 import {
   selectIsSkeletonLoading,
@@ -11,9 +14,10 @@ import ProductSingleList from "../../components/ProductSingleList";
 import Newsletter from "../../components/footers/Newsletter";
 import Skeleton from "../../components/Skeleton/SingleProduct";
 import { Product } from "../../components/headers/SearchModal";
+import { AppDispatch } from "../../redux/store";
 
 const ProductSingle: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { productId } = useParams();
 
   // Initial state selected -> singleProductSlice.js
@@ -22,9 +26,12 @@ const ProductSingle: React.FC = () => {
 
   useEffect(() => {
     if (productId) {
-      // @ts-ignore
-      dispatch(fetchSingleProduct(productId));
+      dispatch(fetchSingleProduct({ productId }));
     }
+
+    return () => {
+      dispatch(setClearSingleProduct());
+    };
   }, [productId]);
 
   return (

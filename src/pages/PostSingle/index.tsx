@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
+  setClearSinglePost,
   fetchSinglePost,
   selectSinglePost,
 } from "../../redux/slices/singlePostSlice";
@@ -12,25 +13,29 @@ import { PostItem } from "../../components/PostItems";
 import Newsletter from "../../components/footers/Newsletter";
 
 import "./Style.scss";
+import { AppDispatch } from "../../redux/store";
 
 const NewsSingle: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { postId } = useParams();
 
   // Initial state selected -> singlePostSlice.js
-  const singleNews = useSelector(selectSinglePost);
+  const singlePost = useSelector(selectSinglePost);
 
   useEffect(() => {
     if (postId) {
-      // @ts-ignore
-      dispatch(fetchSinglePost(postId));
+      dispatch(fetchSinglePost({ postId }));
     }
+
+    return () => {
+      dispatch(setClearSinglePost());
+    };
   }, [postId]);
 
   return (
     <>
       <section className="news-single">
-        {singleNews.map((item: PostItem) => (
+        {singlePost.map((item: PostItem) => (
           <div key={item.parent_id}>
             <div
               className="page-banner page-banner_news-single"

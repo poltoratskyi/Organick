@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-// Only obj
 interface MenuState {
   // The active name of page
   activeNameMenu: string;

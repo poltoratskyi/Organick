@@ -22,6 +22,7 @@ import ProductItems from "../../components/ProductItems";
 import Skeleton from "../../components/Skeleton/Shop";
 import Pagination from "../../components/Pagination";
 import { Product } from "../../components/headers/SearchModal";
+import { AppDispatch } from "../../redux/store";
 
 // Menu categories
 const menuCategories = [
@@ -43,7 +44,7 @@ const menuSort = [
 ];
 
 const Shop: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const sortRef = useRef<HTMLSpanElement>(null);
 
@@ -84,7 +85,6 @@ const Shop: React.FC = () => {
         }
 
         dispatch(
-          // @ts-ignore
           fetchShopProducts({
             queryParams,
             currentPage,
@@ -100,8 +100,7 @@ const Shop: React.FC = () => {
     // Check if the active menu is "Shop"
     if (activeNameMenu !== "Shop") {
       // Update URL
-      // @ts-ignore
-      navigate();
+      navigate({});
     } else {
       // Create the obj of str JSone links -> categories, currentPage, activeIndex
       const queryStr = qs.stringify({

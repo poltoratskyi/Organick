@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { Product } from "../../components/headers/SearchModal";
 
-// Only obj
 interface CartState {
   // Shopping cart
   shoppingCart: Product[];
