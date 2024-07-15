@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 import Newsletter from "../../components/footers/Newsletter";
 import PostItems, { PostItem } from "../../components/PostItems";
-import Skeleton from "../../components/Skeleton/SinglePost";
+import Skeleton from "../../components/Skeleton/Posts";
 import { AppDispatch } from "../../redux/store";
 
 const AuthorPosts: React.FC = () => {

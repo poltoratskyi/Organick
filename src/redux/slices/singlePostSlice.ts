@@ -23,6 +23,9 @@ interface SinglePostState {
   // Single post
   singlePost: PostItem[];
 
+  // Skeleton content loader
+  isSkeletonLoading: boolean;
+
   // Fetch status
   status: Status;
 }
@@ -30,6 +33,9 @@ interface SinglePostState {
 const initialState: SinglePostState = {
   // Single post
   singlePost: [],
+
+  // Skeleton content loader
+  isSkeletonLoading: true,
 
   // Fetch status
   status: Status.LOADING,
@@ -54,6 +60,8 @@ const singlePost = createSlice({
     builder
       .addCase(fetchSinglePost.pending, (state) => {
         state.status = Status.LOADING;
+
+        state.isSkeletonLoading = true;
       })
 
       .addCase(
@@ -61,12 +69,16 @@ const singlePost = createSlice({
         (state, action: PayloadAction<PostItem[]>) => {
           state.status = Status.SUCCESS;
 
+          state.isSkeletonLoading = false;
+
           state.singlePost = action.payload;
         }
       )
 
       .addCase(fetchSinglePost.rejected, (state) => {
         state.status = Status.ERROR;
+
+        state.isSkeletonLoading = true;
 
         // Empty catalogue
         state.singlePost = [];
@@ -80,6 +92,8 @@ export const { setClearSinglePost } = singlePost.actions;
 // Export the selector
 export const selectSinglePost = (state: RootState) =>
   state.singlePost.singlePost;
+export const selectIsSkeletonLoading = (state: RootState) =>
+  state.singlePost.isSkeletonLoading;
 
 // Export the reducer
 export default singlePost.reducer;

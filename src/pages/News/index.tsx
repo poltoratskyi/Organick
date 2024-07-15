@@ -7,7 +7,7 @@ import { AppDispatch } from "../../redux/store";
 
 import Newsletter from "../../components/footers/Newsletter";
 import PostItems, { PostItem } from "../../components/PostItems";
-import Skeleton from "../../components/Skeleton/SinglePost";
+import Skeleton from "../../components/Skeleton/Posts";
 
 const NewsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

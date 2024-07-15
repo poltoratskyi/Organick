@@ -1,7 +1,9 @@
 @import "../../Variables.scss";
 
 .news-single {
+  text-align: center;
   &__content {
+    text-align: left;
     padding: 200px 0px 150px;
     &-title {
       font-family: "Roboto", sans-serif;
@@ -35,6 +37,7 @@
     padding: 50px;
     border-radius: 25px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: left;
 
     &-author {
       display: flex;
