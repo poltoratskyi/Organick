@@ -16,10 +16,13 @@ const ProductItems: React.FC<Product> = ({
   additionalInfo,
   tag,
   isNew,
+  isSalePrice,
   img,
   name,
   price,
   salePrice,
+  counter,
+  modifiedPrice,
 }) => {
   const dispatch = useDispatch();
 
@@ -38,11 +41,14 @@ const ProductItems: React.FC<Product> = ({
       additionalInfo,
       tag,
       isNew,
+      isSalePrice,
       img,
       name,
       price,
       salePrice,
       percentage,
+      counter,
+      modifiedPrice,
     };
 
     handleViewItem(productToAdd);
@@ -66,7 +72,7 @@ const ProductItems: React.FC<Product> = ({
           </div>
 
           {/* is salePrice === true */}
-          {salePrice && (
+          {isSalePrice && (
             <span className="product-items__item-badge-info-header-percentage">
               -{percentage}%
             </span>
@@ -97,7 +103,7 @@ const ProductItems: React.FC<Product> = ({
         <span className="product-items__item-badge-line"></span>
 
         {/* is salePrice === true */}
-        {salePrice ? (
+        {isSalePrice ? (
           <>
             <span className="product-items__item-badge-original">
               ${price} USD

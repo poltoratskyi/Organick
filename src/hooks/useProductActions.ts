@@ -19,7 +19,7 @@ export const useViewedProducts = () => {
 
   const handleViewItem = (product: Product) => {
     const updatedProducts = viewedProducts.filter(
-      (item: Product) => item.parent_id !== product.parent_id
+      (item) => item.parent_id !== product.parent_id
     );
     const newRelatedProducts = [product, ...updatedProducts];
 
@@ -57,7 +57,7 @@ export const useRemoveProduct = () => {
 
     // Update localStorage
     const updatedItems = shoppingCart.filter(
-      (item: Product) => item.parent_id !== parent_id
+      (item) => item.parent_id !== parent_id
     );
 
     localStorage.setItem("shoppingCart", JSON.stringify(updatedItems));
@@ -88,15 +88,18 @@ export const useIsAdded = () => {
   const shoppingCart = useSelector(selectCart);
 
   const isAdded = (parent_id: number) => {
-    return shoppingCart.some((item: Product) => item.parent_id === parent_id);
+    return shoppingCart.some((item) => item.parent_id === parent_id);
   };
 
   return { isAdded };
 };
 
-export const totalPrice = (shoppingCart: Product[]): number => {
+export const useTotalPrice = (shoppingCart: Product[]): number => {
   return shoppingCart.reduce((acc, item) => {
     const price = item.salePrice || item.price;
-    return acc + price;
+
+    const modifiedPrice = item.modifiedPrice || price;
+
+    return acc + modifiedPrice;
   }, 0);
 };

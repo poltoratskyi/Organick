@@ -26,6 +26,9 @@ const ProductSingleList: React.FC<Product> = ({
   descriptionMore,
   additionalInfo,
   isNew,
+  isSalePrice,
+  counter,
+  modifiedPrice,
 }) => {
   // Initial state selected -> singleProductSlice.js
   const viewedProducts = useSelector(selectRelatedProducts);
@@ -45,8 +48,11 @@ const ProductSingleList: React.FC<Product> = ({
       price,
       salePrice,
       isNew,
+      isSalePrice,
       percentage,
       additionalInfo,
+      counter,
+      modifiedPrice,
     };
 
     addProduct(productToAdd);
@@ -79,7 +85,7 @@ const ProductSingleList: React.FC<Product> = ({
           </h2>
 
           {/* is salePrice === true */}
-          {salePrice ? (
+          {isSalePrice ? (
             <>
               <span className="product-single__content-item-info-title-original">
                 ${price} USD

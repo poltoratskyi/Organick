@@ -27,6 +27,9 @@ const Search: React.FC<Product> = ({
   descriptionMore,
   additionalInfo,
   isNew,
+  isSalePrice,
+  counter,
+  modifiedPrice,
 }) => {
   const dispatch = useDispatch();
 
@@ -43,7 +46,10 @@ const Search: React.FC<Product> = ({
       price,
       salePrice,
       isNew,
+      isSalePrice,
       percentage,
+      counter,
+      modifiedPrice,
     };
 
     addProduct(productToAdd);
@@ -65,7 +71,10 @@ const Search: React.FC<Product> = ({
       price,
       salePrice,
       isNew,
+      isSalePrice,
       percentage,
+      counter,
+      modifiedPrice,
     });
   };
 
@@ -121,7 +130,7 @@ const Search: React.FC<Product> = ({
       <div className="search-items__item-product-action">
         <div className="search-items__item-product-action-value">
           {/* is salePrice === true */}
-          {salePrice ? (
+          {isSalePrice ? (
             <>
               <span className="search-items__item-product-action-value-original">
                 ${price} USD

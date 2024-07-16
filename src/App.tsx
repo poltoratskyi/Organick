@@ -72,105 +72,32 @@ function App() {
     <>
       {/* Navigation menu */}
       <Navigation />
+      <Suspense fallback={<MainLoader />}>
+        <Routes>
+          {/* Default home page */}
+          <Route path="/" element={<Home />} />
 
-      <Routes>
-        {/* Default home page */}
-        <Route path="/" element={<Home />} />
+          {/* Other pages */}
+          <Route path="/AboutUs" element={<AboutUs />} />
 
-        {/* Other pages */}
-        <Route
-          path="/AboutUs"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <AboutUs />
-            </Suspense>
-          }
-        />
-
-        <Route
-          path="/Team"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <Team />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/Services"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <Services />
-            </Suspense>
-          }
-        />
-        {/* Shop route for ProductSingle */}
-        <Route
-          path="/Shop"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <Shop />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/product/:productName/:productId"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <ProductSingle />
-            </Suspense>
-          }
-        />
-        {/* News route for NewsSingle */}
-        <Route
-          path="/News"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <News />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/blog/:blogName/:postId"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <NewsSingle />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/posts/:year/:author"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <AuthorPosts />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/ContactUs"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <ContactUs />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/PasswordProtected"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <PasswordProtected />
-            </Suspense>
-          }
-        />
-        {/* 404 errors */}
-        <Route
-          path="*"
-          element={
-            <Suspense fallback={<MainLoader />}>
-              <ErrorPage />
-            </Suspense>
-          }
-        />
-      </Routes>
+          <Route path="/Team" element={<Team />} />
+          <Route path="/Services" element={<Services />} />
+          {/* Shop route for ProductSingle */}
+          <Route path="/Shop" element={<Shop />} />
+          <Route
+            path="/product/:productName/:productId"
+            element={<ProductSingle />}
+          />
+          {/* News route for NewsSingle */}
+          <Route path="/News" element={<News />} />
+          <Route path="/blog/:blogName/:postId" element={<NewsSingle />} />
+          <Route path="/posts/:year/:author" element={<AuthorPosts />} />
+          <Route path="/ContactUs" element={<ContactUs />} />
+          <Route path="/PasswordProtected" element={<PasswordProtected />} />
+          {/* 404 errors */}
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
 
       <Footer />
     </>

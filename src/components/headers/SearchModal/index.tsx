@@ -17,11 +17,14 @@ export type Product = {
   additionalInfo: string;
   tag: string;
   isNew?: boolean;
+  isSalePrice: boolean;
   img: string;
   name: string;
   price: number;
   salePrice?: number;
   percentage?: number;
+  counter: number;
+  modifiedPrice: number;
 };
 
 const SearchModal: React.FC = () => {

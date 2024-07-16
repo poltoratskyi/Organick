@@ -5,7 +5,7 @@ import {
   selectCart,
   selectToggleShoppingCart,
 } from "../../../redux/slices/cartSlice";
-import { totalPrice } from "../../../hooks/useProductActions";
+import { useTotalPrice } from "../../../hooks/useProductActions";
 import { Product } from "../SearchModal";
 
 import "./Style.scss";
@@ -24,7 +24,7 @@ const ShoppingCart: React.FC = () => {
   const toggleShoppingCart = useSelector(selectToggleShoppingCart);
 
   // The total amount
-  totalPrice(shoppingCart);
+  useTotalPrice(shoppingCart);
 
   // In shopping basket no products
   const isBasketEmpty = shoppingCart && shoppingCart.length === 0;
@@ -81,7 +81,7 @@ const ShoppingCart: React.FC = () => {
             </span>
 
             <span className="checkout__total-price-value">
-              ${totalPrice(shoppingCart).toFixed(2)} USD
+              ${useTotalPrice(shoppingCart).toFixed(2)} USD
             </span>
           </div>
 
