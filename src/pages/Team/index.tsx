@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import "./Style.scss";
+
 import Newsletter from "../../components/footers/Newsletter";
 
 const team = [

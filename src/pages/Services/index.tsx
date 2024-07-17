@@ -1,6 +1,6 @@
-import "./Style.scss";
-
 import Intro from "../../components/Intro";
+
+import "./Style.scss";
 
 const Services: React.FC = () => {
   return (

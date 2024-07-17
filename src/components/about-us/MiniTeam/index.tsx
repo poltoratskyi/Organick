@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-import "./Style.scss";
-
 const team = [
   {
     id: 1,
