@@ -65,6 +65,15 @@ const cartSlice = createSlice({
             "shoppingCart",
             JSON.stringify(state.shoppingCart)
           );
+        } else {
+          state.shoppingCart = state.shoppingCart.filter(
+            (item) => item.parent_id !== action.payload.parent_id
+          );
+
+          localStorage.setItem(
+            "shoppingCart",
+            JSON.stringify(state.shoppingCart)
+          );
         }
       }
     },
