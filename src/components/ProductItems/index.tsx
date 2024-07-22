@@ -85,7 +85,9 @@ const ProductItems: React.FC<Product> = ({
           alt={`Product ${name}`}
         />
 
-        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
+        <Link
+          to={`/product/${name.replace(/\s+/g, "-").toLocaleLowerCase()}/${id}`}
+        >
           <span
             onClick={() => {
               toSingleProduct();
@@ -131,7 +133,10 @@ const ProductItems: React.FC<Product> = ({
         id="shop-now"
         className="button button_shop-now"
       >
-        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`} id="link">
+        <Link
+          to={`/product/${name.replace(/\s+/g, "-").toLocaleLowerCase()}/${id}`}
+          id="link"
+        >
           Shop Now
           <svg
             id="arrow"

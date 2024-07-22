@@ -38,7 +38,7 @@ const Offer: React.FC = () => {
               }}
               className="button button_offer"
             >
-              <Link id="link" to="/Shop">
+              <Link id="link" to="/shop">
                 Show More
                 <svg
                   id="arrow"

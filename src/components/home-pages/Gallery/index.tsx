@@ -34,7 +34,7 @@ const Gallery: React.FC = () => {
                   alt={item.text}
                   loading="lazy"
                 />
-                <Link to="/Shop">
+                <Link to="/shop">
                   <span
                     onClick={() => {
                       window.scrollTo(0, 0);

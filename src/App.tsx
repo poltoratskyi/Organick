@@ -1,8 +1,8 @@
 import { Suspense, lazy, useEffect } from "react";
+import qs from "qs";
 import { Routes, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { selectActiveNameMenu } from "./redux/slices/menuSlice";
 import { setAddProduct } from "./redux/slices/cartSlice";
 import { setViewedProducts } from "./redux/slices/singleProductSlice";
 
@@ -12,7 +12,11 @@ import Footer from "./components/footers/Footer";
 import MainLoader from "./components/MainLoader";
 
 import "./GlobalStyles.scss";
-import { AppDispatch } from "./redux/store";
+import {
+  setActiveIndex,
+  setCurrentPage,
+  setTagCategories,
+} from "./redux/slices/shopSlice";
 
 const AboutUs = lazy(
   () => import(/* webpackChunkName: "AboutUs"*/ "./pages/AboutUs")
@@ -20,6 +24,10 @@ const AboutUs = lazy(
 const Team = lazy(() => import(/* webpackChunkName: "Team"*/ "./pages/Team"));
 const Services = lazy(
   () => import(/* webpackChunkName: "Services"*/ "./pages/Services")
+);
+const QualityStandard = lazy(
+  () =>
+    import(/* webpackChunkName: "QualityStandard"*/ "./pages/QualityStandard")
 );
 const Shop = lazy(() => import(/* webpackChunkName: "Shop"*/ "./pages/Shop"));
 const ProductSingle = lazy(
@@ -45,28 +53,40 @@ const ErrorPage = lazy(
   () => import(/* webpackChunkName: "ErrorPage"*/ "./pages/Error")
 );
 
-function App() {
-  const dispatch = useDispatch<AppDispatch>();
-
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
+const App = () => {
+  const dispatch = useDispatch();
 
   // Get products -> localStorage
   useEffect(() => {
     const shoppingCartJson = localStorage.getItem("shoppingCart");
     const shoppingCart = shoppingCartJson ? JSON.parse(shoppingCartJson) : [];
 
+    const savedFilters = localStorage.getItem("shopFilters");
+
     const viewedProductsJson = localStorage.getItem("viewedProducts");
     const viewedProducts = viewedProductsJson
       ? JSON.parse(viewedProductsJson)
       : [];
 
+    if (savedFilters) {
+      // Create the obj -> categories, currentPage, activeIndex
+      const { categories, page, sort } = qs.parse(savedFilters);
+
+      const savedCategories = categories as string;
+      const savedSort = sort as string;
+      const savedPage = Number(page);
+
+      // Save data -> localStorage -> Redux state
+      dispatch(setTagCategories(savedCategories));
+      dispatch(setActiveIndex(savedSort));
+      dispatch(setCurrentPage(savedPage));
+    }
     // Save products -> Shopping basket
     dispatch(setAddProduct(shoppingCart));
 
     // Save related products
     dispatch(setViewedProducts(viewedProducts));
-  }, [dispatch, activeNameMenu]);
+  }, [dispatch]);
 
   return (
     <>
@@ -78,22 +98,30 @@ function App() {
           <Route path="/" element={<Home />} />
 
           {/* Other pages */}
-          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/about-us" element={<AboutUs />} />
 
-          <Route path="/Team" element={<Team />} />
-          <Route path="/Services" element={<Services />} />
-          {/* Shop route for ProductSingle */}
-          <Route path="/Shop" element={<Shop />} />
+          <Route path="/team" element={<Team />} />
+
+          {/* Services route -> QualityStandard */}
+          <Route path="/services" element={<Services />} />
+          <Route
+            path="/services/:qualityStandard"
+            element={<QualityStandard />}
+          />
+
+          {/* Shop route -> ProductSingle */}
+          <Route path="/shop" element={<Shop />} />
           <Route
             path="/product/:productName/:productId"
             element={<ProductSingle />}
           />
-          {/* News route for NewsSingle */}
-          <Route path="/News" element={<News />} />
-          <Route path="/blog/:blogName/:postId" element={<NewsSingle />} />
-          <Route path="/posts/:year/:author" element={<AuthorPosts />} />
-          <Route path="/ContactUs" element={<ContactUs />} />
-          <Route path="/PasswordProtected" element={<PasswordProtected />} />
+
+          {/* News route -> NewsSingle */}
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:blogName/:postId" element={<NewsSingle />} />
+          <Route path="/posts/:year/:surname" element={<AuthorPosts />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/password-protected" element={<PasswordProtected />} />
           {/* 404 errors */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
@@ -102,6 +130,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

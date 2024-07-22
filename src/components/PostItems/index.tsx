@@ -13,6 +13,8 @@ export type PostItem = {
   dataName: string;
   fullDataName: string;
   author: string;
+  name: string;
+  surname: string;
   title: string;
   description: string;
   paragraphFirst: string;
@@ -32,6 +34,7 @@ const PostItems: React.FC<PostItem> = ({
   title,
   description,
   year,
+  surname,
 }) => {
   const dispatch = useDispatch();
 
@@ -63,7 +66,7 @@ const PostItems: React.FC<PostItem> = ({
               />
             </svg>
 
-            <Link to={`/posts/${year}/${author}`}>
+            <Link to={`/posts/${year}/${surname.toLocaleLowerCase()}`}>
               <span
                 onClick={() => {
                   window.scrollTo(0, 0);
@@ -77,7 +80,11 @@ const PostItems: React.FC<PostItem> = ({
           </div>
 
           <div className="news__content-posts-post-info-content-description">
-            <Link to={`/blog/${title.replace(/\s+/g, "")}/${id}`}>
+            <Link
+              to={`/news/${title
+                .replace(/\s+/g, "-")
+                .toLocaleLowerCase()}/${id}`}
+            >
               <h4
                 onClick={() => {
                   window.scrollTo(0, 0);
@@ -101,7 +108,12 @@ const PostItems: React.FC<PostItem> = ({
             }}
             className="button button_more-news"
           >
-            <Link id="link" to={`/blog/${title.replace(/\s+/g, "")}/${id}`}>
+            <Link
+              id="link"
+              to={`/news/${title
+                .replace(/\s+/g, "-")
+                .toLocaleLowerCase()}/${id}`}
+            >
               Read More
               <svg
                 id="arrow"

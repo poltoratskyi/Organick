@@ -17,14 +17,19 @@ import useActivePage from "../../../hooks/useActivePage";
 
 import "./Style.scss";
 import { Product } from "../SearchModal";
+import {
+  setActiveIndex,
+  setCurrentPage,
+  setTagCategories,
+} from "../../../redux/slices/shopSlice";
 
 const menuItems = [
   { name: "Home", link: "/" },
-  { name: "About", link: "/AboutUs" },
-  { name: "Team", link: "/Team" },
-  { name: "Services", link: "/Services" },
-  { name: "Shop", link: "/Shop" },
-  { name: "News", link: "/News" },
+  { name: "About", link: "/about-us" },
+  { name: "Team", link: "/team" },
+  { name: "Services", link: "/services" },
+  { name: "Shop", link: "/shop" },
+  { name: "News", link: "/news" },
 ];
 
 const Header: React.FC = () => {
@@ -41,12 +46,30 @@ const Header: React.FC = () => {
   const activeNameMenu = useSelector(selectActiveNameMenu);
 
   // Getting the quantity of products <- Shopping cart
-  const productQuantity = (cartValue: Product[]) => {
+  const productQuantity = (cartValue: Product[]): number => {
     return cartValue.length;
   };
 
+  // Reset filters -> Shop
+  const resetFilters = (link: string): void => {
+    if (link === "/shop") {
+      // Default data
+      const defaultCategories = "all";
+      const defaultPage = 1;
+      const defaultSort = "relevance";
+
+      // Save default data -> Redux state
+      dispatch(setTagCategories(defaultCategories));
+      dispatch(setActiveIndex(defaultSort));
+      dispatch(setCurrentPage(defaultPage));
+
+      const defaultFilters = `categories=${defaultCategories}&page=${defaultPage}&sort=${defaultSort}`;
+      localStorage.setItem("shopFilters", defaultFilters);
+    }
+  };
+
   // Close shopping cart -> Escape
-  const handleEscape = (e: KeyboardEvent) => {
+  const handleEscape = (e: KeyboardEvent): void => {
     if (e.key === "Escape") {
       dispatch(setToggleShoppingCart(!toggleShoppingCart));
     }
@@ -63,12 +86,12 @@ const Header: React.FC = () => {
     };
   }, [toggleShoppingCart]);
 
-  const actionInputSearch = () => {
+  const actionInputSearch = (): void => {
     dispatch(setVisibleInput(true));
     dispatch(setVisibleSearch(true));
   };
 
-  const actionShopCart = () => {
+  const actionShopCart = (): void => {
     document.documentElement.style.overflow = "hidden";
     dispatch(setVisibleInput(false));
     dispatch(setToggleShoppingCart(!toggleShoppingCart));
@@ -101,11 +124,15 @@ const Header: React.FC = () => {
                         : "header__content-menu-navigation-items-item"
                     }
                   >
-                    <Link
-                      className="header__content-menu-navigation-items-item-link"
-                      to={item.link}
-                    >
-                      {item.name}
+                    <Link to={item.link}>
+                      <span
+                        onClick={() => {
+                          resetFilters(item.link);
+                        }}
+                        className="header__content-menu-navigation-items-item-link"
+                      >
+                        {item.name}
+                      </span>
                     </Link>
                   </li>
                 ))}

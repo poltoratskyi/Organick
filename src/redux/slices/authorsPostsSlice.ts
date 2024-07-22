@@ -4,14 +4,14 @@ import axios from "axios";
 import { RootState } from "../store";
 
 type fetchAuthorProps = {
-  author: string;
+  surname: string;
 };
 
 export const fetchAuthorPost = createAsyncThunk<PostItem[], fetchAuthorProps>(
   "users/fetchAuthorPostStatus",
-  async ({ author }) => {
+  async ({ surname }) => {
     const response = await axios.get(
-      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc&filter=${author}`
+      `https://6548e310dd8ebcd4ab23cdec.mockapi.io/Posts?sortBy=sortDate&order=desc&filter=${surname}`
     );
 
     return response.data as PostItem[];

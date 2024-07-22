@@ -7,9 +7,9 @@ import useActivePage from "../../../hooks/useActivePage";
 import "./Style.scss";
 
 const footerItems = [
-  { name: "Contact Us", link: "/ContactUs" },
-  { name: "Password Protected", link: "/PasswordProtected" },
-  { name: "404 Not Found", link: "/Error" },
+  { name: "Contact Us", link: "/contact-us" },
+  { name: "Password Protected", link: "/password-protected" },
+  { name: "404 Not Found", link: "/error" },
 ];
 
 const Footer: React.FC = () => {

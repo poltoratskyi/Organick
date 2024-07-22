@@ -49,10 +49,10 @@ const initialState: ShopState = {
   shopProducts: [],
 
   // The active index menu of sort
-  activeIndex: "Relevance",
+  activeIndex: "relevance",
 
   // Tag categories
-  categories: "All",
+  categories: "all",
 
   // Open / Close popup
   openSortMenu: false,

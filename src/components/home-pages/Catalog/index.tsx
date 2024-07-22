@@ -1,42 +1,21 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
   selectIsSkeletonLoading,
   selectCatalogue,
-  fetchProducts,
 } from "../../../redux/slices/catalogueSlice";
-import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
 import { Product } from "../../headers/SearchModal";
 
 import "./Style.scss";
 
 import Skeleton from "../../Skeleton/Shop";
 import ProductItems from "../../ProductItems";
-import { AppDispatch } from "../../../redux/store";
 
 const Catalog: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
   const catalogue = useSelector(selectCatalogue);
-
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
-
-  // Fetch products
-  useEffect(() => {
-    const fetchHomeData = async () => {
-      // Check activeNameMenu
-      if (activeNameMenu === "Home") {
-        dispatch(fetchProducts());
-      }
-    };
-
-    fetchHomeData();
-  }, [activeNameMenu]);
 
   return (
     <section className="product">
@@ -70,7 +49,7 @@ const Catalog: React.FC = () => {
             }}
             className="button button_product"
           >
-            <Link id="link" to="/Shop">
+            <Link id="link" to="/shop">
               Show More
               <svg
                 id="arrow"

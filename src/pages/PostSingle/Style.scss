@@ -3,8 +3,11 @@
 .news-single {
   text-align: center;
   &__content {
+    display: block;
+    margin: 0 auto;
     text-align: left;
     padding: 200px 0px 150px;
+    width: 950px;
     &-title {
       font-family: "Roboto", sans-serif;
       font-weight: 700;

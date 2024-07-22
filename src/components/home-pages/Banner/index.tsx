@@ -23,7 +23,7 @@ const Banner: React.FC = () => {
             }}
             className="button button_banner"
           >
-            <Link id="link" to="/Services">
+            <Link id="link" to="/services">
               Explore Now
               <svg
                 id="arrow"

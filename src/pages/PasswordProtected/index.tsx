@@ -43,7 +43,7 @@ const PasswordProtected: React.FC = () => {
                   }}
                   className="button button_protection"
                 >
-                  <Link id="link" to="/Error">
+                  <Link id="link" to="/error">
                     Send Now
                     <svg
                       id="arrow"

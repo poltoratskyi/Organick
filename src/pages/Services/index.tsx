@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import Intro from "../../components/Intro";
 
 import "./Style.scss";
@@ -79,12 +81,40 @@ const Services: React.FC = () => {
                 </div>
               </div>
 
-              <img
-                width={600}
-                src="/img/Services/Package-min.jpg"
-                alt="Package-min.jpg"
-                loading="lazy"
-              />
+              <div style={{ textAlign: "center" }}>
+                <img
+                  width={600}
+                  src="/img/Services/Package-min.jpg"
+                  alt="Package-min.jpg"
+                  loading="lazy"
+                />
+
+                <button
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                  }}
+                  className="button button_quality"
+                >
+                  <Link to={`/services/${"quality-standard"}`} id="link">
+                    Explore Now
+                    <svg
+                      id="arrow"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 19 19"
+                      fill="none"
+                    >
+                      <circle cx="9.2" cy="9.2" r="9.2" fill="#335B6B" />
+                      <path
+                        d="M9.47641 6.12891L12.871 9.19342L9.47641 12.2579M12.3995 9.19342H5.51611"
+                        stroke="white"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Link>
+                </button>
+              </div>
 
               <div className="services__content-layout-item">
                 <div className="services__content-layout-item-info">

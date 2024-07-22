@@ -204,6 +204,16 @@ a {
       center/cover no-repeat;
   }
 
+  &_product-single {
+    background: url(../public/img/Banner/ShopSingle-min.jpg) center center/cover
+      no-repeat;
+  }
+
+  &_quality-standard {
+    background: url(../public/img/Banner/QualityStandard-min.jpg) center
+      center/cover no-repeat;
+  }
+
   &_news-single {
     height: 750px;
   }
@@ -234,7 +244,6 @@ a {
     }
   }
 
-  // Banner
   &_banner {
     color: $dark-blue;
     background-color: $yellow;
@@ -245,8 +254,10 @@ a {
     }
   }
 
-  // About
-  &_about {
+  &_about,
+  &_newsletter,
+  &_error,
+  &_protection {
     color: $white;
     background-color: $dark-blue;
     border: 1px solid $dark-blue;
@@ -257,8 +268,8 @@ a {
     }
   }
 
-  // News
-  &_news {
+  &_news,
+  &_quality {
     color: $dark-blue;
     background-color: $white;
     border: 1px solid $dark-blue;
@@ -269,7 +280,6 @@ a {
     }
   }
 
-  // More news
   &_more-news {
     color: $dark-blue;
     border: 1px solid $yellow;
@@ -280,7 +290,6 @@ a {
     }
   }
 
-  // Products
   &_product {
     display: block;
     margin: 0 auto;
@@ -294,31 +303,6 @@ a {
     }
   }
 
-  // Newsletter
-  &_newsletter {
-    color: $white;
-    background-color: $dark-blue;
-    border: 1px solid $dark-blue;
-
-    &:hover {
-      color: $dark-blue;
-      background-color: $white;
-    }
-  }
-
-  // Error
-  &_error {
-    color: $white;
-    background-color: $dark-blue;
-    border: 1px solid $dark-blue;
-
-    &:hover {
-      color: $dark-blue;
-      background-color: $white;
-    }
-  }
-
-  // Order
   &_order {
     color: $white;
     background-color: $dark-blue;
@@ -331,7 +315,6 @@ a {
     }
   }
 
-  // Description
   &_description {
     color: $white;
     background-color: $dark-blue;
@@ -358,7 +341,6 @@ a {
     }
   }
 
-  // Shop Now
   &_shop-now {
     display: flex;
     justify-content: center;
@@ -381,7 +363,6 @@ a {
     }
   }
 
-  // Offer
   &_offer {
     color: $dark-blue;
     background-color: $yellow;
@@ -392,23 +373,10 @@ a {
     }
   }
 
-  // Checkout
   &_checkout {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $white;
-    background-color: $dark-blue;
-    border: 1px solid $dark-blue;
-
-    &:hover {
-      color: $dark-blue;
-      background-color: $white;
-    }
-  }
-
-  // Protection
-  &_protection {
     color: $white;
     background-color: $dark-blue;
     border: 1px solid $dark-blue;

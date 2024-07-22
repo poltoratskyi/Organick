@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts, selectPosts } from "../../redux/slices/postsSlice";
 import { selectIsSkeletonLoading } from "../../redux/slices/postsSlice";
-import { selectActiveNameMenu } from "../../redux/slices/menuSlice";
 import { AppDispatch } from "../../redux/store";
 
 import Newsletter from "../../components/footers/Newsletter";
@@ -15,23 +14,17 @@ const NewsPage: React.FC = () => {
   // Initial state selected -> postsSlice.js
   const posts = useSelector(selectPosts);
 
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
-
   // Initial state selected -> singlePostSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   // Fetch posts -> Home page
   useEffect(() => {
     const fetchPostsData = async () => {
-      // Check activeNameMenu
-      if (activeNameMenu === "News") {
-        dispatch(fetchPosts());
-      }
+      dispatch(fetchPosts());
     };
 
     fetchPostsData();
-  }, [activeNameMenu]);
+  }, [dispatch]);
 
   return (
     <>

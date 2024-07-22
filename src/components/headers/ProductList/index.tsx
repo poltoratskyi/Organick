@@ -102,7 +102,7 @@ const ProductList: React.FC<Product> = ({
       <img className="product-list__item-img" src={img} alt={name} />
 
       <div className="product-list__item-exposition">
-        <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
+        <Link to={`/product/${name.replace(/\s+/g, "-").toLowerCase()}/${id}`}>
           <span
             onClick={() => {
               toSingleProduct();

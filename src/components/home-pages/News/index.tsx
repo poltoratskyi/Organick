@@ -1,35 +1,15 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchPosts, selectPosts } from "../../../redux/slices/postsSlice";
+import { selectPosts } from "../../../redux/slices/postsSlice";
 import { PostItem } from "../../PostItems";
-import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
-import { AppDispatch } from "../../../redux/store";
 
 import "./Style.scss";
 
 import PostItems from "../../PostItems";
-import { useEffect } from "react";
 
 const News: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
   // Initial state selected -> singlePostSlice.js
   const posts = useSelector(selectPosts);
-
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
-
-  // Fetch posts -> Home page
-  useEffect(() => {
-    const fetchPostsData = async () => {
-      // Check activeNameMenu
-      if (activeNameMenu === "Home") {
-        dispatch(fetchPosts());
-      }
-    };
-
-    fetchPostsData();
-  }, [activeNameMenu]);
 
   return (
     <section className="news">
@@ -51,7 +31,7 @@ const News: React.FC = () => {
               }}
               className="button button_news"
             >
-              <Link id="link" to="/News">
+              <Link id="link" to="/news">
                 More News
                 <svg
                   id="arrow"

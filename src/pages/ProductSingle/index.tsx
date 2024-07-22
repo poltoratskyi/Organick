@@ -36,6 +36,10 @@ const ProductSingle: React.FC = () => {
 
   return (
     <>
+      <div className="page-banner page-banner_product-single">
+        <h1 className="page-banner__text">Shop Single</h1>
+      </div>
+
       <section className="product-single">
         <div className="container">
           <ul className="product-single__content">

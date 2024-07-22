@@ -103,7 +103,9 @@ const Search: React.FC<Product> = ({
         />
 
         <div className="search-items__item-product-cover-exposition">
-          <Link to={`/product/${name.replace(/\s+/g, "")}/${id}`}>
+          <Link
+            to={`/product/${name.replace(/\s+/g, "-").toLowerCase()}/${id}`}
+          >
             <span
               onClick={() => handleClickPage()}
               className="search-items__item-product-cover-exposition-name"

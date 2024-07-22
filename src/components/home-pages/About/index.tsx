@@ -71,7 +71,7 @@ const About: React.FC = () => {
               }}
               className="button button_about"
             >
-              <Link id="link" to="/AboutUs">
+              <Link id="link" to="/about-us">
                 Read More
                 <svg
                   id="arrow"

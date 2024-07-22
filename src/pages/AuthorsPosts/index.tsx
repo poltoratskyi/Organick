@@ -16,21 +16,29 @@ import { AppDispatch } from "../../redux/store";
 
 const AuthorPosts: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { author } = useParams();
+  const { surname } = useParams();
 
   // Initial state selected -> authorsPostsSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
   const authorsPosts = useSelector(selectAuthorsPosts);
 
+  const findAuthors = (arr: PostItem[]) => {
+    const foundItem = arr.find((item) => item.author);
+
+    if (foundItem) {
+      return foundItem.author;
+    }
+  };
+
   useEffect(() => {
-    if (author) {
-      dispatch(fetchAuthorPost({ author }));
+    if (surname) {
+      dispatch(fetchAuthorPost({ surname }));
     }
 
     return () => {
       dispatch(setClearAuthorsPosts());
     };
-  }, [author]);
+  }, [surname]);
 
   const postWord = authorsPosts.length === 1 ? "Post" : "Posts";
 
@@ -38,7 +46,7 @@ const AuthorPosts: React.FC = () => {
     <>
       <div className="page-banner page-banner_news">
         <h1 className="page-banner__text">
-          {postWord} By: {author}
+          {postWord} By: {findAuthors(authorsPosts)}
         </h1>
       </div>
 

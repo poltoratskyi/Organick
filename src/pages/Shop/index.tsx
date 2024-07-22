@@ -11,9 +11,7 @@ import {
   selectIsSkeletonLoading,
   selectShopProducts,
   fetchShopProducts,
-  setCurrentPage,
 } from "../../redux/slices/shopSlice";
-import { selectActiveNameMenu } from "../../redux/slices/menuSlice";
 
 import "./Style.scss";
 
@@ -26,21 +24,21 @@ import { AppDispatch } from "../../redux/store";
 
 // Menu categories
 const menuCategories = [
-  "All",
-  "Vegetable",
-  "Fresh",
-  "Millets",
-  "Nuts",
-  "Health",
+  "all",
+  "vegetable",
+  "fresh",
+  "millets",
+  "nuts",
+  "health",
 ];
 
 // Menu sort
 const menuSort = [
-  { value: "Relevance", label: "Relevance" },
-  { value: "PriceLowToHigh", label: "Price, Low To High" },
-  { value: "PriceHighToLow", label: "Price, High To Low" },
-  { value: "NameAToZ", label: "Name, A To Z" },
-  { value: "NameZToA", label: "Name, Z To A" },
+  { value: "relevance", label: "Relevance" },
+  { value: "price", label: "Price, Low To High" },
+  { value: "-price", label: "Price, High To Low" },
+  { value: "name", label: "Name, A To Z" },
+  { value: "-name", label: "Name, Z To A" },
 ];
 
 const Shop: React.FC = () => {
@@ -54,87 +52,71 @@ const Shop: React.FC = () => {
   const shopProducts = useSelector(selectShopProducts);
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
-
   // Fetch products
   useEffect(() => {
     const fetchShopData = async () => {
-      // Check activeNameMenu
-      if (activeNameMenu === "Shop") {
-        let queryParams = "";
+      let queryParams = "";
 
-        if (categories !== "All") {
-          queryParams += `tag=${categories}`;
-        }
-
-        if (activeIndex === "PriceLowToHigh") {
-          queryParams += "&sortBy=price&order=asc";
-        }
-
-        if (activeIndex === "PriceHighToLow") {
-          queryParams += "&sortBy=price&order=desc";
-        }
-
-        if (activeIndex === "NameAToZ") {
-          queryParams += "&sortBy=name&order=asc";
-        }
-
-        if (activeIndex === "NameZToA") {
-          queryParams += "&sortBy=name&order=desc";
-        }
-
-        dispatch(
-          fetchShopProducts({
-            queryParams,
-            currentPage,
-          })
-        );
+      if (categories !== "all") {
+        queryParams += `tag=${categories}`;
       }
+
+      if (activeIndex === "price") {
+        queryParams += "&sortBy=price&order=asc";
+      }
+
+      if (activeIndex === "-price") {
+        queryParams += "&sortBy=price&order=desc";
+      }
+
+      if (activeIndex === "name") {
+        queryParams += "&sortBy=name&order=asc";
+      }
+
+      if (activeIndex === "-name") {
+        queryParams += "&sortBy=name&order=desc";
+      }
+
+      dispatch(
+        fetchShopProducts({
+          queryParams,
+          currentPage,
+        })
+      );
     };
 
     fetchShopData();
-  }, [categories, activeIndex, activeNameMenu, currentPage]);
+  }, [categories, currentPage, activeIndex]);
 
   useEffect(() => {
-    // Check if the active menu is "Shop"
-    if (activeNameMenu !== "Shop") {
-      // Update URL
-      navigate({});
-    } else {
-      // Create the obj of str JSone links -> categories, currentPage, activeIndex
-      const queryStr = qs.stringify({
-        categories,
-        page: currentPage,
-        sort: activeIndex,
-      });
+    // Create the obj of str JSone links -> categories, currentPage, activeIndex
+    const queryStr = qs.stringify({
+      categories,
+      page: currentPage,
+      sort: activeIndex,
+    });
+
+    if (queryStr !== "categories=all&page=1&sort=relevance") {
+      // Update URL -> queryStr
+      navigate(`?${queryStr}`);
 
       // Save filters -> localStorage
       localStorage.setItem("shopFilters", queryStr);
-
+    } else {
       // Update URL -> queryStr
-      navigate(`?${queryStr}`);
+      navigate(`?${""}`);
+
+      // Save filters -> localStorage
+      // Default data
+      const defaultCategories = "all";
+      const defaultPage = 1;
+      const defaultSort = "relevance";
+
+      const defaultFilters = `categories=${defaultCategories}&page=${defaultPage}&sort=${defaultSort}`;
+
+      localStorage.setItem("shopFilters", defaultFilters);
     }
-  }, [categories, activeIndex, activeNameMenu, currentPage]);
-
-  useEffect(() => {
-    // Get data URL -> localStorage
-    const savedFilters = localStorage.getItem("shopFilters");
-
-    if (savedFilters) {
-      // Create the obj -> categories, currentPage, activeIndex
-      const { categories, page, sort } = qs.parse(savedFilters);
-
-      const savedCategories = categories as string;
-      const savedSort = sort as string;
-      const savedPage = Number(page);
-
-      // Save data -> localStorage -> Redux state
-      dispatch(setTagCategories(savedCategories));
-      dispatch(setActiveIndex(savedSort));
-      dispatch(setCurrentPage(savedPage));
-    }
-  }, [dispatch]);
+  }, [categories, currentPage, activeIndex, navigate]);
 
   // Outside clicked popup
   useEffect(() => {
@@ -150,7 +132,7 @@ const Shop: React.FC = () => {
     };
   }, [dispatch]);
 
-  const handleClosePopup = (value: string) => {
+  const handleClosePopup = (value: string): void => {
     dispatch(setOpenSortMenu(false));
     dispatch(setActiveIndex(value));
   };
