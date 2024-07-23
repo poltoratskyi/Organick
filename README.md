@@ -6,6 +6,7 @@
       <img src="https://img.shields.io/badge/React-v18.3.1-blue" alt="React">
       <img src="https://img.shields.io/badge/%20Redux%20Tookit-2.2.5-purple" alt=ReduxToolkit>
       <img src="https://img.shields.io/badge/TypeScript-4.9.5-blue" alt=TypeScript>
+      <img src="https://img.shields.io/badge/Sass-v1.69.7-%23FF69B4" alt="Sass">
       <img src="https://img.shields.io/badge/License-MIT-%233Ea638" alt="License">
 </p>
 
