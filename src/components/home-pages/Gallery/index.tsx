@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { useResetFilters } from "../../../hooks/useProductActions";
+
 import "./Style.scss";
 
 const gallery = [
@@ -21,6 +23,9 @@ const gallery = [
 ];
 
 const Gallery: React.FC = () => {
+  // Reset filters -> Shop
+  const { resetFilters } = useResetFilters();
+
   return (
     <section className="gallery">
       <div className="container">
@@ -38,6 +43,7 @@ const Gallery: React.FC = () => {
                   <span
                     onClick={() => {
                       window.scrollTo(0, 0);
+                      resetFilters();
                     }}
                     className="gallery__content-items-item-text"
                   >

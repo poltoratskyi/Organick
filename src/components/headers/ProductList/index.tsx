@@ -5,7 +5,6 @@ import {
   selectToggleShoppingCart,
   setIncrease,
   setDecrease,
-  selectCart,
 } from "../../../redux/slices/cartSlice";
 import { setActiveName } from "../../../redux/slices/menuSlice";
 import {
@@ -37,7 +36,6 @@ const ProductList: React.FC<Product> = ({
 
   // Initial state selected -> cartSlice.js
   const toggleShoppingCart = useSelector(selectToggleShoppingCart);
-  const shoppingCart = useSelector(selectCart);
 
   // Viewed product
   const { handleViewItem } = useViewedProducts();

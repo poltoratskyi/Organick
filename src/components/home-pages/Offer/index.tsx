@@ -11,11 +11,15 @@ import { Product } from "../../headers/SearchModal";
 
 import Skeleton from "../../Skeleton/Shop";
 import ProductItems from "../../ProductItems";
+import { useResetFilters } from "../../../hooks/useProductActions";
 
 const Offer: React.FC = () => {
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
   const catalogue = useSelector(selectCatalogue);
+
+  // Reset filters -> Shop
+  const { resetFilters } = useResetFilters();
 
   return (
     <section className="offer">
@@ -35,6 +39,7 @@ const Offer: React.FC = () => {
             <button
               onClick={() => {
                 window.scrollTo(0, 0);
+                resetFilters();
               }}
               className="button button_offer"
             >

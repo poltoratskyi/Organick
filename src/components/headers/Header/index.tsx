@@ -14,14 +14,10 @@ import {
 import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
 
 import useActivePage from "../../../hooks/useActivePage";
+import { useResetFilters } from "../../../hooks/useProductActions";
 
 import "./Style.scss";
 import { Product } from "../SearchModal";
-import {
-  setActiveIndex,
-  setCurrentPage,
-  setTagCategories,
-} from "../../../redux/slices/shopSlice";
 
 const menuItems = [
   { name: "Home", link: "/" },
@@ -51,22 +47,7 @@ const Header: React.FC = () => {
   };
 
   // Reset filters -> Shop
-  const resetFilters = (link: string): void => {
-    if (link === "/shop") {
-      // Default data
-      const defaultCategories = "all";
-      const defaultPage = 1;
-      const defaultSort = "relevance";
-
-      // Save default data -> Redux state
-      dispatch(setTagCategories(defaultCategories));
-      dispatch(setActiveIndex(defaultSort));
-      dispatch(setCurrentPage(defaultPage));
-
-      const defaultFilters = `categories=${defaultCategories}&page=${defaultPage}&sort=${defaultSort}`;
-      localStorage.setItem("shopFilters", defaultFilters);
-    }
-  };
+  const { resetFilters } = useResetFilters();
 
   // Close shopping cart -> Escape
   const handleEscape = (e: KeyboardEvent): void => {
@@ -127,7 +108,8 @@ const Header: React.FC = () => {
                     <Link to={item.link}>
                       <span
                         onClick={() => {
-                          resetFilters(item.link);
+                          window.scrollTo(0, 0);
+                          resetFilters();
                         }}
                         className="header__content-menu-navigation-items-item-link"
                       >

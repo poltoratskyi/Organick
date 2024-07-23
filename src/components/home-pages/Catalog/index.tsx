@@ -7,6 +7,8 @@ import {
 } from "../../../redux/slices/catalogueSlice";
 import { Product } from "../../headers/SearchModal";
 
+import { useResetFilters } from "../../../hooks/useProductActions";
+
 import "./Style.scss";
 
 import Skeleton from "../../Skeleton/Shop";
@@ -16,6 +18,9 @@ const Catalog: React.FC = () => {
   // Initial state selected -> catalogueSlice.js
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
   const catalogue = useSelector(selectCatalogue);
+
+  // Reset filters -> Shop
+  const { resetFilters } = useResetFilters();
 
   return (
     <section className="product">
@@ -45,6 +50,7 @@ const Catalog: React.FC = () => {
 
           <button
             onClick={() => {
+              resetFilters();
               window.scrollTo(0, 0);
             }}
             className="button button_product"
