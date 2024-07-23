@@ -23,10 +23,10 @@ const AuthorPosts: React.FC = () => {
   const authorsPosts = useSelector(selectAuthorsPosts);
 
   const findAuthors = (arr: PostItem[]) => {
-    const foundItem = arr.find((item) => item.author);
+    const foundItem = arr.find((item) => item.authorFullName);
 
     if (foundItem) {
-      return foundItem.author;
+      return foundItem.authorFullName;
     }
   };
 

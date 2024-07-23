@@ -47,7 +47,7 @@ const NewsSingle: React.FC = () => {
                   className="page-banner page-banner_news-single"
                   style={{
                     position: "relative",
-                    background: `url(${post.img}) center center/cover no-repeat`,
+                    background: `url(${post.imageUrl}) center center/cover no-repeat`,
                   }}
                 />
 
@@ -72,10 +72,10 @@ const NewsSingle: React.FC = () => {
                         window.scrollTo(0, 0);
                         dispatch(setActiveName("SinglePost"));
                       }}
-                      to={`/posts/${post.year}/${post.author}`}
+                      to={`/posts/${post.year}/${post.authorFullName}`}
                     >
                       <span className="news-single__header-author-name">
-                        By {post.author}
+                        By {post.authorFullName}
                       </span>
                     </Link>
                   </div>
@@ -87,30 +87,53 @@ const NewsSingle: React.FC = () => {
                   </p>
                 </div>
 
-                <ul className="container">
-                  <li className="news-single__content">
-                    <h2 className="news-single__content-title">
-                      {post.paragraphFirst}
-                    </h2>
-                    <p className="news-single__content-descr">
-                      {post.contentParagraphFirst}
+                <div className="container">
+                  <div className="news-single__content">
+                    <p className="news-single__content-descr news-single__content-descr_additionalText">
+                      {post.additionalText}
                     </p>
 
                     <h2 className="news-single__content-title">
-                      {post.paragraphSecond}
+                      {post.introHeading}
                     </h2>
-                    <p className="news-single__content-descr">
-                      {post.contentParagraphSecond}
+
+                    <p className="news-single__content-descr news-single__content-descr_introContent">
+                      {post.introContent}
                     </p>
 
+                    <ul style={{ paddingLeft: "20px", marginBottom: "50px" }}>
+                      {post.introListItems.map((item, index) => (
+                        <li
+                          className="news-single__content-descr news-single__content-descr_introList"
+                          key={index}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <p className="news-single__content-quote">"{post.quote}"</p>
+
                     <h2 className="news-single__content-title">
-                      {post.conclusion}
+                      {post.subheadingOne}
                     </h2>
-                    <p className="news-single__content-descr">
-                      {post.contentConclusion}
+
+                    <p className="news-single__content-descr news-single__content-descr_subheadingOneContent">
+                      {post.subheadingOneContent}
                     </p>
-                  </li>
-                </ul>
+
+                    <ul style={{ paddingLeft: "20px" }}>
+                      {post.conclusionListItems.map((item, index) => (
+                        <li
+                          className="news-single__content-descr news-single__content-descr_conclusionList"
+                          key={index}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             ))}
       </section>

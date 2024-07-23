@@ -21,7 +21,7 @@ import { Product } from "../SearchModal";
 
 const menuItems = [
   { name: "Home", link: "/" },
-  { name: "About", link: "/about-us" },
+  { name: "About Us", link: "/about-us" },
   { name: "Team", link: "/team" },
   { name: "Services", link: "/services" },
   { name: "Shop", link: "/shop" },
