@@ -6,7 +6,6 @@ import {
   setIncrease,
   setDecrease,
 } from "../../../redux/slices/cartSlice";
-import { setActiveName } from "../../../redux/slices/menuSlice";
 import {
   useViewedProducts,
   useDiscount,
@@ -104,7 +103,6 @@ const ProductList: React.FC<Product> = ({
           <span
             onClick={() => {
               toSingleProduct();
-              dispatch(setActiveName("SingleProduct"));
               dispatch(setToggleShoppingCart(!toggleShoppingCart));
               document.documentElement.style.overflow = "auto";
             }}

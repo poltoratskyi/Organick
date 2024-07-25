@@ -28,6 +28,7 @@
         margin-left: 100px;
 
         &-items {
+          position: relative;
           display: flex;
           align-items: center;
 
@@ -48,6 +49,34 @@
 
             &_active {
               color: $light-green;
+            }
+
+            &-submenu {
+              opacity: 0;
+              visibility: hidden;
+
+              &-link {
+                display: block;
+                padding: 20px;
+                &:hover {
+                  color: $light-green;
+                }
+
+                &_active {
+                  color: $light-green;
+                }
+              }
+
+              &_visible {
+                position: absolute;
+                top: 50px;
+                right: 50px;
+                visibility: visible;
+                transition: 1s all;
+                opacity: 1;
+                background-color: $pale-blue;
+                z-index: 2;
+              }
             }
           }
         }

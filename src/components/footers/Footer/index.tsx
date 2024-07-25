@@ -1,8 +1,4 @@
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
-
-import useActivePage from "../../../hooks/useActivePage";
 
 import "./Style.scss";
 
@@ -14,11 +10,6 @@ const footerItems = [
 
 const Footer: React.FC = () => {
   const location = useLocation();
-
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
-
-  useActivePage(footerItems, location);
 
   return (
     <footer className="footer">
@@ -178,7 +169,7 @@ const Footer: React.FC = () => {
                   }}
                   key={item.name}
                   className={
-                    activeNameMenu === item.name
+                    location.pathname === item.link
                       ? "footer__content-block-items-item footer__content-block-items-item_active"
                       : "footer__content-block-items-item"
                   }

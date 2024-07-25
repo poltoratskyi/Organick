@@ -8,7 +8,6 @@ import {
   selectIsSkeletonLoading,
 } from "../../redux/slices/singlePostSlice";
 import { useParams } from "react-router-dom";
-import { setActiveName } from "../../redux/slices/menuSlice";
 import { PostItem } from "../../components/PostItems";
 import { AppDispatch } from "../../redux/store";
 
@@ -70,7 +69,6 @@ const NewsSingle: React.FC = () => {
                     <Link
                       onClick={() => {
                         window.scrollTo(0, 0);
-                        dispatch(setActiveName("SinglePost"));
                       }}
                       to={`/posts/${post.year}/${post.authorFullName}`}
                     >

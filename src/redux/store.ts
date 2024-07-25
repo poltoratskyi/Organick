@@ -3,7 +3,6 @@ import { configureStore } from "@reduxjs/toolkit";
 // Connect reducer
 import shop from "./slices/shopSlice";
 import cart from "./slices/cartSlice";
-import menu from "./slices/menuSlice";
 import input from "./slices/inputSlice";
 import posts from "./slices/postsSlice";
 import singleProduct from "./slices/singleProductSlice";
@@ -16,7 +15,6 @@ export const store = configureStore({
   reducer: {
     shop,
     cart,
-    menu,
     input,
     posts,
     singleProduct,

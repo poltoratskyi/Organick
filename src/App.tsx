@@ -118,7 +118,7 @@ const App = () => {
 
           {/* News route -> NewsSingle */}
           <Route path="/news" element={<News />} />
-          <Route path="/news/:blogName/:postId" element={<NewsSingle />} />
+          <Route path="/blog/:blogTitle/:postId" element={<NewsSingle />} />
           <Route path="/posts/:year/:surname" element={<AuthorPosts />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/password-protected" element={<PasswordProtected />} />

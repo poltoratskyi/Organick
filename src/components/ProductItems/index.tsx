@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setToggleShoppingCart } from "../../redux/slices/cartSlice";
-import { setActiveName } from "../../redux/slices/menuSlice";
 import { Product } from "../headers/SearchModal";
 import { useViewedProducts, useDiscount } from "../../hooks/useProductActions";
 
@@ -91,7 +90,6 @@ const ProductItems: React.FC<Product> = ({
           <span
             onClick={() => {
               toSingleProduct();
-              dispatch(setActiveName("SingleProduct"));
               window.scrollTo(0, 0);
               dispatch(setToggleShoppingCart(false));
               document.documentElement.style.overflow = "auto";
@@ -125,7 +123,6 @@ const ProductItems: React.FC<Product> = ({
       <button
         onClick={() => {
           toSingleProduct();
-          dispatch(setActiveName("SingleProduct"));
           window.scrollTo(0, 0);
           dispatch(setToggleShoppingCart(false));
           document.documentElement.style.overflow = "auto";

@@ -1,8 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { setActiveName } from "../../redux/slices/menuSlice";
-
 export type PostItem = {
   id: string;
   parent_id: number;
@@ -72,7 +70,6 @@ const PostItems: React.FC<PostItem> = ({
               <span
                 onClick={() => {
                   window.scrollTo(0, 0);
-                  dispatch(setActiveName("SingleProduct"));
                 }}
                 className="news__content-posts-post-info-content-author-name"
               >
@@ -83,14 +80,13 @@ const PostItems: React.FC<PostItem> = ({
 
           <div className="news__content-posts-post-info-content-description">
             <Link
-              to={`/news/${title
+              to={`/blog/${title
                 .replace(/\s+/g, "-")
                 .toLocaleLowerCase()}/${id}`}
             >
               <h4
                 onClick={() => {
                   window.scrollTo(0, 0);
-                  dispatch(setActiveName("SingleProduct"));
                 }}
                 className="news__content-posts-post-info-content-description-title"
               >
@@ -106,13 +102,12 @@ const PostItems: React.FC<PostItem> = ({
           <button
             onClick={() => {
               window.scrollTo(0, 0);
-              dispatch(setActiveName("SingleProduct"));
             }}
             className="button button_more-news"
           >
             <Link
               id="link"
-              to={`/news/${title
+              to={`/blog/${title
                 .replace(/\s+/g, "-")
                 .toLocaleLowerCase()}/${id}`}
             >

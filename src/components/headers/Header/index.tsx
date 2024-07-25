@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -11,35 +11,47 @@ import {
   setVisibleInput,
   setVisibleSearch,
 } from "../../../redux/slices/inputSlice";
-import { selectActiveNameMenu } from "../../../redux/slices/menuSlice";
 
-import useActivePage from "../../../hooks/useActivePage";
 import { useResetFilters } from "../../../hooks/useProductActions";
 
 import "./Style.scss";
 import { Product } from "../SearchModal";
 
-const menuItems = [
+type MenuItem = {
+  name: string;
+  link: string;
+  subItems?: SubMenu[];
+};
+
+type SubMenu = {
+  name: string;
+  link: string;
+};
+
+const menuItems: MenuItem[] = [
   { name: "Home", link: "/" },
   { name: "About Us", link: "/about-us" },
-  { name: "Team", link: "/team" },
-  { name: "Services", link: "/services" },
   { name: "Shop", link: "/shop" },
+  {
+    name: "Pages",
+    link: "#",
+    subItems: [
+      { name: "Our Team", link: "/team" },
+      { name: "Services", link: "/services" },
+    ],
+  },
   { name: "News", link: "/news" },
 ];
 
 const Header: React.FC = () => {
+  const [isPagesMenuOpen, setIsPagesMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-
-  useActivePage(menuItems, location);
+  const subMenuRef = useRef<HTMLUListElement>(null);
 
   // Initial state selected -> cartSlice.js
   const shoppingCart = useSelector(selectCart);
   const toggleShoppingCart = useSelector(selectToggleShoppingCart);
-
-  // Initial state selected -> menuSlice.js
-  const activeNameMenu = useSelector(selectActiveNameMenu);
 
   // Getting the quantity of products <- Shopping cart
   const productQuantity = (cartValue: Product[]): number => {
@@ -78,6 +90,24 @@ const Header: React.FC = () => {
     dispatch(setToggleShoppingCart(!toggleShoppingCart));
   };
 
+  // Outside clicked subMenu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        subMenuRef.current &&
+        !subMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsPagesMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isPagesMenuOpen]);
+
   return (
     <header className="header">
       <div className="container">
@@ -99,23 +129,56 @@ const Header: React.FC = () => {
                 {menuItems.map((item) => (
                   <li
                     key={item.name}
-                    className={
-                      activeNameMenu === item.name
-                        ? "header__content-menu-navigation-items-item header__content-menu-navigation-items-item_active"
-                        : "header__content-menu-navigation-items-item"
-                    }
+                    className={`header__content-menu-navigation-items-item ${
+                      location.pathname === item.link
+                        ? "header__content-menu-navigation-items-item_active"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      if (item.name === "Pages") {
+                        setIsPagesMenuOpen(!isPagesMenuOpen);
+                      } else {
+                        window.scrollTo(0, 0);
+                        resetFilters();
+                      }
+                    }}
                   >
-                    <Link to={item.link}>
-                      <span
-                        onClick={() => {
-                          window.scrollTo(0, 0);
-                          resetFilters();
-                        }}
-                        className="header__content-menu-navigation-items-item-link"
-                      >
-                        {item.name}
-                      </span>
+                    <Link
+                      className="header__content-menu-navigation-items-item-link"
+                      to={item.link}
+                    >
+                      {item.name}
                     </Link>
+
+                    {item.subItems && isPagesMenuOpen && (
+                      <ul
+                        ref={subMenuRef}
+                        className={
+                          isPagesMenuOpen
+                            ? "header__content-menu-navigation-items-item-submenu_visible"
+                            : "header__content-menu-navigation-items-item-submenu"
+                        }
+                      >
+                        {item.subItems.map((subItem) => (
+                          <li key={subItem.name}>
+                            <Link
+                              onClick={() => {
+                                window.scrollTo(0, 0);
+                                resetFilters();
+                              }}
+                              className={`header__content-menu-navigation-items-item-submenu-link ${
+                                location.pathname === subItem.link
+                                  ? "header__content-menu-navigation-items-item-submenu-link_active"
+                                  : ""
+                              }`}
+                              to={subItem.link}
+                            >
+                              {subItem.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

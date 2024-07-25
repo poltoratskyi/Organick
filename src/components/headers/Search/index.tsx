@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { setVisibleInput } from "../../../redux/slices/inputSlice";
 import { Product } from "../SearchModal";
 
-import { setActiveName } from "../../../redux/slices/menuSlice";
 import {
   useViewedProducts,
   useDiscount,
@@ -57,7 +56,6 @@ const Search: React.FC<Product> = ({
   };
 
   const handleClickPage = () => {
-    dispatch(setActiveName("SingleProduct"));
     dispatch(setVisibleInput(false));
     handleViewItem({
       id,
