@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-export type PostItem = {
+export interface PostItem {
   id: string;
   parent_id: number;
   dataNumber: number;
@@ -23,7 +23,7 @@ export type PostItem = {
   subheadingOneContent: string;
   conclusionListItems: [];
   introListItems: [];
-};
+}
 
 const PostItems: React.FC<PostItem> = ({
   id,

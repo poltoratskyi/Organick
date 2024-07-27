@@ -22,7 +22,6 @@ const NewsSingle: React.FC = () => {
 
   // Initial state selected -> singlePostSlice.js
   const singlePost = useSelector(selectSinglePost);
-
   const isSkeletonLoading = useSelector(selectIsSkeletonLoading);
 
   useEffect(() => {

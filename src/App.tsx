@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { setAddProduct } from "./redux/slices/cartSlice";
 import { setViewedProducts } from "./redux/slices/singleProductSlice";
+import { setSinglePortfolio } from "./redux/slices/singlePortfolioSlice";
 
 import Home from "./pages/Home";
 import Navigation from "./components/headers/Navigation";
@@ -28,6 +29,13 @@ const Services = lazy(
 const QualityStandard = lazy(
   () =>
     import(/* webpackChunkName: "QualityStandard"*/ "./pages/QualityStandard")
+);
+const Portfolio = lazy(
+  () => import(/* webpackChunkName: "Portfolio"*/ "./pages/Portfolio")
+);
+const PortfolioSingle = lazy(
+  () =>
+    import(/* webpackChunkName: "PortfolioSingle"*/ "./pages/PortfolioSingle")
 );
 const Shop = lazy(() => import(/* webpackChunkName: "Shop"*/ "./pages/Shop"));
 const ProductSingle = lazy(
@@ -61,6 +69,11 @@ const App = () => {
     const shoppingCartJson = localStorage.getItem("shoppingCart");
     const shoppingCart = shoppingCartJson ? JSON.parse(shoppingCartJson) : [];
 
+    const viewedPortfolioJson = localStorage.getItem("viewedPortfolio");
+    const viewedPortfolio = viewedPortfolioJson
+      ? JSON.parse(viewedPortfolioJson)
+      : [];
+
     const savedFilters = localStorage.getItem("shopFilters");
 
     const viewedProductsJson = localStorage.getItem("viewedProducts");
@@ -86,6 +99,9 @@ const App = () => {
 
     // Save related products
     dispatch(setViewedProducts(viewedProducts));
+
+    // Save related portfolio
+    dispatch(setSinglePortfolio(viewedPortfolio));
   }, [dispatch]);
 
   return (
@@ -107,6 +123,12 @@ const App = () => {
           <Route
             path="/services/:qualityStandard"
             element={<QualityStandard />}
+          />
+
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route
+            path="/portfolio/:portfolioTitle/:portfolioId"
+            element={<PortfolioSingle />}
           />
 
           {/* Shop route -> ProductSingle */}

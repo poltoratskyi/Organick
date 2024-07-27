@@ -121,16 +121,17 @@ const Shop: React.FC = () => {
   // Outside clicked popup
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
         dispatch(setOpenSortMenu(false));
       }
     };
-    document.body.addEventListener("click", handleClickOutside);
+
+    document.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.body.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, [dispatch]);
+  }, [openSortMenu]);
 
   const handleClosePopup = (value: string): void => {
     dispatch(setOpenSortMenu(false));

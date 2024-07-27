@@ -20,34 +20,27 @@ import { Product } from "../SearchModal";
 type MenuItem = {
   name: string;
   link: string;
-  subItems?: SubMenu[];
-};
-
-type SubMenu = {
-  name: string;
-  link: string;
 };
 
 const menuItems: MenuItem[] = [
   { name: "Home", link: "/" },
   { name: "About Us", link: "/about-us" },
   { name: "Shop", link: "/shop" },
-  {
-    name: "Pages",
-    link: "#",
-    subItems: [
-      { name: "Our Team", link: "/team" },
-      { name: "Services", link: "/services" },
-    ],
-  },
-  { name: "News", link: "/news" },
+  { name: "Contact Us", link: "/contact-us" },
+];
+
+const subItems: MenuItem[] = [
+  { name: "Our Team", link: "/team" },
+  { name: "Services", link: "/services" },
+  { name: "Portfolio", link: "/portfolio" },
+  { name: "Blog", link: "/news" },
 ];
 
 const Header: React.FC = () => {
   const [isPagesMenuOpen, setIsPagesMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const subMenuRef = useRef<HTMLUListElement>(null);
+  const subMenuRef = useRef<HTMLParagraphElement>(null);
 
   // Initial state selected -> cartSlice.js
   const shoppingCart = useSelector(selectCart);
@@ -101,10 +94,10 @@ const Header: React.FC = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isPagesMenuOpen]);
 
@@ -135,12 +128,8 @@ const Header: React.FC = () => {
                         : ""
                     }`}
                     onClick={() => {
-                      if (item.name === "Pages") {
-                        setIsPagesMenuOpen(!isPagesMenuOpen);
-                      } else {
-                        window.scrollTo(0, 0);
-                        resetFilters();
-                      }
+                      window.scrollTo(0, 0);
+                      resetFilters();
                     }}
                   >
                     <Link
@@ -149,38 +138,57 @@ const Header: React.FC = () => {
                     >
                       {item.name}
                     </Link>
-
-                    {item.subItems && isPagesMenuOpen && (
-                      <ul
-                        ref={subMenuRef}
-                        className={
-                          isPagesMenuOpen
-                            ? "header__content-menu-navigation-items-item-submenu_visible"
-                            : "header__content-menu-navigation-items-item-submenu"
-                        }
-                      >
-                        {item.subItems.map((subItem) => (
-                          <li key={subItem.name}>
-                            <Link
-                              onClick={() => {
-                                window.scrollTo(0, 0);
-                                resetFilters();
-                              }}
-                              className={`header__content-menu-navigation-items-item-submenu-link ${
-                                location.pathname === subItem.link
-                                  ? "header__content-menu-navigation-items-item-submenu-link_active"
-                                  : ""
-                              }`}
-                              to={subItem.link}
-                            >
-                              {subItem.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </li>
                 ))}
+
+                <nav className="header__content-menu-navigation-items-submenu">
+                  <p
+                    onClick={() => {
+                      setIsPagesMenuOpen(!isPagesMenuOpen);
+                    }}
+                    ref={subMenuRef}
+                    className="header__content-menu-navigation-items-submenu-text"
+                  >
+                    Pages
+                    <span
+                      className={`header__content-menu-navigation-items-submenu-text-arrow ${
+                        isPagesMenuOpen
+                          ? "header__content-menu-navigation-items-submenu-text-arrow_active"
+                          : ""
+                      }`}
+                    ></span>
+                  </p>
+
+                  <ul
+                    className={
+                      isPagesMenuOpen
+                        ? "header__content-menu-navigation-items-submenu-lists header__content-menu-navigation-items-submenu-lists_visible"
+                        : "header__content-menu-navigation-items-submenu-lists"
+                    }
+                  >
+                    {subItems.map((subItem) => (
+                      <li
+                        className={`header__content-menu-navigation-items-submenu-lists-list ${
+                          location.pathname === subItem.link
+                            ? "header__content-menu-navigation-items-submenu-lists-list_active"
+                            : ""
+                        }`}
+                        key={subItem.name}
+                      >
+                        <Link
+                          className="header__content-menu-navigation-items-submenu-lists-list-link"
+                          onClick={() => {
+                            window.scrollTo(0, 0);
+                            resetFilters();
+                          }}
+                          to={subItem.link}
+                        >
+                          {subItem.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
               </ul>
             </nav>
           </div>

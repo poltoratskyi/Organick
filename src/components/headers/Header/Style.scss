@@ -50,32 +50,75 @@
             &_active {
               color: $light-green;
             }
+          }
 
-            &-submenu {
-              opacity: 0;
-              visibility: hidden;
+          &-submenu {
+            &-text {
+              display: flex;
+              font-family: "Roboto", sans-serif;
+              font-weight: 500;
+              font-size: 20px;
+              color: $dark-blue;
+              cursor: pointer;
+              padding: 20px;
 
-              &-link {
+              &-arrow {
                 display: block;
-                padding: 20px;
+                width: 10px;
+                height: 10px;
+                margin-left: 10px;
+                border-left: 2px solid $dark-blue;
+                border-bottom: 2px solid $dark-blue;
+                transform: rotate(-45deg);
+                cursor: pointer;
+                transition: 0.5s ease;
+
                 &:hover {
-                  color: $light-green;
+                  border-left: 2px solid $light-green;
+                  border-bottom: 2px solid $light-green;
                 }
 
                 &_active {
-                  color: $light-green;
+                  transform: rotate(315deg);
+                  border-left: 2px solid $light-green;
+                  border-bottom: 2px solid $light-green;
                 }
               }
+            }
+
+            &-lists {
+              display: none;
+              position: absolute;
+              top: 50px;
+              right: -25%;
+              min-width: 200px;
+              background-color: $pale-blue;
+              transition: 0.5s ease;
+              padding: 10px;
+              z-index: 2;
 
               &_visible {
-                position: absolute;
-                top: 50px;
-                right: 50px;
-                visibility: visible;
-                transition: 1s all;
-                opacity: 1;
-                background-color: $pale-blue;
-                z-index: 2;
+                display: block;
+              }
+
+              &-list {
+                font-family: "Roboto", sans-serif;
+                font-weight: 500;
+                cursor: pointer;
+                font-size: 18px;
+                color: #000;
+                &_active {
+                  color: $light-green;
+                }
+
+                &-link {
+                  display: block;
+                  padding: 20px;
+
+                  &:hover {
+                    color: $light-green;
+                  }
+                }
               }
             }
           }

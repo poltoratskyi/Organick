@@ -1,0 +1,59 @@
+@import "../../Variables.scss";
+
+.portfolio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 40px;
+  column-gap: 20px;
+  justify-items: center;
+  padding: 150px 0px;
+  &__list {
+    &-link {
+      position: relative;
+      margin-bottom: 20px;
+
+      &-img {
+        width: 450px;
+        height: 420px;
+        border-radius: 30px;
+        object-fit: cover;
+      }
+
+      &-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 30px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        transition: 0.5s ease;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-title {
+      font-family: Roboto, sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      color: $dark-blue;
+      line-height: 1.6;
+    }
+
+    &-subtitle {
+      font-family: "Yellowtail", cursive;
+      font-weight: 400;
+      font-size: 22px;
+      color: $light-green;
+      line-height: 1.4;
+    }
+  }
+}

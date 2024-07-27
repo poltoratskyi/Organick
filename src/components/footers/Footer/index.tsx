@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import "./Style.scss";
 
 const footerItems = [
-  { name: "Contact Us", link: "/contact-us" },
   { name: "Password Protected", link: "/password-protected" },
   { name: "404 Not Found", link: "/error" },
 ];

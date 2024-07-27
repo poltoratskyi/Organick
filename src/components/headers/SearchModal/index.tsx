@@ -9,7 +9,7 @@ import {
 import Search from "../Search";
 import NoResults from "../NoResults";
 
-export type Product = {
+export interface Product {
   id: string;
   parent_id: number;
   description: string;
@@ -25,7 +25,7 @@ export type Product = {
   percentage?: number;
   counter: number;
   modifiedPrice: number;
-};
+}
 
 const SearchModal: React.FC = () => {
   const dispatch = useDispatch();

@@ -53,6 +53,7 @@
   }
 
   &__sort {
+    display: none;
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     background-color: $light-green;
@@ -64,13 +65,9 @@
     right: 0;
     color: $white;
     border-radius: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.5s ease;
 
     &_visible {
-      opacity: 1;
-      visibility: visible;
+      display: block;
     }
 
     &-list {

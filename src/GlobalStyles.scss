@@ -214,6 +214,11 @@ a {
       center/cover no-repeat;
   }
 
+  &_portfolio-standard {
+    background: url(../public/img/Banner/Portfolio-min.jpg) center center/cover
+      no-repeat;
+  }
+
   &_news-single {
     height: 750px;
   }

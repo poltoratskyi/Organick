@@ -6,6 +6,7 @@ import cart from "./slices/cartSlice";
 import input from "./slices/inputSlice";
 import posts from "./slices/postsSlice";
 import singleProduct from "./slices/singleProductSlice";
+import singlePortfolio from "./slices/singlePortfolioSlice";
 import catalogue from "./slices/catalogueSlice";
 import singlePost from "./slices/singlePostSlice";
 import authorsPosts from "./slices/authorsPostsSlice";
@@ -18,6 +19,7 @@ export const store = configureStore({
     input,
     posts,
     singleProduct,
+    singlePortfolio,
     catalogue,
     singlePost,
     authorsPosts,

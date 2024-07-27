@@ -4,9 +4,9 @@ import { RootState } from "../store";
 import { Product } from "../../components/headers/SearchModal";
 import { Status } from "./authorsPostsSlice";
 
-export type FetchInputProps = {
+export interface FetchInputProps {
   filterLetter: string;
-};
+}
 
 // Get filtered products -> Input
 export const fetchInputProducts = createAsyncThunk<Product[], FetchInputProps>(
