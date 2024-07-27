@@ -4,7 +4,7 @@ const portfolio = [
     imageUrl: "../../../img/Portfolio/Leamon-min.jpg",
     title: "Green & Tasty Lemon",
     subtitle:
-      "To live a better, healthier, and wholesome life by providing them with 100% certified, authentic organic food. Farming is carried out without the use of any chemicals like pesticides or fertilizers or any growth Harmon.",
+      "To live a better, healthier, and wholesome life by providing them with 100% certified, authentic organic food.",
     client: "Martin Devan",
     fullDataName: "February",
     dataNumber: 14,
