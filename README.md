@@ -27,7 +27,7 @@ The project is a virtual organic food store application with a fake json server 
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/poltoratskyi/Organick-Shop.git`
+1. Clone the repository: `git clone https://github.com/poltoratskyi/Organick.git`
 2. Navigate to the project directory: `cd your-repository`
 3. Install dependencies: `npm install`
 
