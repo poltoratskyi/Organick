@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 export interface PostItem {
@@ -36,8 +35,6 @@ const PostItems: React.FC<PostItem> = ({
   year,
   authorLastName,
 }) => {
-  const dispatch = useDispatch();
-
   return (
     <li className="news__content-posts-post">
       <img
