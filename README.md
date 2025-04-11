@@ -3,12 +3,17 @@
 </p>
 
 <p align="center">
-      <img src="https://img.shields.io/badge/React-v18.3.1-blue" alt="React">
-      <img src="https://img.shields.io/badge/%20Redux%20Tookit-2.2.5-purple" alt=ReduxToolkit>
-      <img src="https://img.shields.io/badge/TypeScript-4.9.5-blue" alt=TypeScript>
-      <img src="https://img.shields.io/badge/Sass-v1.69.7-%23FF69B4" alt="Sass">
-      <img src="https://img.shields.io/badge/License-MIT-%233Ea638" alt="License">
+  <img src="https://img.shields.io/badge/React-v18.3.1-61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-v4.9.5-3178C6" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Redux%20Toolkit-v2.3.0-764ABC" alt="Redux Toolkit">
+  <img src="https://img.shields.io/badge/ReactRouter-v6.27.0-CA4245" alt="React Router">
+  <img src="https://img.shields.io/badge/Sass-v1.80.6-CC6699" alt="Sass">
+  <img src="https://img.shields.io/badge/Axios-v1.7.7-5A29E4" alt="Axios">
+  <img src="https://img.shields.io/badge/QS-v6.13.0-FF6F00" alt="QS">
+  <img src="https://img.shields.io/badge/ReactPaginate-v8.2.0-00C49F" alt="React Paginate">
+  <img src="https://img.shields.io/badge/License-MIT-3EA638" alt="License">
 </p>
+
 
 
 ## Description
