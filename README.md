@@ -29,6 +29,7 @@ The project is a virtual organic food store application with a fake json server 
 🛍️ **Product Experience**
 - Product Search
 - View single item information
+- Product Filtering  
 
  📰 **News section** 
  - News list page
