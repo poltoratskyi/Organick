@@ -32,7 +32,7 @@ const NewsSingle: React.FC = () => {
     return () => {
       dispatch(setClearSinglePost());
     };
-  }, [postId]);
+  }, [dispatch, postId]);
 
   return (
     <>

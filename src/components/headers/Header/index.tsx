@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -55,11 +55,14 @@ const Header: React.FC = () => {
   const { resetFilters } = useResetFilters();
 
   // Close shopping cart -> Escape
-  const handleEscape = (e: KeyboardEvent): void => {
-    if (e.key === "Escape") {
-      dispatch(setToggleShoppingCart(!toggleShoppingCart));
-    }
-  };
+  const handleEscape = useCallback(
+    (e: KeyboardEvent): void => {
+      if (e.key === "Escape") {
+        dispatch(setToggleShoppingCart(!toggleShoppingCart));
+      }
+    },
+    [dispatch, toggleShoppingCart],
+  );
 
   useEffect(() => {
     toggleShoppingCart
@@ -70,7 +73,7 @@ const Header: React.FC = () => {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [toggleShoppingCart]);
+  }, [handleEscape, toggleShoppingCart]);
 
   const actionInputSearch = (): void => {
     dispatch(setVisibleInput(true));

@@ -32,7 +32,7 @@ const ProductSingle: React.FC = () => {
     return () => {
       dispatch(setClearSingleProduct());
     };
-  }, [productId]);
+  }, [dispatch, productId]);
 
   return (
     <>

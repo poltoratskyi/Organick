@@ -38,7 +38,7 @@ const AuthorPosts: React.FC = () => {
     return () => {
       dispatch(setClearAuthorsPosts());
     };
-  }, [surname]);
+  }, [dispatch, surname]);
 
   const postWord = authorsPosts.length === 1 ? "Post" : "Posts";
 

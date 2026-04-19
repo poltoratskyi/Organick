@@ -38,7 +38,7 @@ const SearchModal: React.FC = () => {
   const filteredProducts = inputProducts.filter(
     (product: Product) =>
       product.name.toLowerCase().includes(searchProduct.toLowerCase()) ||
-      product.tag.toLowerCase().includes(searchProduct.toLowerCase())
+      product.tag.toLowerCase().includes(searchProduct.toLowerCase()),
   );
 
   let toLocaleString = filteredProducts.length > 1 ? "Results" : "Result";
@@ -47,7 +47,7 @@ const SearchModal: React.FC = () => {
     filteredProducts.length <= 0 || searchProduct === ""
       ? dispatch(setShowNoResults(true))
       : dispatch(setShowNoResults(false));
-  }, [searchProduct, filteredProducts]);
+  }, [searchProduct, filteredProducts, dispatch]);
 
   return (
     <>

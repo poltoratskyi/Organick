@@ -81,12 +81,12 @@ const Shop: React.FC = () => {
         fetchShopProducts({
           queryParams,
           currentPage,
-        })
+        }),
       );
     };
 
     fetchShopData();
-  }, [categories, currentPage, activeIndex]);
+  }, [categories, currentPage, activeIndex, dispatch]);
 
   useEffect(() => {
     // Create the obj of str JSone links -> categories, currentPage, activeIndex
@@ -131,7 +131,7 @@ const Shop: React.FC = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [openSortMenu]);
+  }, [dispatch, openSortMenu]);
 
   const handleClosePopup = (value: string): void => {
     dispatch(setOpenSortMenu(false));

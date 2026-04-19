@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import {
@@ -27,15 +27,14 @@ const Input: React.FC = () => {
   const [inputValue, setInputValue] = useState(searchProduct);
 
   // Debounced
-  const debouncedSearch = useCallback(
-    debounce((filterLetter: string) => {
+  const debouncedSearch = useMemo(() => {
+    return debounce((filterLetter: string) => {
       if (filterLetter !== "") {
         dispatch(fetchInputProducts({ filterLetter }));
       }
       dispatch(setSearchProduct(filterLetter));
-    }, 500),
-    []
-  );
+    }, 500);
+  }, [dispatch]);
 
   // Input -> Getting data
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,24 +46,27 @@ const Input: React.FC = () => {
     debouncedSearch(value);
   };
 
-  const actionInputSearch = () => {
+  const actionInputSearch = useCallback(() => {
     dispatch(setVisibleInput(false));
     dispatch(setVisibleSearch(false));
-  };
+  }, [dispatch]);
 
   // Close input search -> Escape
-  const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      actionInputSearch();
-    }
-  };
+  const handleEscape = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        actionInputSearch();
+      }
+    },
+    [actionInputSearch],
+  );
 
   useEffect(() => {
     if (visibleInput) {
       dispatch(setSearchProduct(""));
       setInputValue("");
     }
-  }, [visibleInput]);
+  }, [dispatch, visibleInput]);
 
   useEffect(() => {
     visibleInput
@@ -75,7 +77,7 @@ const Input: React.FC = () => {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [visibleInput]);
+  }, [handleEscape, visibleInput]);
 
   return (
     <div
